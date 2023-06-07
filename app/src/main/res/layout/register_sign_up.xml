@@ -1,9 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.register.SignUpActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:text="회원가입"
+        android:layout_marginTop="74dp"
+        android:layout_marginLeft="42dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="35sp"
+        android:textColor="#3c3c3c"
+        />
+
+    <TextView
+        android:text="닉네임"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="199dp"
+        android:textSize="16sp"
+        android:textColor="#707070"
+        />
+
+    <EditText
+        android:hint="닉네임을 입력해 주세요"
+        android:id="@+id/nameEditText"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="233dp"
+        android:layout_width="344dp"
+        android:layout_height="70dp"
+        android:textSize="18sp"
+        android:textColor="#3c3c3c"
+        android:textColorHint="#d6d6d6"
+        android:paddingStart="20dp"
+        android:background="@drawable/shadow"
+        />
+
+    <TextView
+        android:text="전화번호"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="333dp"
+        android:textSize="16sp"
+        android:textColor="#707070"
+        />
+
+
+    <EditText
+        android:hint="전화번호를 입력해 주세요"
+        android:id="@+id/phoneNumberEditText"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="367dp"
+        android:layout_width="344dp"
+        android:layout_height="70dp"
+        android:textSize="18sp"
+        android:textColor="#3c3c3c"
+        android:paddingStart="20dp"
+        android:textColorHint="#d6d6d6"
+        android:background="@drawable/shadow"
+        />
+
+    <TextView
+        android:text="비밀번호"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="467dp"
+        android:textSize="16sp"
+        android:textColor="#707070"
+        />
+
+
+    <EditText
+        android:hint="사용하실 비밀번호를 입력해 주세요"
+        android:id="@+id/passwordEditText"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="501dp"
+        android:layout_width="344dp"
+        android:layout_height="70dp"
+        android:textSize="18sp"
+        android:textColor="#3c3c3c"
+        android:paddingStart="20dp"
+        android:textColorHint="#d6d6d6"
+        android:background="@drawable/shadow"
+        android:inputType="textPassword"
+        />
+
+    <TextView
+        android:text="비밀번호 확인"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="601dp"
+        android:textSize="16sp"
+        android:textColor="#707070"
+
+        />
+
+    <EditText
+        android:hint="비밀번호를 다시 입력해 주세요."
+        android:id="@+id/recheckPasswordEditText"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="635dp"
+        android:layout_width="344dp"
+        android:layout_height="70dp"
+        android:textSize="18sp"
+        android:textColor="#707070"
+        android:textColorHint="#d6d6d6"
+        android:paddingStart="20dp"
+        android:background="@drawable/shadow"
+        android:inputType="textPassword"
+        />
+
+    <android.widget.Button
+        android:text="회원가입"
+        android:id="@+id/signUpButton"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="787dp"
+        android:layout_width="344dp"
+        android:layout_height="60dp"
+        android:background="@drawable/btn_round_blue_box"
+        android:textSize="18sp"
+        android:textColor="#ffffff"
+        />
+
+
+</RelativeLayout>
