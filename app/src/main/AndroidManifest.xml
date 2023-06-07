@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Jj_club"
+        tools:targetApi="31">
+        <activity
+            android:name=".activities.promotion.PromotionWrite4"
+            android:exported="false" />
+        <activity
+            android:name=".activities.promotion.PromotionWrite3"
+            android:exported="false" />
+        <activity
+            android:name=".activities.promotion.PromotionWrite2"
+            android:exported="false" />
+        <activity
+            android:name=".activities.promotion.PromotionWrite1"
+            android:exported="false" />
+        <activity
+            android:name=".activities.promotion.PromotionPage"
+            android:exported="false" />
+        <activity
+            android:name=".activities.profile.ProfileWirtepostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.profile.ProfileSendapplicationformActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".activities.profile.ProfileSendapplicationformActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.profile.ProfileRecivedapplicationformActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".activities.profile.ProfileRecivedapplicationformActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.profile.ProfileLoveitActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.profile.ProfileEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.profile.ProfileAlarmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestStart"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestQ12Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestQ11Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestQ10Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestQ9Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestQ8Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestQ7Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestQ6Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestQ5Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestQ4Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestQ3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestQ2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.MbtiTestQ1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.mbti.entp"
+            android:exported="false" />
+        <activity
+            android:name=".activities.home.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.home.FilterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.register.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.register.EmailVerificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.register.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.register.SplashActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.home.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

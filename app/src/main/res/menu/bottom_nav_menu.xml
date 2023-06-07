@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="홈"
+        android:icon="@drawable/vector_home"
+        android:id="@+id/vector_home"
+        />
+    <item android:title="내모임"
+        android:icon="@drawable/vector_my_club"
+        android:id="@+id/vector_myClub"
+        />
+    <item android:title="프로필"
+        android:icon="@drawable/vector_user"
+        android:id="@+id/vector_profile"
+        />
+</menu>

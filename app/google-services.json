@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "46967090215",
+    "project_id": "jj-club-1",
+    "storage_bucket": "jj-club-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46967090215:android:33bc9ba7f2d47af509b202",
+        "android_client_info": {
+          "package_name": "com.example.jj_club"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46967090215-frpumn9q4rh96hg0adpimbagju0lpltp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaAH8pfocD4Z3cp43uh_68WRB-RaD5QuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46967090215-frpumn9q4rh96hg0adpimbagju0lpltp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
