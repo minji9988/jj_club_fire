@@ -47,6 +47,8 @@ dependencies {
     // Add the dependency for the Firebase Authentication library
     implementation 'com.google.firebase:firebase-auth'
 
+    // Firebase를 Android 앱과 쉽게 통합할 수 있게 해주는 도구 세트
+    implementation 'com.firebaseui:firebase-ui-firestore:8.0.2'
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'

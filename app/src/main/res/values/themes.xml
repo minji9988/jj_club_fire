@@ -8,6 +8,9 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
 
+<!--        // 앱 배경 색을 흰색으로 변경-->
+<!--        <item name="android:windowBackground">#FFFFFF</item>-->
+
 
     </style>
 
