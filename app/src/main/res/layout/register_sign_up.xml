@@ -78,7 +78,7 @@
 
 
     <EditText
-        android:hint="사용하실 비밀번호를 입력해 주세요"
+        android:hint="비밀번호를 입력해 주세요"
         android:id="@+id/passwordEditText"
         android:layout_marginLeft="42dp"
         android:layout_marginTop="501dp"

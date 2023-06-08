@@ -7,9 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jj_club.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -47,35 +50,46 @@ public class SignUpActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
                 String recheckPassword = recheckPasswordEditText.getText().toString();
 
-                if (password.equals(recheckPassword)) {
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    if (user != null) {
-                        String email = user.getEmail();
+                if (password.length() >= 6) {
+                    if (password.equals(recheckPassword)) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            user.updatePassword(password)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Map<String, Object> userInfo = new HashMap<>();
+                                                userInfo.put("email", user.getEmail());
+                                                userInfo.put("name", name);
+                                                userInfo.put("phoneNumber", phoneNumber);
 
-                        Map<String, Object> userInfo = new HashMap<>();
-                        userInfo.put("email", email);
-                        userInfo.put("name", name);
-                        userInfo.put("phoneNumber", phoneNumber);
+                                                db.collection("users").document(user.getUid())
+                                                        .set(userInfo)
+                                                        .addOnSuccessListener(aVoid -> {
+                                                            Toast.makeText(SignUpActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
 
-                        db.collection("users").document(user.getUid())
-                                .set(userInfo)
-                                .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(SignUpActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
+                                                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                                            startActivity(intent);
+                                                            finish();
 
-                                        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                                        startActivity(intent);
-                                        finish();
-
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(SignUpActivity.this, "회원가입 실패: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                                });
-
+                                                        })
+                                                        .addOnFailureListener(e -> {
+                                                            Toast.makeText(SignUpActivity.this, "회원가입 실패: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                        });
+                                            } else {
+                                                Toast.makeText(SignUpActivity.this, "비밀번호 업데이트 실패: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                        } else {
+                            Toast.makeText(SignUpActivity.this, "인증된 사용자가 아닙니다.", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(SignUpActivity.this, "인증된 사용자가 아닙니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(SignUpActivity.this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "비밀번호를 6자 이상 입력해야 합니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

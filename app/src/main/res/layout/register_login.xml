@@ -46,6 +46,7 @@
         android:textColorHint="#d6d6d6"
         android:paddingStart="20dp"
         android:background="@drawable/shadow"
+        android:inputType="textEmailAddress"
         />
 
     <TextView
@@ -71,6 +72,7 @@
         android:textFontWeight="10"
         android:paddingStart="20dp"
         android:background="@drawable/shadow"
+        android:inputType="textPassword"
 
         />
 
