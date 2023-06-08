@@ -22,8 +22,6 @@ import com.google.firebase.firestore.Query;
 
 public class HomeFragment extends Fragment {
 
-    private static final String TAG = "HomeFragment";
-
     private RecyclerView latestPostsRecyclerView;
     private HomeItemAdapter adapter;
 
