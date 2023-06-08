@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- recycler_item.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 회색 네모로 된 ImageButton -->
+    <ImageButton
+        android:id="@+id/image_view_home_item"
+        android:layout_width="151dp"
+        android:layout_height="144dp"
+        android:background="@drawable/round_gray_box"
+        android:padding="8dp"
+        android:scaleType="fitCenter" />
+
+    <!-- 홍보글 제목 TextView -->
+    <TextView
+        android:id="@+id/text_view_home_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#3c3c3c"
+        android:text="홍보글 제목"
+        android:layout_marginTop="10dp" />
+
+    <!-- D-day TextView -->
+    <TextView
+        android:id="@+id/text_view_home_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="날짜"
+        android:textColor="#1c7eff"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp" />
+
+</LinearLayout>

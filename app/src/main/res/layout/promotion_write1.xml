@@ -191,6 +191,8 @@
         android:hint="면접 유무를 입력해 주세요."
         android:textColor="#29000000" />
 
+
+
     <EditText
         android:id="@+id/editTextMembershipFee"
         android:layout_width="344dp"
