@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,9 +17,10 @@ import com.example.jj_club.R;
 import com.example.jj_club.activities.promotion.PromotionWrite1;
 import com.example.jj_club.adapters.HomeItemAdapter;
 import com.example.jj_club.models.HomeItem;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class HomeFragment extends Fragment {
 
@@ -55,15 +57,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        TextView moreLatestPostsTextView = view.findViewById(R.id.btn_more_latest_posts);
+        moreLatestPostsTextView.setOnClickListener(new MoreLatestPostsClickListener());
+
         return view;
     }
 
     private void setupRecyclerView(View view) {
-        Query query = FirebaseFirestore.getInstance()
-                .collection("promotions")
-                .orderBy("recruitPeriod", Query.Direction.DESCENDING);
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("promotions");
+        Query query = databaseRef.orderByChild("timeStamp");
 
-        FirestoreRecyclerOptions<HomeItem> options = new FirestoreRecyclerOptions.Builder<HomeItem>()
+        FirebaseRecyclerOptions<HomeItem> options = new FirebaseRecyclerOptions.Builder<HomeItem>()
                 .setQuery(query, HomeItem.class)
                 .build();
 
@@ -88,6 +92,14 @@ public class HomeFragment extends Fragment {
         if (adapter != null) {
             adapter.stopListening();
             Log.d(TAG, "Adapter stopped listening");
+        }
+    }
+
+    private class MoreLatestPostsClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getActivity(), LatestPostActivity.class);
+            startActivity(intent);
         }
     }
 }

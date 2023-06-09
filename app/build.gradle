@@ -42,13 +42,19 @@ dependencies {
 
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:32.1.0')
+
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics'
+
     // Add the dependency for the Firebase Authentication library
     implementation 'com.google.firebase:firebase-auth'
 
     // Firebase를 Android 앱과 쉽게 통합할 수 있게 해주는 도구 세트
-    implementation 'com.firebaseui:firebase-ui-firestore:8.0.2'
+    implementation 'com.firebaseui:firebase-ui-database:8.0.2'
+
+
+    // Firebase Realtime Database
+    implementation 'com.google.firebase:firebase-database'
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
@@ -57,7 +63,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
 
 
 }

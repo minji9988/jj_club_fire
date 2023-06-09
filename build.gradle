@@ -11,7 +11,12 @@ buildscript {
 plugins {
     id 'com.android.application' version '8.0.2' apply false
     id 'com.android.library' version '8.0.2' apply false
+
+
 }
+
+// recyclerview를 이용한 firebase를 위해 추가
+apply plugin: 'com.google.gms.google-services'
 
 task clean(type: Delete) {
     delete rootProject.buildDir

@@ -1,13 +1,14 @@
 package com.example.jj_club.models;
 
-
 public class HomeItem {
     private String title; // 글 제목
     private String recruitPeriod; // 모집 기간
     private String fee; // 회비
-    private String interview;
-    private String meetingName;
+    private String interview; // 면접 유무
+    private String meetingName; // 모임 이름
     private String userId;
+
+    private Long timeStamp; // 글 작성 시간
 
     public HomeItem() {
         // Firestore에서 사용하는 빈 생성자
@@ -20,6 +21,11 @@ public class HomeItem {
         this.interview = interview;
         this.meetingName = meetingName;
         this.userId = userId;
+        this.timeStamp = System.currentTimeMillis();  // 서버 시간을 사용하여 타임스탬프 설정
+    }
+
+    public Long getTimeStamp() {
+        return timeStamp;
     }
 
     public String getTitle() {
@@ -64,6 +70,10 @@ public class HomeItem {
 
     public String getUserId() {
         return userId;
+    }
+
+    public void setTimeStamp(Long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public void setUserId(String userId) {

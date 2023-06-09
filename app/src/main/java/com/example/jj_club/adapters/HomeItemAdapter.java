@@ -1,6 +1,5 @@
 package com.example.jj_club.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,51 +10,37 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jj_club.R;
 import com.example.jj_club.models.HomeItem;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class HomeItemAdapter extends FirestoreRecyclerAdapter<HomeItem, HomeItemAdapter.HomeItemHolder> {
+public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemAdapter.HomeItemViewHolder> {
 
-    private static final String TAG = "HomeItemAdapter";
-
-    public HomeItemAdapter(@NonNull FirestoreRecyclerOptions<HomeItem> options) {
+    public HomeItemAdapter(@NonNull FirebaseRecyclerOptions<HomeItem> options) {
         super(options);
-    }
-
-    @Override
-    protected void onBindViewHolder(@NonNull HomeItemHolder holder, int position, @NonNull HomeItem model) {
-        holder.titleTextView.setText(model.getTitle());
-        holder.recruitPeriodTextView.setText(model.getRecruitPeriod());
     }
 
     @NonNull
     @Override
-    public HomeItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home_item, parent, false);
-        return new HomeItemHolder(v);
+    public HomeItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.home_more_item, parent, false);
+        return new HomeItemViewHolder(view);
     }
 
-    class HomeItemHolder extends RecyclerView.ViewHolder {
-        TextView titleTextView;
-        TextView recruitPeriodTextView;
+    @Override
+    protected void onBindViewHolder(@NonNull HomeItemViewHolder holder, int position, @NonNull HomeItem model) {
+        holder.title.setText(model.getTitle());
+        holder.description.setText(model.getRecruitPeriod());
+    }
 
-        public HomeItemHolder(View itemView) {
-            super(itemView);
-            titleTextView = itemView.findViewById(R.id.text_view_home_item_title);
-            recruitPeriodTextView = itemView.findViewById(R.id.text_view_home_item_date);
+    static class HomeItemViewHolder extends RecyclerView.ViewHolder {
+        TextView title;
+        TextView description;
+
+        HomeItemViewHolder(View view) {
+            super(view);
+            title = view.findViewById(R.id.item_more_post_title);
+            description = view.findViewById(R.id.item_more_post_contents);
         }
-    }
-
-    @Override
-    public void onDataChanged() {
-        super.onDataChanged();
-        Log.d(TAG, "Data changed");
-    }
-
-    @Override
-    public void onError(@NonNull FirebaseFirestoreException e) {
-        super.onError(e);
-        Log.e(TAG, "Error occurred: " + e.getMessage());
     }
 }
