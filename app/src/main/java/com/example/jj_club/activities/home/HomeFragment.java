@@ -65,19 +65,21 @@ public class HomeFragment extends Fragment {
 
     private void setupRecyclerView(View view) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("promotions");
+        DatabaseReference userLikesDatabase = FirebaseDatabase.getInstance().getReference().child("userLikes");
         Query query = databaseRef.orderByChild("timeStamp");
 
         FirebaseRecyclerOptions<HomeItem> options = new FirebaseRecyclerOptions.Builder<HomeItem>()
                 .setQuery(query, HomeItem.class)
                 .build();
 
-        adapter = new HomeItemAdapter(options);
+        adapter = new HomeItemAdapter(options, userLikesDatabase);
 
         latestPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_latest);
         latestPostsRecyclerView.setHasFixedSize(true);
         latestPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         latestPostsRecyclerView.setAdapter(adapter);
     }
+
 
     @Override
     public void onStart() {

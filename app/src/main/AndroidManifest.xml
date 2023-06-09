@@ -22,9 +22,6 @@
             android:name=".activities.home.LatestPostActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.promotion.PromotionWrite4"
-            android:exported="false" />
-        <activity
             android:name=".activities.promotion.PromotionWrite3"
             android:exported="false" />
         <activity

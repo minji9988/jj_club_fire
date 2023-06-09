@@ -9,6 +9,7 @@ public class HomeItem {
     private String userId;
 
     private Long timeStamp; // 글 작성 시간
+    private int likes; // 좋아요 수
 
     public HomeItem() {
         // Firestore에서 사용하는 빈 생성자
@@ -22,6 +23,7 @@ public class HomeItem {
         this.meetingName = meetingName;
         this.userId = userId;
         this.timeStamp = System.currentTimeMillis();  // 서버 시간을 사용하여 타임스탬프 설정
+        this.likes = 0; // 초기 좋아요 수는 0으로 설정
     }
 
     public Long getTimeStamp() {
@@ -76,7 +78,11 @@ public class HomeItem {
         this.timeStamp = timeStamp;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }

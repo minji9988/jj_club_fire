@@ -10,6 +10,7 @@ import com.example.jj_club.R;
 import com.example.jj_club.adapters.HomeItemAdapter;
 import com.example.jj_club.models.HomeItem;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -20,6 +21,7 @@ public class LatestPostActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private HomeItemAdapter mAdapter;
     private DatabaseReference mDatabase;
+    private DatabaseReference mUserLikesDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class LatestPostActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("promotions");
+        mUserLikesDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(getCurrentUserUid()).child("likedPosts");
         Query query = mDatabase.orderByChild("timeStamp");
 
         FirebaseRecyclerOptions<HomeItem> options =
@@ -41,8 +44,7 @@ public class LatestPostActivity extends AppCompatActivity {
                         .setQuery(query, HomeItem.class)
                         .build();
 
-
-        mAdapter = new HomeItemAdapter(options);
+        mAdapter = new HomeItemAdapter(options, mUserLikesDatabase);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -62,5 +64,9 @@ public class LatestPostActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mAdapter = null;
+    }
+
+    private String getCurrentUserUid() {
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 }
