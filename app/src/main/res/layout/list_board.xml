@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="42dp"
+        />
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/fontmedium"
+        android:includeFontPadding="false"
+        android:hint="id"
+        android:layout_toRightOf="@+id/profile_image"
+        android:layout_marginLeft="23dp"
+        android:textSize="18sp"
+        android:textColor="#3c3c3c"
+        />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_image"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="20dp"
+        android:hint="제목"
+        android:fontFamily="@font/fontmedium"
+        android:includeFontPadding="false"
+        android:textSize="15sp"
+        android:textColor="#3c3c3c"
+        />
+
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fontregular"
+        android:includeFontPadding="false"
+        android:textSize="13sp"
+        android:textColor="#939393"
+        android:layout_below="@+id/title"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="16dp"
+        android:hint="내용"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/content"
+        android:layout_marginTop="29dp"
+        app:srcCompat="@drawable/gray_rectangle"
+        />
+</RelativeLayout>
