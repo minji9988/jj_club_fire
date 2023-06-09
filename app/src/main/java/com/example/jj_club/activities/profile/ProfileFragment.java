@@ -164,7 +164,8 @@ public class ProfileFragment extends Fragment {
                                 firebaseAuth.getCurrentUser().delete();
                                 Intent i = new Intent(getActivity(), LoginActivity.class/*이동 액티비티 위치*/);
                                 startActivity(i);
-                                
+
+                                //아제발
                                 //파이어 베이스안쓰고
                                 //Intent i = new Intent(getActivity(), LoginActivity.class/*이동 액티비티 위치*/);
                                 //i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
