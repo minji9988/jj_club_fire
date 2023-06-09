@@ -1,18 +1,18 @@
 package com.example.jj_club.models;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeItem {
-    private String title; // 글 제목
-    private String recruitPeriod; // 모집 기간
-    private String fee; // 회비
-    private String interview; // 면접 유무
-    private String meetingName; // 모임 이름
+    private String title;
+    private String recruitPeriod;
+    private String fee;
+    private String interview;
+    private String meetingName;
     private String userId;
-
-    private Long timeStamp; // 글 작성 시간
-    private int likes; // 좋아요 수
+    private Long timeStamp;
+    private Map<String, Boolean> likes;
 
     public HomeItem() {
-        // Firestore에서 사용하는 빈 생성자
     }
 
     public HomeItem(String title, String recruitPeriod, String fee, String interview, String meetingName, String userId) {
@@ -22,12 +22,8 @@ public class HomeItem {
         this.interview = interview;
         this.meetingName = meetingName;
         this.userId = userId;
-        this.timeStamp = System.currentTimeMillis();  // 서버 시간을 사용하여 타임스탬프 설정
-        this.likes = 0; // 초기 좋아요 수는 0으로 설정
-    }
-
-    public Long getTimeStamp() {
-        return timeStamp;
+        this.timeStamp = System.currentTimeMillis();
+        this.likes = new HashMap<>();
     }
 
     public String getTitle() {
@@ -74,15 +70,23 @@ public class HomeItem {
         return userId;
     }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Long getTimeStamp() {
+        return timeStamp;
+    }
+
     public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
     }
 
-    public int getLikes() {
+    public Map<String, Boolean> getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(Map<String, Boolean> likes) {
         this.likes = likes;
     }
 }
