@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.jj_club.R;
 import com.example.jj_club.activities.register.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +45,9 @@ public class ProfileFragment extends Fragment {
 
     //로그아웃, 회원탈퇴 텍스트
     private TextView text_signout, text_membershipWithdrawal;
+
+    //파이어베이스db
+    private FirebaseAuth firebaseAuth;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -93,6 +97,8 @@ public class ProfileFragment extends Fragment {
         text_signout = (TextView) view.findViewById(R.id.text_signout);
         text_membershipWithdrawal = (TextView) view.findViewById(R.id.text_membershipWithdrawal);
 
+        //초기화
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //프로필 편집 액티비티로 이동(프로필 편집버튼)
         btn_profileEdit.setOnClickListener(new View.OnClickListener() {
@@ -124,9 +130,17 @@ public class ProfileFragment extends Fragment {
                         .setTitle("로그아웃").setMessage("로그아웃 하시겠습니까?")
                         .setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+
+                                //파이어베이스 사용 로그아웃
+                                firebaseAuth.signOut();
                                 Intent i = new Intent(getActivity(), LoginActivity.class/*이동 액티비티 위치*/);
-                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 startActivity(i);
+
+                                //파이어베이스 안쓰고 로그아웃(전에 해논거)
+                                //Intent i = new Intent(getActivity(), LoginActivity.class/*이동 액티비티 위치*/);
+                                //i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                //startActivity(i);
+
                             }
                         })
                         .setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -146,9 +160,15 @@ public class ProfileFragment extends Fragment {
                         .setTitle("회원탈퇴").setMessage("정말로 회원을 탈퇴하시겠습니까?")
                         .setPositiveButton("예", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+                                
+                                firebaseAuth.getCurrentUser().delete();
                                 Intent i = new Intent(getActivity(), LoginActivity.class/*이동 액티비티 위치*/);
-                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 startActivity(i);
+                                
+                                //파이어 베이스안쓰고
+                                //Intent i = new Intent(getActivity(), LoginActivity.class/*이동 액티비티 위치*/);
+                                //i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                //startActivity(i);
                             }
                         })
                         .setNegativeButton("아니요", new DialogInterface.OnClickListener() {
