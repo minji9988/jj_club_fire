@@ -6,4 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".activities.profile.ProfileRecivedapplicationformActivity">
 
+    <ImageButton
+        android:id="@+id/btn_GoBackProfile_fromRecivedapplicationformActivity"
+        android:layout_width="28dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="53dp"
+        android:src="@drawable/arrow_left_2"
+        android:background="#00000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="받은 신청서"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="43dp"
+        android:textColor="#3c3c3c"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

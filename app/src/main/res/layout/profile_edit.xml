@@ -6,4 +6,126 @@
     android:layout_height="match_parent"
     tools:context=".activities.profile.ProfileEditActivity">
 
+
+    <ImageButton
+        android:id="@+id/btn_GoBackProfile_fromProfileEdit"
+        android:layout_width="28dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="53dp"
+        android:src="@drawable/arrow_left_2"
+        android:background="#00000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="프로필 편집"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="43dp"
+        android:textColor="#3c3c3c"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="33dp"
+        android:text="완료"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_profileImage"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="159dp"
+        android:background="#00000000"
+        android:src="@drawable/profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="350dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="8sp"
+        android:textColor="#707070"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="닉네임" />
+
+    <EditText
+        android:id="@+id/btn_editTextNickname"
+        android:layout_width="344dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="384dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:hint="변경하실 닉네임을 써주세요"
+        android:background="@drawable/edit_text_round"
+        ></EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="480dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="8sp"
+        android:textColor="#707070"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="MBTI" />
+
+    <EditText
+        android:id="@+id/btn_editTextMbti"
+        android:layout_width="344dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="518dp"
+        android:background="@drawable/edit_text_round"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:hint="변경하실 mbti를 골라주세요"></EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="620dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="8sp"
+        android:textColor="#707070"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="비밀번호" />
+
+    <EditText
+        android:id="@+id/btn_editTextPassword"
+        android:layout_width="344dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="654dp"
+        android:background="@drawable/edit_text_round"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:hint="변경하실 닉네임을 써주세요"></EditText>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
