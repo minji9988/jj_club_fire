@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="180dp"
+        app:tabIndicatorColor="#00000000"
+        app:tabSelectedTextColor="#3c3c3c"
+        app:tabTextColor="#939393"
+        app:tabTextAppearance="@style/tab_font"
+        >
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="소개"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_board"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개시판" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="캘린더" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_qa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="채팅" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tap">
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="23dp"
+        android:layout_height="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="57dp"
+        app:srcCompat="@drawable/money" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="23dp"
+        android:layout_height="19dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="57dp"
+        app:srcCompat="@drawable/user_tie" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="23dp"
+        android:layout_height="19dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="85dp"
+        android:layout_marginLeft="57dp"
+        app:srcCompat="@drawable/clock" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="23dp"
+        android:layout_height="19dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="57dp"
+        app:srcCompat="@drawable/user_friends" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="170dp"
+        app:srcCompat="@drawable/gray_rectangle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="99dp"
+        android:text="회비\n면접\n모집기간\n모집인원"
+        android:inputType="textMultiLine"
+        android:textSize="18sp"
+        android:fontFamily="@font/fontregular"
+        android:lineSpacingExtra="8sp"
+        android:includeFontPadding="false"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/tv_fee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="200dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/fontregular"
+        android:includeFontPadding="false"
+        android:hint="회비"
+        />
+
+    <TextView
+        android:id="@+id/tv_interview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="200dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/fontregular"
+        android:includeFontPadding="false"
+        android:hint="면접"
+        />
+
+    <TextView
+        android:id="@+id/tv_period"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="79dp"
+        android:layout_marginLeft="200dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/fontregular"
+        android:includeFontPadding="false"
+        android:hint="모집기간"
+        />
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="116dp"
+        android:layout_marginLeft="200dp"
+        android:textSize="18sp"
+        android:fontFamily="@font/fontregular"
+        android:includeFontPadding="false"
+        android:hint="모집인원"
+        />
+</RelativeLayout>
