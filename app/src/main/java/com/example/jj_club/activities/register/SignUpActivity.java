@@ -12,10 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jj_club.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +26,7 @@ import java.util.Map;
 public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private FirebaseFirestore db;
+    private DatabaseReference mDatabase;
 
     private EditText nameEditText, phoneNumberEditText, passwordEditText, recheckPasswordEditText;
     private Button signUpButton;
@@ -34,7 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.register_sign_up);
 
         mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
 
         nameEditText = findViewById(R.id.nameEditText);
         phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
@@ -64,18 +67,22 @@ public class SignUpActivity extends AppCompatActivity {
                                                 userInfo.put("name", name);
                                                 userInfo.put("phoneNumber", phoneNumber);
 
-                                                db.collection("users").document(user.getUid())
-                                                        .set(userInfo)
-                                                        .addOnSuccessListener(aVoid -> {
-                                                            Toast.makeText(SignUpActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
+                                                mDatabase.child(user.getUid()).setValue(userInfo)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Toast.makeText(SignUpActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
 
-                                                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                                                            startActivity(intent);
-                                                            finish();
-
+                                                                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
                                                         })
-                                                        .addOnFailureListener(e -> {
-                                                            Toast.makeText(SignUpActivity.this, "회원가입 실패: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Toast.makeText(SignUpActivity.this, "회원가입 실패: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                            }
                                                         });
                                             } else {
                                                 Toast.makeText(SignUpActivity.this, "비밀번호 업데이트 실패: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
