@@ -38,13 +38,34 @@ public class ProfileEditActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_edit);
 
+        //연결
+        btn_editTextNickname = findViewById(R.id.btn_editTextNickname);
+        btn_editTextMbti = findViewById(R.id.btn_editTextMbti);
+        btn_editTextPassword = findViewById(R.id.btn_editTextPassword);
+        btn_save = findViewById(R.id.btn_save);
+        btn_profileImage = (ImageButton) findViewById(R.id.btn_profileImage);
+        btn_GoBackProfile_fromProfileEdit = (ImageButton) findViewById(R.id.btn_GoBackProfile_fromProfileEdit);
+
+
+        // 저장 버튼 눌렀을때
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        //카메라 권한
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 1);
 
+        //뒤로 돌아가기
         btn_GoBackProfile_fromProfileEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +73,7 @@ public class ProfileEditActivity extends AppCompatActivity {
             }
         });
 
+        //이미지 올리기 버튼
         btn_profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

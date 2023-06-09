@@ -45,11 +45,6 @@ public class ProfileFragment extends Fragment {
     //로그아웃, 회원탈퇴 텍스트
     private TextView text_signout, text_membershipWithdrawal;
 
-    //회원탈퇴
-    private String accessToken;
-    private String userId;
-
-
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -84,7 +79,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //동수
+        //연결
         view = inflater.inflate(R.layout.fragment_profile,container,false);
         btn_profileEdit = (Button) view.findViewById(R.id.btn_profileEdit);
         btn_alarm = (ImageButton) view.findViewById(R.id.btn_alarm);
@@ -98,6 +93,8 @@ public class ProfileFragment extends Fragment {
         text_signout = (TextView) view.findViewById(R.id.text_signout);
         text_membershipWithdrawal = (TextView) view.findViewById(R.id.text_membershipWithdrawal);
 
+
+        //프로필 편집 액티비티로 이동(프로필 편집버튼)
         btn_profileEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +103,17 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent); //액티비티 이동
 
                 ;            }
+        });
+
+        //프로필 편집 액티비티로 이동(이미지 버튼)
+        btn_profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ProfileEditActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent); //액티비티 이동
+
+            }
         });
 
         //로그아웃
@@ -154,7 +162,7 @@ public class ProfileFragment extends Fragment {
 
 
 
-
+        //알람 페이지로 이동
         btn_alarm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -165,15 +173,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        btn_profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProfileEditActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent); //액티비티 이동
-
-            }
-        });
 
         text_loveIt.setOnClickListener(new View.OnClickListener() {
             @Override
