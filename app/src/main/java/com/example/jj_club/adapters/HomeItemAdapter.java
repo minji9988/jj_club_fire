@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+
 public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemAdapter.HomeItemViewHolder> {
 
     private DatabaseReference mDatabase;
@@ -40,13 +42,13 @@ public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemA
     protected void onBindViewHolder(@NonNull HomeItemViewHolder holder, int position, @NonNull HomeItem model) {
         holder.title.setText(model.getTitle());
         holder.description.setText(model.getRecruitPeriod());
-        holder.likeCount.setText(String.valueOf(model.getLikes().size()));
+        holder.likeCount.setText(String.valueOf(model.getLikes() != null ? model.getLikes().size() : 0));
 
         String postId = getRef(position).getKey();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         // Set like button status
-        if (model.getLikes().containsKey(userId)) {
+        if (model.getLikes() != null && model.getLikes().containsKey(userId)) {
             holder.likeButton.setImageResource(R.drawable.icon_love_blue);
         } else {
             holder.likeButton.setImageResource(R.drawable.icon_love_outline);
@@ -55,10 +57,14 @@ public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemA
         holder.likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (model.getLikes() == null) {
+                    model.setLikes(new HashMap<>());
+                }
+
                 // Toggle like status
                 if (model.getLikes().containsKey(userId)) {
                     model.getLikes().remove(userId);
-                    mDatabase.child(postId).child("likes").setValue(model.getLikes());
+                    mDatabase.child(postId).child("likes").setValue(model.getLikes().isEmpty() ? null : model.getLikes());
                 } else {
                     model.getLikes().put(userId, true);
                     mDatabase.child(postId).child("likes").setValue(model.getLikes());
