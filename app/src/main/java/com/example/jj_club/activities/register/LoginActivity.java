@@ -17,6 +17,8 @@ import com.example.jj_club.R;
 import com.example.jj_club.activities.home.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,12 +30,15 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private TextView registerTextButton;
 
+    //private DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_login);
 
         mAuth = FirebaseAuth.getInstance();
+        //databaseReference = FirebaseDatabase.getInstance().getReference();
 
         emailEditText = findViewById(R.id.editText_email_login);
         passwordEditText = findViewById(R.id.editText_password);
