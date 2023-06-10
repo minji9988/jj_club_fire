@@ -1,5 +1,5 @@
 # JJ-Club
-> Outline a brief description of your project.
+> 전주대학교 동아리 앱 JJ-Club
 > Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
