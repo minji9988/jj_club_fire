@@ -4,21 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HomeItem {
-    private String title;
-    private String recruitPeriod;
-    private String fee;
-    private String interview;
-    private String meetingName;
-    private String userId;
-    private String promotionNumber;
-    private String promotionTarget;
-    private String promotionIntroduce;
-    private String promotionPlace;
-    private Long timeStamp;
-    private Long reversedTimestamp; // 추가된 속성
-    private Map<String, Boolean> likes;
+    private String title; // 홈 아이템의 제목
+    private String recruitPeriod; // 모집 기간
+    private String fee; // 회비
+    private String interview; // 면접 여부
+    private String meetingName; // 모임 이름
+    private String userId; // 유저의 ID
+    private String promotionNumber; // 홍보 번호
+    private String promotionTarget; // 모집 대상
+    private String promotionIntroduce; // 모임 소개
+    private String promotionPlace; // 모임 장소
+    private Long timeStamp; // 타임스탬프 (아이템 생성 시간)
+    private Long reversedTimestamp; // 추가된 속성: 리버스 타임스탬프 (정렬을 위한 역순 타임스탬프)
+    private Map<String, Boolean> likes; // 좋아요 맵 (키: 유저 ID, 값: 좋아요 여부)
 
-    private String imageUrl;  // 추가된 속성
+    private String imageUrl;  // 추가된 속성: 이미지 URL
 
     public HomeItem() {
     }
