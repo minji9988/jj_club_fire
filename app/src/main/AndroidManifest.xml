@@ -6,8 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 1카메라 권한 허용과 2앱에 대한 명세 -->
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature android:name="android.hardware.camera.any" /> <!-- 파일 접근 권한 설정 for upload camera img -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera.any" />
 
     <application
         android:allowBackup="true"
@@ -20,21 +19,23 @@
         android:theme="@style/Theme.Jj_club"
         tools:targetApi="31" >
         <activity
-            android:name=".activities.promotion.PromotionDetailActivity"
-            android:exported="true" />
-
+            android:name=".activities.mbti.infj"
+            android:exported="false" />
         <activity
-            android:name=".activities.home.LatestPostActivity"
+            android:name=".activities.promotion.PromotionWrite4"
             android:exported="false" />
         <activity
             android:name=".activities.promotion.PromotionWrite3"
             android:exported="false" />
         <activity
             android:name=".activities.promotion.PromotionWrite2"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".activities.promotion.PromotionWrite1"
-            android:exported="true" />
+            android:exported="false" />
+        <activity
+            android:name=".activities.promotion.PromotionPage"
+            android:exported="false" />
         <activity
             android:name=".activities.profile.ProfileWirtepostActivity"
             android:exported="false" />
@@ -109,7 +110,13 @@
             android:exported="false" />
         <activity
             android:name=".activities.register.LoginActivity"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.register.EmailVerificationActivity"
             android:exported="true" />
@@ -121,14 +128,6 @@
             android:exported="false" />
         <activity
             android:name=".activities.home.MainActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:exported="true" />
     </application>
-
 </manifest>
