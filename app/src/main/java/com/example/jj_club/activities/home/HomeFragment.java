@@ -2,6 +2,7 @@ package com.example.jj_club.activities.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jj_club.R;
 import com.example.jj_club.activities.promotion.PromotionWrite1;
-import com.example.jj_club.adapters.HomeItemAdapter;
-import com.example.jj_club.models.HomeItem;
+import com.example.jj_club.adapters.MainHomeAdapter;
+import com.example.jj_club.models.MainHomeItem;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,7 +26,7 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
     private RecyclerView latestPostsRecyclerView;
-    private HomeItemAdapter adapter;
+    private MainHomeAdapter adapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -65,19 +66,20 @@ public class HomeFragment extends Fragment {
     private void setupRecyclerView(View view) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("promotions");
         DatabaseReference userLikesDatabase = FirebaseDatabase.getInstance().getReference().child("userLikes");
-        Query query = databaseRef.orderByChild("timeStamp");
+        Query query = databaseRef.orderByChild("reversedTimestamp");
 
-        FirebaseRecyclerOptions<HomeItem> options = new FirebaseRecyclerOptions.Builder<HomeItem>()
-                .setQuery(query, HomeItem.class)
+        FirebaseRecyclerOptions<MainHomeItem> options = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
+                .setQuery(query, MainHomeItem.class)
                 .build();
 
-        adapter = new HomeItemAdapter(options, userLikesDatabase);
+        adapter = new MainHomeAdapter(options);
 
         latestPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_latest);
         latestPostsRecyclerView.setHasFixedSize(true);
-        latestPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
+        latestPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         latestPostsRecyclerView.setAdapter(adapter);
     }
+
 
     @Override
     public void onStart() {
@@ -88,10 +90,15 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        if (adapter != null) {
-            adapter.stopListening();
-        }
+        // adapter.stopListening();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        adapter.stopListening();
+    }
+
 
     private class MoreLatestPostsClickListener implements View.OnClickListener {
         @Override
@@ -100,5 +107,10 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(getActivity(), LatestPostActivity.class);
             startActivity(intent);
         }
+    }
+
+    // Logcat에 오류 및 디버그 메시지 출력을 위한 메서드
+    private void logMessage(String message) {
+        Log.d(TAG, message);
     }
 }

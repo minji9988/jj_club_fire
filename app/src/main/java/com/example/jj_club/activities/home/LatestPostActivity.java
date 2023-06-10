@@ -55,6 +55,12 @@ public class LatestPostActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        mAdapter.stopListening();
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         mAdapter.stopListening();
