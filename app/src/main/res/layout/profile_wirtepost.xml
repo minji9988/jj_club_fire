@@ -20,7 +20,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="내가 쓴글임"
+        android:text="내가 쓴글임."
         android:layout_marginStart="89dp"
         android:layout_marginTop="43dp"
         android:textColor="#3c3c3c"
