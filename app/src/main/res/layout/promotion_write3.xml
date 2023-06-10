@@ -58,35 +58,35 @@
         android:textColor="#ffffff"
         android:textSize="18sp" />
 
-    <android.widget.Button
-        android:id="@+id/button_next2"
-        android:layout_width="344dp"
-        android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="618dp"
-        android:layout_marginLeft="42dp"
-        android:layout_marginRight="42dp"
-        android:background="@drawable/btn_round_blue_box"
-        android:text="모임 필터 선택하기"
-        android:textColor="#ffffff"
-        android:textSize="18sp" />
+<!--    <android.widget.Button-->
+<!--        android:id="@+id/button_next2"-->
+<!--        android:layout_width="344dp"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_marginTop="618dp"-->
+<!--        android:layout_marginLeft="42dp"-->
+<!--        android:layout_marginRight="42dp"-->
+<!--        android:background="@drawable/btn_round_blue_box"-->
+<!--        android:text="모임 필터 선택하기"-->
+<!--        android:textColor="#ffffff"-->
+<!--        android:textSize="18sp" />-->
 
-    <android.widget.Button
-        android:id="@+id/button_next3"
-        android:layout_width="344dp"
-        android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="776dp"
-        android:layout_marginLeft="42dp"
-        android:layout_marginRight="42dp"
-        android:background="@drawable/btn_round_blue_box"
-        android:text="모임 필터 선택하기"
-        android:textColor="#ffffff"
-        android:textSize="18sp" />
+<!--    <android.widget.Button-->
+<!--        android:id="@+id/button_next3"-->
+<!--        android:layout_width="344dp"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_marginTop="776dp"-->
+<!--        android:layout_marginLeft="42dp"-->
+<!--        android:layout_marginRight="42dp"-->
+<!--        android:background="@drawable/btn_round_blue_box"-->
+<!--        android:text="모임 필터 선택하기"-->
+<!--        android:textColor="#ffffff"-->
+<!--        android:textSize="18sp" />-->
 
     <View
         android:id="@+id/view2"

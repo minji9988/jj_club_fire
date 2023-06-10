@@ -101,7 +101,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.widget.Button
-        android:id="@+id/button_next"
+        android:id="@+id/promotion_write1_button_next"
         android:layout_width="77dp"
         android:layout_height="45dp"
         android:layout_alignParentTop="true"
@@ -111,7 +111,7 @@
         android:background="@drawable/btn_round_blue_box"
         android:text="다음"
         android:textColor="#ffffff"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <View
         android:id="@+id/view2"
@@ -153,7 +153,7 @@
         android:layout_marginTop="184dp"
         android:layout_marginLeft="42dp"
         android:layout_marginRight="42dp"
-        android:ems="10"
+        android:paddingStart="20dp"
         android:inputType="text"
         android:hint="게시글의 제목을 입력해 주세요."
         android:textColor="#29000000"
@@ -170,7 +170,7 @@
         android:layout_marginLeft="42dp"
         android:layout_marginRight="42dp"
         android:background="@drawable/edittext_rounded_corner_rectangle"
-        android:ems="10"
+        android:paddingStart="20dp"
         android:inputType="text"
         android:hint="모임 이름을 입력해 주세요."
         android:textColor="#29000000" />
@@ -187,6 +187,7 @@
         android:layout_marginRight="42dp"
         android:background="@drawable/edittext_rounded_corner_rectangle"
         android:ems="10"
+        android:paddingStart="20dp"
         android:inputType="text"
         android:hint="면접 유무를 입력해 주세요."
         android:textColor="#29000000" />
@@ -207,6 +208,7 @@
         android:ems="10"
         android:inputType="text"
         android:hint="회비를 입력해 주세요."
+        android:paddingStart="20dp"
         android:textColor="#29000000" />
 
     <EditText
@@ -223,6 +225,7 @@
         android:ems="10"
         android:inputType="date"
         android:hint="모집 기간을 입력해 주세요."
+        android:paddingStart="20dp"
         android:textColor="#29000000" />
 
     <TextView

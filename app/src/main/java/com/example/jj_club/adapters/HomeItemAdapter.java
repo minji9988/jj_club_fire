@@ -4,11 +4,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.jj_club.R;
 import com.example.jj_club.models.HomeItem;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -40,12 +42,21 @@ public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemA
 
     @Override
     protected void onBindViewHolder(@NonNull HomeItemViewHolder holder, int position, @NonNull HomeItem model) {
+
         holder.title.setText(model.getTitle());
         holder.description.setText(model.getRecruitPeriod());
         holder.likeCount.setText(String.valueOf(model.getLikes() != null ? model.getLikes().size() : 0));
 
         String postId = getRef(position).getKey();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Set image
+        if (model.getImageUrl() != null && !model.getImageUrl().isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(model.getImageUrl())
+                    .into(holder.postImage);
+        }
+
 
         // Set like button status
         if (model.getLikes() != null && model.getLikes().containsKey(userId)) {
@@ -77,12 +88,14 @@ public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemA
 
     static class HomeItemViewHolder extends RecyclerView.ViewHolder {
         TextView title;
+        ImageView postImage;  // 추가된 필드
         TextView description;
         ImageButton likeButton;
         TextView likeCount;
 
         HomeItemViewHolder(View view) {
             super(view);
+            postImage = view.findViewById(R.id.item_more_post_img);  // 이미지 뷰 바인딩
             title = view.findViewById(R.id.item_more_post_title);
             description = view.findViewById(R.id.item_more_post_contents);
             likeButton = view.findViewById(R.id.item_more_white_love);

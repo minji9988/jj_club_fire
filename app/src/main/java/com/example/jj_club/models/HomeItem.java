@@ -1,4 +1,5 @@
 package com.example.jj_club.models;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,22 +10,45 @@ public class HomeItem {
     private String interview;
     private String meetingName;
     private String userId;
+    private String promotionNumber;
+    private String promotionTarget;
+    private String promotionIntroduce;
+    private String promotionPlace;
     private Long timeStamp;
+    private Long reversedTimestamp; // 추가된 속성
     private Map<String, Boolean> likes;
+
+    private String imageUrl;  // 추가된 속성
 
     public HomeItem() {
     }
 
-    public HomeItem(String title, String recruitPeriod, String fee, String interview, String meetingName, String userId) {
+    public HomeItem(String title, String recruitPeriod, String fee, String interview, String meetingName, String userId, String promotionNumber, String promotionTarget, String promotionIntroduce, String promotionPlace, String imageUrl) {
         this.title = title;
         this.recruitPeriod = recruitPeriod;
         this.fee = fee;
         this.interview = interview;
         this.meetingName = meetingName;
         this.userId = userId;
+        this.promotionNumber = promotionNumber;
+        this.promotionTarget = promotionTarget;
+        this.promotionIntroduce = promotionIntroduce;
+        this.promotionPlace = promotionPlace;
         this.timeStamp = System.currentTimeMillis();
+        this.reversedTimestamp = Long.MAX_VALUE - this.timeStamp;
         this.likes = new HashMap<>();
+        this.imageUrl = imageUrl;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    // Existing getters and setters...
 
     public String getTitle() {
         return title;
@@ -80,6 +104,14 @@ public class HomeItem {
 
     public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public Long getReversedTimestamp() {
+        return reversedTimestamp;
+    }
+
+    public void setReversedTimestamp(Long reversedTimestamp) {
+        this.reversedTimestamp = reversedTimestamp;
     }
 
     public Map<String, Boolean> getLikes() {

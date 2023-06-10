@@ -22,6 +22,18 @@
             android:background="@drawable/home_round_white_box"
             android:layout_centerInParent="true" />
 
+        <!-- 모임 대표 사진 ImageButton -->
+        <ImageView
+            android:id="@+id/item_more_post_img"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="40.8dp"
+            android:background="@drawable/round_gray_box"
+            android:scaleType="centerCrop"
+            />
+<!--scaleType은 이미지 크기를 회색 네모 칸에 적절히 조정하는 것-->
+
         <!-- 홍보글 제목 TextView -->
         <TextView
             android:id="@+id/item_more_post_title"
@@ -44,6 +56,33 @@
             android:text="홍보글 내용이 들어갑니다. 이런 저런 이야기들."
             android:layout_marginTop="78.5dp"
             android:layout_marginLeft="117dp" />
+
+
+        <!-- 'D -' TextView -->
+        <TextView
+            android:id="@+id/item_popular_post_d_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="D  -"
+            android:textColor="#1c7eff"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:layout_marginTop="154.8dp"
+            android:layout_marginLeft="89dp"
+            />
+
+        <!-- 'day'  TextView -->
+        <TextView
+            android:id="@+id/item_more_post_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textColor="#1c7eff"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:layout_marginTop="154.8dp"
+            android:layout_marginLeft="125dp"
+            />
 
         <!-- love icon -->
         <ImageButton

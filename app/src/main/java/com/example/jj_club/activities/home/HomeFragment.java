@@ -2,7 +2,6 @@ package com.example.jj_club.activities.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,16 +75,14 @@ public class HomeFragment extends Fragment {
 
         latestPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_latest);
         latestPostsRecyclerView.setHasFixedSize(true);
-        latestPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        latestPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
         latestPostsRecyclerView.setAdapter(adapter);
     }
-
 
     @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
-        Log.d(TAG, "Adapter started listening");
     }
 
     @Override
@@ -93,13 +90,13 @@ public class HomeFragment extends Fragment {
         super.onStop();
         if (adapter != null) {
             adapter.stopListening();
-            Log.d(TAG, "Adapter stopped listening");
         }
     }
 
     private class MoreLatestPostsClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+            // Navigate to LatestPostActivity when "more" is clicked.
             Intent intent = new Intent(getActivity(), LatestPostActivity.class);
             startActivity(intent);
         }
