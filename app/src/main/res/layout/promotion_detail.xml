@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.promotion.PromotionDetailActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 뒤로가기 버튼 -->
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/arrow_left"
+            android:layout_marginLeft="43dp"
+            android:layout_marginTop="53dp" />
+
+        <!-- 신청하기 버튼 -->
+        <Button
+            android:id="@+id/button_next5"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="42dp"
+            android:layout_marginLeft="309dp"
+            android:background="@drawable/btn_round_blue_box"
+            android:text="신청하기"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <!-- 이미지 -->
+        <ImageView
+            android:id="@+id/image_promotion"
+            android:layout_width="344dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/gray_round"
+            android:layout_marginTop="135dp"
+            android:layout_marginLeft="42dp" />
+
+        <!-- 글 제목 -->
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="모임의 이름"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:textColor="#3c3c3c"
+            android:layout_marginLeft="137dp"
+            android:layout_marginTop="380dp" />
+
+        <!-- 돈 이미지 -->
+        <ImageView
+            android:id="@+id/image_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/promotion_detail_money"
+            android:layout_marginTop="460dp"
+            android:layout_marginLeft="57.2dp" />
+
+        <!-- 회비 텍스트 -->
+        <TextView
+            android:id="@+id/text_membership_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회비"
+            android:textSize="18sp"
+            android:textColor="#3c3c3c"
+            android:layout_marginLeft="99dp"
+            android:layout_marginTop="454dp" />
+
+        <!-- 회비 액수 -->
+        <TextView
+            android:id="@+id/text_membership_fee_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100,000원"
+            android:textSize="18sp"
+            android:textColor="#3c3c3c"
+            android:layout_marginLeft="199dp"
+            android:layout_marginTop="454dp" />
+
+        <!-- 면접 아이콘 -->
+        <ImageView
+            android:id="@+id/image_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/promotion_detail_recruit"
+            android:layout_marginLeft="59.8dp"
+            android:layout_marginTop="493.8dp" />
+
+        <!-- 면접 텍스트 -->
+        <TextView
+            android:id="@+id/text_interview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="면접"
+            android:textSize="18sp"
+            android:textColor="#3c3c3c"
+            android:layout_marginLeft="99dp"
+            android:layout_marginTop="489dp" />
+
+        <!-- 면접 상태 -->
+        <TextView
+            android:id="@+id/text_interview_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="없음"
+            android:textSize="18sp"
+            android:textColor="#3c3c3c"
+            android:layout_marginLeft="199dp"
+            android:layout_marginTop="489dp" />
+
+        <!-- 시계 아이콘 -->
+        <ImageView
+            android:id="@+id/image_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/promotion_detail_clock"
+            android:layout_below="@id/image_person"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="59.8dp" />
+
+        <!-- 모집기간 텍스트 -->
+        <TextView
+            android:id="@+id/text_recruitment_period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="모집기간"
+            android:textSize="18sp"
+            android:textColor="#3c3c3c"
+            android:layout_marginLeft="99dp"
+            android:layout_marginTop="524dp" />
+
+        <!-- 날짜 텍스트 -->
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="날짜"
+            android:textSize="18sp"
+            android:textColor="#3c3c3c"
+            android:layout_marginLeft="199dp"
+            android:layout_marginTop="524dp" />
+
+        <!-- 여러 사람들 아이콘 -->
+        <ImageView
+            android:id="@+id/image_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/promotion_detail_people"
+            android:layout_marginTop="565.2dp"
+            android:layout_marginLeft="59.8dp" />
+
+        <!-- 모집인원 텍스트 -->
+        <TextView
+            android:id="@+id/text_recruitment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="모집인원"
+            android:textSize="18sp"
+            android:textColor="#3c3c3c"
+            android:layout_marginLeft="99dp"
+            android:layout_marginTop="559dp" />
+
+        <!-- 모집인원 수 -->
+        <TextView
+            android:id="@+id/text_recruitment_count_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="23"
+            android:textSize="18sp"
+            android:textColor="#3c3c3c"
+            android:layout_marginLeft="199dp"
+            android:layout_marginTop="560dp" />
+
+        <!-- 모집인원 : 명 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="명"
+            android:textSize="18sp"
+            android:textColor="#3c3c3c"
+            android:layout_marginLeft="224dp"
+            android:layout_marginTop="560dp" />
+
+        <!-- 상단 선 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+        <View
+            android:id="@+id/view_separator"
+            android:layout_width="428dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="615dp"
+            android:background="#dfdfdf" />
+
+        <!-- TabLayout -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_separator"
+            android:background="@color/white">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="소개" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tab_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="캘린더" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <!-- 소개 탭의 내용 -->
+        <LinearLayout
+            android:id="@+id/layout_intro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tab_layout"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 한줄소개 -->
+            <TextView
+                android:id="@+id/text_one_line_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="한줄소개"
+                android:textSize="18sp" />
+
+            <!-- 한줄소개 상세내용 -->
+            <TextView
+                android:id="@+id/text_one_line_intro_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="한줄소개 상세내용"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp" />
+
+            <!-- 동아리 소개&활동계획 -->
+            <TextView
+                android:id="@+id/text_club_intro_activities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="동아리 소개 활동계획"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <!-- 동아리 소개&활동계획 상세내용 -->
+            <TextView
+                android:id="@+id/text_club_intro_activities_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="동아리 소개 및 활동계획 상세내용"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp" />
+
+            <!-- 모집대상 -->
+            <TextView
+                android:id="@+id/text_recruitment_target"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="모집대상"
+                android:textSize="18sp"
+                android:textColor="#3c3c3c"
+                android:layout_marginTop="16dp" />
+
+            <!-- 모집대상 상세내용 -->
+            <TextView
+                android:id="@+id/text_recruitment_target_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="모집대상 상세 내용"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+        <!-- 캘린더 탭의 내용 -->
+        <LinearLayout
+            android:id="@+id/layout_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tab_layout"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <!-- 캘린더 내용을 추가하세요 -->
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>
