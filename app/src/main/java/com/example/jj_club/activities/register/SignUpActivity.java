@@ -55,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (password.length() >= 6) {
                     if (password.equals(recheckPassword)) {
-                        FirebaseUser user = mAuth.getCurrentUser();
+                        FirebaseUser user = mAuth.getCurrentUser(); //회원가입된 유저 가져온다?
                         if (user != null) {
                             user.updatePassword(password)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
