@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.promotion.ApplicationForm">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="28dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="53dp"
+        android:layout_marginLeft="43dp"
+        android:background="#00000000"
+        android:src="@drawable/arrow_left"></ImageView>
+
+    <TextView
+        android:layout_width="136dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="43dp"
+        android:layout_marginLeft="89dp"
+        android:fontFamily="@font/fontbold"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="12sp"
+        android:text="신청서 작성"
+        android:textColor="#3c3c3c"
+        android:textSize="28sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.widget.Button
+        android:id="@+id/button_next"
+        android:layout_width="77dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="42dp"
+        android:layout_marginRight="33dp"
+        android:background="@drawable/btn_round_blue_box"
+        android:text="다음"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+    <View
+        android:id="@+id/view6"
+        android:layout_width="3dp"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="243dp"
+        android:layout_marginLeft="42dp"
+        android:background="@drawable/btn_round_blue_box"></View>
+
+
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="344dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="274dp"
+        android:layout_marginRight="39dp"
+        android:background="@drawable/edittext_rounded_corner_rectangle"
+        android:ems="10"
+        android:hint="  글의 제목을 입력해 주세요."
+        android:inputType="text"
+        android:textColorHint="#29000000" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="239dp"
+        android:layout_marginLeft="55dp"
+        android:lineSpacingExtra="8sp"
+        android:text="제목"
+        android:textColor="#707070"
+        android:textSize="16sp"
+        android:fontFamily="@font/fontregular"
+        android:includeFontPadding="false" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="374dp"
+        android:fontFamily="@font/fontregular"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="8sp"
+        android:text="내용"
+        android:textColor="#707070"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="3dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="377dp"
+        android:background="@drawable/btn_round_blue_box"></View>
+
+    <EditText
+        android:id="@+id/editTextGroupName"
+        android:layout_width="344dp"
+        android:layout_height="294dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="408dp"
+        android:background="@drawable/edittext_rounded_corner_rectangle"
+        android:ems="10"
+        android:hint="\n  신청서 내용을 입력해 주세요."
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        android:textColorHint="#29000000" />
+
+</RelativeLayout>

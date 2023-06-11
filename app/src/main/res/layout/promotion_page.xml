@@ -25,7 +25,7 @@
             android:src="@drawable/arrow_left"></ImageView>
 
         <android.widget.Button
-            android:id="@+id/button_next5"
+            android:id="@+id/button_application"
             android:layout_width="77dp"
             android:layout_height="48dp"
             android:layout_alignParentTop="true"

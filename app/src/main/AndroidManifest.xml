@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- 통신을 위해 internet permission 추가 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <!--   1카메라 권한 허용과 2앱에 대한 명세 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 1카메라 권한 허용과 2앱에 대한 명세 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera.any" />
 
+    <uses-feature android:name="android.hardware.camera.any" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Jj_club"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.promotion.ApplicationForm"
+            android:exported="false" />
         <activity
             android:name=".activities.promotion.PromotionWrite4"
             android:exported="false" />
@@ -110,8 +110,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.register.LoginActivity"
-            android:exported="true" >
-
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -121,21 +120,15 @@
         <activity
             android:name=".activities.register.EmailVerificationActivity"
             android:exported="true" />
-
-
         <activity
             android:name=".activities.register.SignUpActivity"
             android:exported="true" />
-
-
-
         <activity
             android:name=".activities.register.SplashActivity"
             android:exported="false" />
         <activity
             android:name=".activities.home.MainActivity"
             android:exported="true" />
-
     </application>
 
 </manifest>
