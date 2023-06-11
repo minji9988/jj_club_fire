@@ -147,50 +147,48 @@
         android:id="@+id/editTextTitle"
         android:layout_width="344dp"
         android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="184dp"
         android:layout_marginLeft="42dp"
         android:layout_marginRight="42dp"
+        android:textSize="18sp"
+        android:textColor="#3c3c3c"
+        android:textColorHint="#d6d6d6"
         android:paddingStart="20dp"
-        android:inputType="text"
+        android:background="@drawable/shadow"
         android:hint="게시글의 제목을 입력해 주세요."
-        android:textColor="#29000000"
-        android:background="@drawable/edittext_rounded_corner_rectangle" />
+        />
+
 
     <EditText
         android:id="@+id/editTextGroupName"
         android:layout_width="344dp"
         android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="319dp"
         android:layout_marginLeft="42dp"
         android:layout_marginRight="42dp"
-        android:background="@drawable/edittext_rounded_corner_rectangle"
+        android:textSize="18sp"
+        android:textColor="#3c3c3c"
+        android:textColorHint="#d6d6d6"
         android:paddingStart="20dp"
-        android:inputType="text"
+        android:background="@drawable/shadow"
+
         android:hint="모임 이름을 입력해 주세요."
-        android:textColor="#29000000" />
+        />
 
     <EditText
         android:id="@+id/editTextInterview"
         android:layout_width="344dp"
         android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="462dp"
         android:layout_marginLeft="42dp"
         android:layout_marginRight="42dp"
-        android:background="@drawable/edittext_rounded_corner_rectangle"
-        android:ems="10"
+        android:textSize="18sp"
+        android:textColor="#3c3c3c"
+        android:textColorHint="#d6d6d6"
         android:paddingStart="20dp"
-        android:inputType="text"
+        android:background="@drawable/shadow"
         android:hint="면접 유무를 입력해 주세요."
-        android:textColor="#29000000" />
+        />
 
 
 
@@ -198,35 +196,32 @@
         android:id="@+id/editTextMembershipFee"
         android:layout_width="344dp"
         android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="605dp"
         android:layout_marginLeft="42dp"
         android:layout_marginRight="42dp"
-        android:background="@drawable/edittext_rounded_corner_rectangle"
-        android:ems="10"
-        android:inputType="text"
+
         android:hint="회비를 입력해 주세요."
+        android:textSize="18sp"
+        android:textColor="#3c3c3c"
+        android:textColorHint="#d6d6d6"
         android:paddingStart="20dp"
-        android:textColor="#29000000" />
+        android:background="@drawable/shadow"
+        />
 
     <EditText
         android:id="@+id/editTextRecruitmentPeriod"
         android:layout_width="344dp"
         android:layout_height="70dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="748dp"
         android:layout_marginLeft="42dp"
         android:layout_marginRight="42dp"
-        android:background="@drawable/edittext_rounded_corner_rectangle"
-        android:ems="10"
-        android:inputType="date"
         android:hint="모집 기간을 입력해 주세요."
+        android:textSize="18sp"
+        android:textColor="#3c3c3c"
+        android:textColorHint="#d6d6d6"
         android:paddingStart="20dp"
-        android:textColor="#29000000" />
+        android:background="@drawable/shadow"
+        />
 
     <TextView
         android:id="@+id/textView3"

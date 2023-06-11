@@ -109,6 +109,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
+
     // Logcat에 오류 및 디버그 메시지 출력을 위한 메서드
     private void logMessage(String message) {
         Log.d(TAG, message);

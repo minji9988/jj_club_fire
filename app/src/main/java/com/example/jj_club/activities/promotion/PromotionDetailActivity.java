@@ -1,14 +1,18 @@
+// 홍보글 상세 페이지
+
 package com.example.jj_club.activities.promotion;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.jj_club.R;
 import com.example.jj_club.models.HomeItem;
 import com.google.android.material.tabs.TabLayout;
@@ -26,7 +30,8 @@ public class PromotionDetailActivity extends AppCompatActivity {
     private ImageButton btnBack;
 
     // Views for intro layout
-    private TextView textRecruitPeriod, textFee, textInterview, textMeetingName;
+    private ImageView imagePromotion;
+    private TextView textRecruitPeriod, textFee, textInterview, textMeetingName, textRecruitmentCount, textClubIntro, textRecruitmentTarget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +45,14 @@ public class PromotionDetailActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.promotion_detail_btn_back);
 
         // Find the views in intro layout
+        imagePromotion = findViewById(R.id.image_promotion);
         textRecruitPeriod = findViewById(R.id.promotion_detail_text_date);
         textFee = findViewById(R.id.text_membership_fee_amount);
-        textInterview = findViewById(R.id.text_interview);
+        textInterview = findViewById(R.id.text_interview_status);
         textMeetingName = findViewById(R.id.promotion_detail_text_title);
+        textRecruitmentCount = findViewById(R.id.text_recruitment_count_amount);
+        textClubIntro = findViewById(R.id.text_club_intro_activities_details);
+        textRecruitmentTarget = findViewById(R.id.text_recruitment_target_details);
 
         // Set up the TabLayout
         TabLayout tabLayout = findViewById(R.id.tab_layout);
@@ -86,7 +95,7 @@ public class PromotionDetailActivity extends AppCompatActivity {
         });
 
         // Get data from the database
-        String key = getIntent().getStringExtra("key"); // get the key from the intent
+        String key = getIntent().getStringExtra("promotion_id"); // get the key from the intent
 
         if (key != null) {
             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("promotions").child(key);
@@ -97,10 +106,14 @@ public class PromotionDetailActivity extends AppCompatActivity {
                     HomeItem homeItem = dataSnapshot.getValue(HomeItem.class);
 
                     // Get the data and display it on the screen
+                    Glide.with(getApplicationContext()).load(homeItem.getImageUrl()).into(imagePromotion);
                     textRecruitPeriod.setText(homeItem.getRecruitPeriod());
                     textFee.setText(homeItem.getFee());
                     textInterview.setText(homeItem.getInterview());
                     textMeetingName.setText(homeItem.getMeetingName());
+                    textRecruitmentCount.setText(homeItem.getPromotionNumber());
+                    textClubIntro.setText(homeItem.getPromotionIntroduce());
+                    textRecruitmentTarget.setText(homeItem.getPromotionTarget());
                 }
 
                 @Override

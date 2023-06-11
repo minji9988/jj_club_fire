@@ -21,7 +21,7 @@
 
         <!-- 신청하기 버튼 -->
         <Button
-            android:id="@+id/button_next5"
+            android:id="@+id/promotion_apply_btn"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginTop="42dp"
@@ -50,8 +50,10 @@
             android:textStyle="bold"
             android:textSize="25sp"
             android:textColor="#3c3c3c"
-            android:layout_marginLeft="137dp"
-            android:layout_marginTop="380dp" />
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="380dp"
+            android:gravity="center"
+            />
 
         <!-- 돈 이미지 -->
         <ImageView
@@ -178,15 +180,15 @@
             android:layout_marginLeft="199dp"
             android:layout_marginTop="560dp" />
 
-        <!-- 모집인원 : 명 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="명"
-            android:textSize="18sp"
-            android:textColor="#3c3c3c"
-            android:layout_marginLeft="224dp"
-            android:layout_marginTop="560dp" />
+<!--        &lt;!&ndash; 모집인원 : 명 &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="명"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textColor="#3c3c3c"-->
+<!--            android:layout_marginLeft="230dp"-->
+<!--            android:layout_marginTop="560dp" />-->
 
 <!--ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 상단 선 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
         <View
@@ -267,7 +269,7 @@
                 android:id="@+id/text_club_intro_activities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="동아리 소개 활동계획"
+                android:text="동아리 소개 및 활동계획"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/blue"
