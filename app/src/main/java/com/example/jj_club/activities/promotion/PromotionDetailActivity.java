@@ -106,6 +106,8 @@ public class PromotionDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PromotionDetailActivity.this, ApplicationForm.class);
+                String promotionId = getIntent().getStringExtra("promotion_id"); // Get the promotion_id from the intent
+                intent.putExtra("promotion_id", promotionId); // Add the promotion_id to the intent
                 startActivity(intent);
             }
         });

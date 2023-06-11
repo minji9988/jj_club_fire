@@ -1,32 +1,60 @@
 package com.example.jj_club.models;
 
 public class ApplicationItem {
-    private String appTitle;
-    private String appContent;
+    private String fromUserId;
+    private String promotionId;
+    private String title;
+    private String content;
+    private String sendToUserId;
 
     public ApplicationItem() {
-        // Default constructor required for Firebase
+        // Default constructor required for calls to DataSnapshot.getValue(ApplicationItem.class)
     }
 
-    public ApplicationItem(String appTitle, String appContent) {
-        this.appTitle = appTitle;
-        this.appContent = appContent;
+    public ApplicationItem(String fromUserId, String promotionId, String title, String content) {
+        this.fromUserId = fromUserId;
+        this.promotionId = promotionId;
+        this.title = title;
+        this.content = content;
     }
 
-    public String getAppTitle() {
-        return appTitle;
+    public String getFromUserId() {
+        return fromUserId;
     }
 
-    public void setAppTitle(String appTitle) {
-        this.appTitle = appTitle;
+    public void setFromUserId(String fromUserId) {
+        this.fromUserId = fromUserId;
     }
 
-    public String getAppContent() {
-        return appContent;
+    public String getPromotionId() {
+        return promotionId;
     }
 
-    public void setAppContent(String appContent) {
-        this.appContent = appContent;
+    public void setPromotionId(String promotionId) {
+        this.promotionId = promotionId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getSendToUserId() {
+        return sendToUserId;
+    }
+
+    public void setSendToUserId(String sendToUserId) {
+        this.sendToUserId = sendToUserId;
     }
 }
-
