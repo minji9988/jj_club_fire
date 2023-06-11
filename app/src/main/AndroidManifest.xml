@@ -22,9 +22,6 @@
         <activity
             android:name=".activities.promotion.PromotionDetailActivity"
             android:exported="true" />
-
-    </activity>
-
         <activity
             android:name=".activities.home.LatestPostActivity"
             android:exported="false" />
