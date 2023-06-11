@@ -18,9 +18,12 @@ import com.example.jj_club.activities.promotion.PromotionWrite1;
 import com.example.jj_club.adapters.MainHomeAdapter;
 import com.example.jj_club.models.MainHomeItem;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeFragment extends Fragment {
 
@@ -78,6 +81,20 @@ public class HomeFragment extends Fragment {
         latestPostsRecyclerView.setHasFixedSize(true);
         latestPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         latestPostsRecyclerView.setAdapter(adapter);
+
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // 데이터 로드가 완료된 후, RecyclerView의 스크롤 위치를 설정
+                latestPostsRecyclerView.scrollToPosition(0);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // 에러 발생 시 처리
+                logMessage(databaseError.getMessage());
+            }
+        });
     }
 
 
