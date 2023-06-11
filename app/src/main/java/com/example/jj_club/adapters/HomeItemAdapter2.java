@@ -26,12 +26,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemAdapter.HomeItemViewHolder> {
+public class HomeItemAdapter2 extends FirebaseRecyclerAdapter<HomeItem, HomeItemAdapter2.HomeItemViewHolder> {
 
     private DatabaseReference mDatabase;
     private DatabaseReference mUserLikesDatabase;
 
-    public HomeItemAdapter(@NonNull FirebaseRecyclerOptions<HomeItem> options, DatabaseReference userLikesDatabase) {
+    public HomeItemAdapter2(@NonNull FirebaseRecyclerOptions<HomeItem> options, DatabaseReference userLikesDatabase) {
         super(options);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("promotions");
         mUserLikesDatabase = userLikesDatabase; //this추가
@@ -66,7 +66,7 @@ public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemA
             holder.likeButton.setImageResource(R.drawable.icon_love_outline);
         }
 
-        /*좋아요 누른것만 뜨게하는 추가부분, 이거 추가하면 최신글이 안보인다
+        //좋아요 누른것만 뜨게하는 추가부분, 이거 추가하면 최신글이 안보인다
         if (model.getLikes() != null && model.getLikes().containsKey(userId) && model.getLikes().get(userId)) {
             holder.title.setText(model.getTitle());
             holder.description.setText(model.getPromotionIntroduce());
@@ -75,7 +75,7 @@ public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemA
             // 나머지 코드
         } else {
             holder.itemView.setVisibility(View.GONE); // 좋아요가 true가 아닌 경우 해당 아이템을 숨깁니다.
-        }*/
+        }
 
 
         holder.likeButton.setOnClickListener(new View.OnClickListener() {
@@ -137,9 +137,9 @@ public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemA
                 ((ViewGroup) itemView).addView(homeMoreItemView, layoutParams);
             } else {
                 // Remove any previous home_more_item.xml layout if not liked
-               ((ViewGroup) itemView).removeAllViews();
+                ((ViewGroup) itemView).removeAllViews();
             }
         }
-        
+
     }
 }

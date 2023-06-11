@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jj_club.R;
-import com.example.jj_club.adapters.HomeItemAdapter;
+import com.example.jj_club.adapters.HomeItemAdapter2;
 import com.example.jj_club.adapters.LoveitAdapter;
 import com.example.jj_club.models.HomeItem;
 import com.example.jj_club.models.LoveitItem;
@@ -29,7 +29,7 @@ public class ProfileLoveitActivity extends AppCompatActivity {
 
     private ImageButton btn_GoBackProfile_fromLoveIt;
     private RecyclerView mRecyclerView;
-    private HomeItemAdapter  mAdapter;
+    private HomeItemAdapter2  mAdapter;
     //private RecyclerView.LayoutManager layoutManager; //리사이클러뷰는 레이아웃매니저랑 연결해줘야하는게 있으
     private ArrayList<LoveitItem> arrayList; //어뎁터에서 만든거랑 똑같게
 
@@ -63,7 +63,8 @@ public class ProfileLoveitActivity extends AppCompatActivity {
                         .setQuery(query, HomeItem.class)
                         .build();
 
-        mAdapter = new HomeItemAdapter(options, mUserLikesDatabase);
+       //mAdapter = new HomeItemAdapter2(options, mUserLikesDatabase, mDatabase.child("likes"))
+        mAdapter = new HomeItemAdapter2(options, mUserLikesDatabase);
         mRecyclerView.setAdapter(mAdapter);
 
         //onCreate 메서드에서 mUserLikesDatabase를 초기화하고 "users" 노드에서 현재 사용자의 좋아요 정보를 가져dhrl
