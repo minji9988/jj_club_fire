@@ -1,5 +1,3 @@
-// 홍보글 상세 페이지
-
 package com.example.jj_club.activities.promotion;
 
 import android.os.Bundle;
