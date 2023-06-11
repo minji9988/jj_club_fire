@@ -61,9 +61,19 @@
         <activity
             android:name=".activities.profile.ProfileAlarmActivity"
             android:exported="false" />
+
+
         <activity
             android:name=".activities.mbti.MbtiTestStart"
-            android:exported="false" />
+            android:exported="true" >
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.mbti.MbtiTestQ12Activity"
             android:exported="false" />
@@ -72,9 +82,6 @@
             android:exported="false" />
         <activity
             android:name=".activities.mbti.MbtiTestQ10Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.MbtiTestQ9Activity"
             android:exported="false" />
         <activity
             android:name=".activities.mbti.MbtiTestQ8Activity"
@@ -104,6 +111,11 @@
             android:name=".activities.mbti.entp"
             android:exported="false" />
         <activity
+            android:name=".activities.mbti.infj"
+            android:exported="false" />
+
+
+        <activity
             android:name=".activities.home.SearchActivity"
             android:exported="false" />
         <activity
@@ -111,13 +123,8 @@
             android:exported="false" />
         <activity
             android:name=".activities.register.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".activities.register.EmailVerificationActivity"
             android:exported="true" />

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jj_club.R;
 import com.example.jj_club.adapters.HomeItemAdapter2;
 import com.example.jj_club.models.HomeItem;
+import com.example.jj_club.models.LoveitItem;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
