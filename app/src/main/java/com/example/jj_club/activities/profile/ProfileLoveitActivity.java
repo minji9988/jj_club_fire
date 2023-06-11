@@ -4,43 +4,112 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jj_club.R;
-import com.example.jj_club.adapters.LoveitAdapter;
-import com.example.jj_club.models.LoveitItem;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.example.jj_club.adapters.HomeItemAdapter2;
+import com.example.jj_club.models.HomeItem;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
 public class ProfileLoveitActivity extends AppCompatActivity {
 
     private ImageButton btn_GoBackProfile_fromLoveIt;
-
-    private RecyclerView recycler_loveIt;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager; //리사이클러뷰는 레이아웃매니저랑 연결해줘야하는게 있으
+    private RecyclerView mRecyclerView;
+    private HomeItemAdapter2  mAdapter;
+    //private RecyclerView.LayoutManager layoutManager; //리사이클러뷰는 레이아웃매니저랑 연결해줘야하는게 있으
     private ArrayList<LoveitItem> arrayList; //어뎁터에서 만든거랑 똑같게
-    private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
+
+    //private FirebaseDatabase database;
+    private DatabaseReference mDatabase;
+    private DatabaseReference mUserLikesDatabase; // 사용자가 좋아하는 게시물을 저장하는 Firebase 데이터베이스 참조 객체
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_loveit);
 
-        recycler_loveIt=findViewById(R.id.recycler_loveIt);
+        mRecyclerView = findViewById(R.id.recycler_loveIt);  // 리사이클러뷰 초기화
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true); // 역순으로 아이템 표시
+        layoutManager.setStackFromEnd(true);// 아래쪽에서부터 아이템 쌓기
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        // Firebase 데이터베이스 참조 초기화
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("promotions");
+        mUserLikesDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(getCurrentUserUid()).child("likedPosts");
+
+        Query query = mDatabase.orderByChild("timeStamp");
+        //이거 추가하면 찜목록에 아무것도 안뜸
+        //.equalTo(true);
+
+        FirebaseRecyclerOptions<HomeItem> options =
+                new FirebaseRecyclerOptions.Builder<HomeItem>()
+                        .setQuery(query, HomeItem.class)
+                        .build();
+
+       //mAdapter = new HomeItemAdapter2(options, mUserLikesDatabase, mDatabase.child("likes"))
+        mAdapter = new HomeItemAdapter2(options, mUserLikesDatabase);
+        mRecyclerView.setAdapter(mAdapter);
+
+        //onCreate 메서드에서 mUserLikesDatabase를 초기화하고 "users" 노드에서 현재 사용자의 좋아요 정보를 가져dhrl
+        //database = FirebaseDatabase.getInstance();
+        //mUserLikesDatabase = database.getReference().child("users").child(getCurrentUserUid()).child("likes");
+
+
+        btn_GoBackProfile_fromLoveIt = (ImageButton) findViewById(R.id.btn_GoBackProfile_fromLoveIt);
+        btn_GoBackProfile_fromLoveIt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAdapter.startListening();  // 어댑터의 데이터 청취 시작
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAdapter.stopListening();  // 어댑터의 데이터 청취 중지
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mAdapter.stopListening();  // 어댑터의 데이터 청취 중지
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdapter = null;  // 어댑터 객체 해제
+    }
+    private String getCurrentUserUid() {
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+    }
+}
+
+/*
+recycler_loveIt=findViewById(R.id.recycler_loveIt);
+        recycler_loveIt.setLayoutManager(new LinearLayoutManager(this)); //recycler_loveIt.setLayoutManager(layoutManager);
         recycler_loveIt.setHasFixedSize(true); //리사이클러뷰 성능강화
         layoutManager = new LinearLayoutManager(this);
-        recycler_loveIt.setLayoutManager(layoutManager);
-        arrayList = new ArrayList<>(); //User객체를 담은 어레이리스트(어뎁터쪽으로 날릴려고함)
+        arrayList = new ArrayList<>(); //""객체를 담은 어레이리스트(어뎁터쪽으로 날릴려고함)
 
         database = FirebaseDatabase.getInstance(); //파이어베이스db를 가져와라(연동)
         databaseReference = database.getReference("promotions"); //db테이블 연결,//   firebase콘솔의 User를 의미
@@ -65,16 +134,4 @@ public class ProfileLoveitActivity extends AppCompatActivity {
         adapter = new LoveitAdapter(arrayList,this); //커스텀어뎁터 클래스 여기서 소환
         recycler_loveIt.setAdapter(adapter); //리사이클러뷰에 어뎁터 연결
 
-
-        btn_GoBackProfile_fromLoveIt = (ImageButton) findViewById(R.id.btn_GoBackProfile_fromLoveIt);
-        btn_GoBackProfile_fromLoveIt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-                /*Intent intent = new Intent(ProfileLoveitActivity.this, ProfileFragment.class);
-                startActivity(intent);
-                */
-            }
-        });
-    }
-}
+ */
