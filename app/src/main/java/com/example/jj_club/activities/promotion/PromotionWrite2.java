@@ -32,18 +32,18 @@ import java.util.Map;
 public class PromotionWrite2 extends AppCompatActivity {
     private static final String TAG = "PromotionWrite2";
 
-    private EditText editPromotionNumber;
-    private EditText editPromotionTarget;
-    private EditText editPromotionIntroduce;
-    private EditText editPromotionPlace;
+    private EditText editPromotionNumber;  // 모집 인원 입력 필드
+    private EditText editPromotionTarget;  // 모집 대상 입력 필드
+    private EditText editPromotionIntroduce;  // 모임 소개 입력 필드
+    private EditText editPromotionPlace;  // 모임 장소 입력 필드
 
-    private Button promotion_write2_buttonNext;
-    private Button imageButton;
+    private Button promotion_write2_buttonNext;  // 다음 버튼
+    private Button imageButton;  // 이미지 업로드 버튼
 
-    private String promotionId;
-    private String imageUrl = ""; // Store the image URL after upload
+    private String promotionId;  // 프로모션 ID
+    private String imageUrl = "";  // 이미지 업로드 후 이미지 URL 저장 변수
 
-    private static final int PICK_IMAGE_REQUEST = 1; // Request code for picking image
+    private static final int PICK_IMAGE_REQUEST = 1;  // 이미지 선택 요청 코드
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +56,9 @@ public class PromotionWrite2 extends AppCompatActivity {
         editPromotionPlace = findViewById(R.id.editPromotionPlace);
 
         promotion_write2_buttonNext = findViewById(R.id.promotion_write2_buttonNext);
-        imageButton = findViewById(R.id.buttonPromotionImage1); // Make sure to add this button in your layout
+        imageButton = findViewById(R.id.buttonPromotionImage1);  // 레이아웃에 추가한 이미지 업로드 버튼
 
-        promotionId = getIntent().getStringExtra("promotionId"); // Get the promotionId passed from the previous activity
+        promotionId = getIntent().getStringExtra("promotionId");  // 이전 액티비티로부터 전달받은 프로모션 ID
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,10 +72,10 @@ public class PromotionWrite2 extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
-                    String promotionNumber = editPromotionNumber.getText().toString();
-                    String promotionTarget = editPromotionTarget.getText().toString();
-                    String promotionIntroduce = editPromotionIntroduce.getText().toString();
-                    String promotionPlace = editPromotionPlace.getText().toString();
+                    String promotionNumber = editPromotionNumber.getText().toString();  // 모집 인원
+                    String promotionTarget = editPromotionTarget.getText().toString();  // 모집 대상
+                    String promotionIntroduce = editPromotionIntroduce.getText().toString();  // 모임 소개
+                    String promotionPlace = editPromotionPlace.getText().toString();  // 모임 장소
 
                     if (promotionNumber.isEmpty() || promotionTarget.isEmpty() || promotionIntroduce.isEmpty() || promotionPlace.isEmpty()) {
                         Toast.makeText(PromotionWrite2.this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
@@ -94,6 +94,16 @@ public class PromotionWrite2 extends AppCompatActivity {
         });
     }
 
+    /**
+     * Firebase Realtime Database에 프로모션 정보 저장
+     *
+     * @param promotionId        프로모션 ID
+     * @param userId             사용자 ID
+     * @param promotionNumber    모집 인원
+     * @param promotionTarget    모집 대상
+     * @param promotionIntroduce 모임 소개
+     * @param promotionPlace     모임 장소
+     */
     private void saveToRealtimeDatabase(String promotionId, String userId, String promotionNumber, String promotionTarget, String promotionIntroduce, String promotionPlace) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("promotions").child(promotionId);
 
@@ -108,7 +118,7 @@ public class PromotionWrite2 extends AppCompatActivity {
                 .addOnSuccessListener(aVoid -> {
                     Log.d(TAG, "Promotion added with ID: " + promotionId);
                     Intent intent = new Intent(PromotionWrite2.this, MainActivity.class);
-                    intent.putExtra("promotionId", promotionId); // Pass the promotionId to the next Activity
+                    intent.putExtra("promotionId", promotionId);  // 다음 액티비티로 프로모션 ID 전달
                     startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
@@ -117,8 +127,9 @@ public class PromotionWrite2 extends AppCompatActivity {
                 });
     }
 
-
-
+    /**
+     * 파일 선택기 열기
+     */
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -126,6 +137,13 @@ public class PromotionWrite2 extends AppCompatActivity {
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
+    /**
+     * 이미지 선택 결과 처리
+     *
+     * @param requestCode 요청 코드
+     * @param resultCode  결과 코드
+     * @param data        선택한 이미지 데이터
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -137,6 +155,11 @@ public class PromotionWrite2 extends AppCompatActivity {
         }
     }
 
+    /**
+     * 파일 업로드
+     *
+     * @param fileUri 파일 URI
+     */
     private void uploadFile(Uri fileUri) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("uploads");
 
@@ -151,7 +174,7 @@ public class PromotionWrite2 extends AppCompatActivity {
                             throw task.getException();
                         }
 
-                        // Continue with the task to get the download URL
+                        // 파일 업로드가 성공하면 다운로드 URL 가져오기 위해 작업 계속 진행
                         return fileReference.getDownloadUrl();
                     }
                 }).addOnCompleteListener(new OnCompleteListener<Uri>() {
@@ -159,15 +182,21 @@ public class PromotionWrite2 extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Uri> task) {
                         if (task.isSuccessful()) {
                             Uri downloadUri = task.getResult();
-                            imageUrl = downloadUri.toString(); // Store the image URL
+                            imageUrl = downloadUri.toString();  // 이미지 URL 저장
                         } else {
-                            // Handle failures
+                            // 업로드 실패 처리
                             Toast.makeText(PromotionWrite2.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
+    /**
+     * 파일의 확장자 가져오기
+     *
+     * @param uri 파일 URI
+     * @return 파일의 확장자
+     */
     private String getFileExtension(Uri uri) {
         return MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(uri));
     }

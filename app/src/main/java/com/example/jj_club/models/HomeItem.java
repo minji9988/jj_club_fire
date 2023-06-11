@@ -4,21 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HomeItem {
-    private String title; // 홈 아이템의 제목
-    private String recruitPeriod; // 모집 기간
-    private String fee; // 회비
-    private String interview; // 면접 여부
-    private String meetingName; // 모임 이름
-    private String userId; // 유저의 ID
-    private String promotionNumber; // 홍보 번호
-    private String promotionTarget; // 모집 대상
-    private String promotionIntroduce; // 모임 소개
-    private String promotionPlace; // 모임 장소
-    private Long timeStamp; // 타임스탬프 (아이템 생성 시간)
-    private Long reversedTimestamp; // 추가된 속성: 리버스 타임스탬프 (정렬을 위한 역순 타임스탬프)
-    private Map<String, Boolean> likes; // 좋아요 맵 (키: 유저 ID, 값: 좋아요 여부)
-
-    private String imageUrl;  // 추가된 속성: 이미지 URL
+    private String title;  // 게시물 제목
+    private String recruitPeriod;  // 모집 기간
+    private String fee;  // 회비
+    private String interview;  // 면접 유무
+    private String meetingName;  // 모임 이름
+    private String userId;  // 사용자 ID
+    private String promotionNumber;  // 모집 인원
+    private String promotionTarget;  // 모집 대상
+    private String promotionIntroduce;  // 모임 소개 및 활동 계획
+    private String promotionPlace;  // 모임 장소
+    private Long timeStamp;  // 게시물 작성 시간
+    private Long reversedTimestamp;  // 역순으로 정렬된 타임스탬프
+    private Map<String, Boolean> likes;  // 게시물 좋아요 정보
+    private String imageUrl;  // 이미지 URL
 
     public HomeItem() {
     }
@@ -39,16 +38,6 @@ public class HomeItem {
         this.likes = new HashMap<>();
         this.imageUrl = imageUrl;
     }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    // Existing getters and setters...
 
     public String getTitle() {
         return title;
@@ -98,6 +87,38 @@ public class HomeItem {
         this.userId = userId;
     }
 
+    public String getPromotionNumber() {
+        return promotionNumber;
+    }
+
+    public void setPromotionNumber(String promotionNumber) {
+        this.promotionNumber = promotionNumber;
+    }
+
+    public String getPromotionTarget() {
+        return promotionTarget;
+    }
+
+    public void setPromotionTarget(String promotionTarget) {
+        this.promotionTarget = promotionTarget;
+    }
+
+    public String getPromotionIntroduce() {
+        return promotionIntroduce;
+    }
+
+    public void setPromotionIntroduce(String promotionIntroduce) {
+        this.promotionIntroduce = promotionIntroduce;
+    }
+
+    public String getPromotionPlace() {
+        return promotionPlace;
+    }
+
+    public void setPromotionPlace(String promotionPlace) {
+        this.promotionPlace = promotionPlace;
+    }
+
     public Long getTimeStamp() {
         return timeStamp;
     }
@@ -120,5 +141,13 @@ public class HomeItem {
 
     public void setLikes(Map<String, Boolean> likes) {
         this.likes = likes;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

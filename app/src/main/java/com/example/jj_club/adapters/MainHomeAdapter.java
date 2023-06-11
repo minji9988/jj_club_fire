@@ -1,5 +1,6 @@
 package com.example.jj_club.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.jj_club.R;
+import com.example.jj_club.activities.promotion.PromotionDetailActivity;
 import com.example.jj_club.models.MainHomeItem;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+
+// 메인 페이지와 연결된 것
 
 public class MainHomeAdapter extends FirebaseRecyclerAdapter<MainHomeItem, MainHomeAdapter.MainHomeViewHolder> {
 
@@ -29,6 +33,17 @@ public class MainHomeAdapter extends FirebaseRecyclerAdapter<MainHomeItem, MainH
                 .into(holder.imageView);
         holder.titleTextView.setText(model.getTitle());
         holder.recruitPeriodTextView.setText(model.getRecruitPeriod());
+
+        String itemId = getRef(position).getKey(); // Add this line to get the ID of the current item
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.itemView.getContext(), PromotionDetailActivity.class);
+                intent.putExtra("promotion_id", itemId); // Pass the item ID as an extra
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @NonNull
