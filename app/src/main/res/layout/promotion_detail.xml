@@ -244,25 +244,6 @@
             android:layout_marginTop="20dp"
             >
 
-<!--            &lt;!&ndash; 한줄소개 &ndash;&gt;-->
-<!--            <TextView-->
-<!--                android:id="@+id/text_one_line_intro"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="한 줄 소개"-->
-<!--                android:textSize="20sp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textColor="@color/blue"-->
-<!--                />-->
-
-<!--            &lt;!&ndash; 한줄소개 상세내용 &ndash;&gt;-->
-<!--            <TextView-->
-<!--                android:id="@+id/text_one_line_intro_details"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="한줄소개 상세내용"-->
-<!--                android:textSize="16sp"-->
-<!--                android:layout_marginTop="10dp" />-->
 
             <!-- 동아리 소개&활동계획 -->
             <TextView
@@ -326,24 +307,24 @@
 
 
         <!-- 채팅 탭의 내용 -->
-        <LinearLayout
-            android:id="@+id/layout_chatting"
+        <FrameLayout
+            android:id="@+id/chat_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/view_separator"
-            android:orientation="vertical">
+            android:layout_marginTop="60dp">
 
+        </FrameLayout>
 
-            <!-- 채팅방 리스트 -->
+        <!-- 채팅 메시지를 보여주는 RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_chat_list"
+                android:id="@+id/recycler_view_chat"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_marginTop="90dp"
-                android:padding="10dp" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="16dp" />
 
-    </LinearLayout>
+
 
 
     </RelativeLayout>

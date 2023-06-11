@@ -2,7 +2,6 @@ package com.example.jj_club.activities.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,18 +18,14 @@ import com.example.jj_club.activities.promotion.PromotionWrite1;
 import com.example.jj_club.adapters.MainHomeAdapter;
 import com.example.jj_club.models.MainHomeItem;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class HomeFragment extends Fragment {
-
-    private static final String TAG = "HomeFragment";
     private RecyclerView latestPostsRecyclerView;
     private MainHomeAdapter adapter;
+    private ChatFragment chatFragment;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -63,12 +59,17 @@ public class HomeFragment extends Fragment {
         TextView moreLatestPostsTextView = view.findViewById(R.id.btn_more_latest_posts);
         moreLatestPostsTextView.setOnClickListener(new MoreLatestPostsClickListener());
 
+        // ChatFragment 추가
+        chatFragment = ChatFragment.newInstance();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.chat_fragment_container, chatFragment);
+        transaction.commit();
+
         return view;
     }
 
     private void setupRecyclerView(View view) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("promotions");
-        DatabaseReference userLikesDatabase = FirebaseDatabase.getInstance().getReference().child("userLikes");
         Query query = databaseRef.orderByChild("reversedTimestamp");
 
         FirebaseRecyclerOptions<MainHomeItem> options = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
@@ -81,22 +82,7 @@ public class HomeFragment extends Fragment {
         latestPostsRecyclerView.setHasFixedSize(true);
         latestPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         latestPostsRecyclerView.setAdapter(adapter);
-
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // 데이터 로드가 완료된 후, RecyclerView의 스크롤 위치를 설정
-                latestPostsRecyclerView.scrollToPosition(0);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // 에러 발생 시 처리
-                logMessage(databaseError.getMessage());
-            }
-        });
     }
-
 
     @Override
     public void onStart() {
@@ -107,15 +93,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        // adapter.stopListening();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
         adapter.stopListening();
     }
-
 
     private class MoreLatestPostsClickListener implements View.OnClickListener {
         @Override
@@ -124,11 +103,5 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(getActivity(), LatestPostActivity.class);
             startActivity(intent);
         }
-    }
-
-
-    // Logcat에 오류 및 디버그 메시지 출력을 위한 메서드
-    private void logMessage(String message) {
-        Log.d(TAG, message);
     }
 }
