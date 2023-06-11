@@ -52,7 +52,6 @@ dependencies {
     // Firebase를 Android 앱과 쉽게 통합할 수 있게 해주는 도구 세트
     implementation 'com.firebaseui:firebase-ui-database:8.0.2'
 
-
     // Firebase Realtime Database
     implementation 'com.google.firebase:firebase-database'
 
