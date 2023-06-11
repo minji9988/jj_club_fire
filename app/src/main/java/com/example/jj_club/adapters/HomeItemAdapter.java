@@ -1,6 +1,5 @@
 package com.example.jj_club.adapters;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.jj_club.R;
-import com.example.jj_club.activities.promotion.PromotionDetailActivity;
 import com.example.jj_club.models.HomeItem;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -27,6 +25,7 @@ public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemA
 
     private DatabaseReference mDatabase;
     private DatabaseReference mUserLikesDatabase;
+    private OnItemClickListener mListener;
 
     public HomeItemAdapter(@NonNull FirebaseRecyclerOptions<HomeItem> options, DatabaseReference userLikesDatabase) {
         super(options);
@@ -80,15 +79,22 @@ public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemA
             }
         });
 
-        // itemView를 클릭했을 때 PromotionDetailActivity로 이동합니다.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PromotionDetailActivity.class);
-                intent.putExtra("PostId", postId);
-                v.getContext().startActivity(intent);
+                if (mListener != null) {
+                    mListener.onItemClick(postId);
+                }
             }
         });
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(String postId);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
     }
 
     static class HomeItemViewHolder extends RecyclerView.ViewHolder {

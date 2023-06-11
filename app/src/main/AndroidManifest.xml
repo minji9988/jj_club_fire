@@ -19,6 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Jj_club"
         tools:targetApi="31" >
+
+
         <activity
             android:name=".activities.promotion.PromotionDetailActivity"
             android:exported="true" />

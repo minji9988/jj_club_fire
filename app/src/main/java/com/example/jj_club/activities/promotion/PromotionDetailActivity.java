@@ -88,7 +88,8 @@ public class PromotionDetailActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                finish();  // Close the current activity and go back to the previous activity
+                Log.d("PromotionDetailActivity", "Back button pressed");  // Add log message for back button click
             }
         });
 
