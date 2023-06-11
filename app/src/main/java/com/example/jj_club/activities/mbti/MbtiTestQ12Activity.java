@@ -40,6 +40,7 @@ public class MbtiTestQ12Activity extends AppCompatActivity {
                 // '반복되고, 체계적인 일상이 좋아.' 버튼이 클릭되었을 때
                 jPoints++; // J에 1 포인트 추가
                 handlePageTransition();
+                saveMbtiToFirebase(calculateMbti()); // Calculate and save MBTI to Firebase
             }
         });
 
@@ -49,6 +50,7 @@ public class MbtiTestQ12Activity extends AppCompatActivity {
                 // '매일매일 변화가 있어야지!' 버튼이 클릭되었을 때
                 pPoints++; // P에 1 포인트 추가
                 handlePageTransition();
+                saveMbtiToFirebase(calculateMbti()); // Calculate and save MBTI to Firebase
             }
         });
     }
@@ -149,5 +151,10 @@ public class MbtiTestQ12Activity extends AppCompatActivity {
         }
 
         return mbti;
+    }
+
+    private void saveMbtiToFirebase(String mbti) {
+        // Save the calculated MBTI to Firebase
+        // Your code for saving to Firebase here
     }
 }
