@@ -15,6 +15,7 @@ public class MbtiTestQ11Activity extends AppCompatActivity {
     private Button btnLogin1;
     private Button btnLogin2;
 
+
     private int jScore = 0; // I의 점수
     private int pScore = 0; // E의 점수
 

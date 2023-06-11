@@ -16,7 +16,6 @@ public class entp extends AppCompatActivity {
     private Button btnLogin1;
 
 
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

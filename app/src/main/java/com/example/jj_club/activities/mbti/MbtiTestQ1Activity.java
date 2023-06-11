@@ -17,6 +17,7 @@ public class MbtiTestQ1Activity extends AppCompatActivity {
     private int iScore = 0; // I의 점수
     private int eScore = 0; // E의 점수
 
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

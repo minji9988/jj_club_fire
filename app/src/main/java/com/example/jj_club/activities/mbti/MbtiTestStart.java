@@ -11,6 +11,7 @@ import com.example.jj_club.R;
 
 public class MbtiTestStart extends AppCompatActivity {
 
+
     private Button btnStartTest;
 
 //여기서 작업

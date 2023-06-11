@@ -15,6 +15,7 @@ public class MbtiTestQ6Activity extends AppCompatActivity {
     private Button btnLogin1;
     private Button btnLogin2;
 
+
     private int tScore = 0; // I의 점수
     private int fScore = 0; // E의 점수
 

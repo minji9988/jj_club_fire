@@ -50,6 +50,7 @@ public class MbtiTestQ4Activity extends AppCompatActivity {
         });
     }
 
+
     // 다음 질문 페이지로 이동하는 메소드
     private void goToNextQuestion() {
         // MbtiTestQ2Activity로 이동

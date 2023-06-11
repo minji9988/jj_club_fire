@@ -15,6 +15,7 @@ public class MbtiTestQ12Activity extends AppCompatActivity {
     private Button btnLogin1;
     private Button btnLogin2;
 
+
     private int iPoints = 0; // I에 대한 포인트
     private int ePoints = 0; // E에 대한 포인트
     private int sPoints = 0; // S에 대한 포인트
