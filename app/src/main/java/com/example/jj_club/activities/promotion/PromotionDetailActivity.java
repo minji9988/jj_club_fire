@@ -97,6 +97,10 @@ public class PromotionDetailActivity extends AppCompatActivity {
             }
         });
 
+        // Hide the chat-related elements initially
+        layoutChatting.setVisibility(View.GONE);
+
+      
         // Set the onClickListener for the apply button
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +109,7 @@ public class PromotionDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
         // Get data from the database
         String key = getIntent().getStringExtra("promotion_id"); // get the key from the intent
