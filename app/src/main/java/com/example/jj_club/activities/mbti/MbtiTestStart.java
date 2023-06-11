@@ -8,12 +8,12 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jj_club.R;
-import com.example.jj_club.activities.mbti.MbtiTestQ1Activity;
 
 public class MbtiTestStart extends AppCompatActivity {
 
     private Button btnStartTest;
 
+//여기서 작업
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +24,7 @@ public class MbtiTestStart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create an instance of MbtiTestQ1Activity and start it
-                Intent intent = new Intent(MbtiTestStart.this, MbtiTestQ1Activity.class);
+                Intent intent = new Intent(MbtiTestStart.this, com.example.jj_club.activities.mbti.MbtiTestQ1Activity.class);
                 startActivity(intent);
             }
         });
