@@ -20,9 +20,9 @@
             android:layout_marginTop="53dp" />
 
         <!-- 신청하기 버튼 -->
-        <Button
+        <android.widget.Button
             android:id="@+id/promotion_apply_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="77dp"
             android:layout_height="48dp"
             android:layout_marginTop="42dp"
             android:layout_marginLeft="309dp"

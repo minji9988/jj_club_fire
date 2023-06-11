@@ -1,8 +1,10 @@
 package com.example.jj_club.activities.promotion;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,6 +28,7 @@ public class PromotionDetailActivity extends AppCompatActivity {
     private LinearLayout layoutCalendar;
     private LinearLayout layoutChatting;
     private ImageButton btnBack;
+    private Button btnApply; // Added button for applying
 
     // Views for intro layout
     private ImageView imagePromotion;
@@ -41,6 +44,7 @@ public class PromotionDetailActivity extends AppCompatActivity {
         layoutCalendar = findViewById(R.id.layout_calendar);
         layoutChatting = findViewById(R.id.layout_chatting);
         btnBack = findViewById(R.id.promotion_detail_btn_back);
+        btnApply = findViewById(R.id.promotion_apply_btn); // Initialize the apply button
 
         // Find the views in intro layout
         imagePromotion = findViewById(R.id.image_promotion);
@@ -90,6 +94,15 @@ public class PromotionDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 finish();  // Close the current activity and go back to the previous activity
                 Log.d("PromotionDetailActivity", "Back button pressed");  // Add log message for back button click
+            }
+        });
+
+        // Set the onClickListener for the apply button
+        btnApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PromotionDetailActivity.this, ApplicationForm.class);
+                startActivity(intent);
             }
         });
 
