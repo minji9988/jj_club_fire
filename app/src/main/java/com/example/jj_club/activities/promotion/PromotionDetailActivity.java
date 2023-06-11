@@ -93,6 +93,9 @@ public class PromotionDetailActivity extends AppCompatActivity {
             }
         });
 
+        // Hide the chat-related elements initially
+        layoutChatting.setVisibility(View.GONE);
+
         // Get data from the database
         String key = getIntent().getStringExtra("promotion_id"); // get the key from the intent
 
