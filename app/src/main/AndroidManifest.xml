@@ -22,8 +22,6 @@
         <activity
             android:name=".activities.promotion.PromotionDetailActivity"
             android:exported="true" />
-
-
         <activity
             android:name=".activities.home.LatestPostActivity"
             android:exported="false" />
@@ -112,12 +110,13 @@
             android:name=".activities.register.LoginActivity"
             android:exported="true" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+      </activity>
         <activity
             android:name=".activities.register.EmailVerificationActivity"
             android:exported="true" />
