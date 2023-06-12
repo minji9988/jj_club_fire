@@ -86,11 +86,11 @@
         android:layout_marginLeft="43dp" />
 
     <android.widget.Button
-        android:id="@+id/promotion_2_filter_entf_btn"
+        android:id="@+id/promotion_2_filter_entj_btn"
         android:layout_width="94dp"
         android:layout_height="45dp"
         android:background="@drawable/shadow"
-        android:text="ENTF"
+        android:text="ENTJ"
         android:textSize="17dp"
         android:layout_marginTop="818dp"
         android:layout_marginLeft="42dp" />
@@ -103,7 +103,7 @@
         android:text="ENFJ"
         android:textSize="17dp"
         android:layout_marginTop="818dp"
-        android:layout_toRightOf="@id/promotion_2_filter_entf_btn"
+        android:layout_toRightOf="@id/promotion_2_filter_entj_btn"
         android:layout_marginLeft="20dp" />
 
 </RelativeLayout>

@@ -1,28 +1,32 @@
 package com.example.jj_club.models;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HomeItem {
-    private String title;  // 게시물 제목
-    private String recruitPeriod;  // 모집 기간
-    private String fee;  // 회비
-    private String interview;  // 면접 유무
-    private String meetingName;  // 모임 이름
-    private String userId;  // 사용자 ID
-    private String promotionNumber;  // 모집 인원
-    private String promotionTarget;  // 모집 대상
+    private String title;               // 게시물 제목
+    private String recruitPeriod;       // 모집 기간
+    private String fee;                 // 회비
+    private String interview;           // 면접 유무
+    private String meetingName;         // 모임 이름
+    private String userId;              // 사용자 ID
+    private String promotionNumber;     // 모집 인원
+    private String promotionTarget;     // 모집 대상
     private String promotionIntroduce;  // 모임 소개 및 활동 계획
-    private String promotionPlace;  // 모임 장소
-    private Long timeStamp;  // 게시물 작성 시간
-    private Long reversedTimestamp;  // 역순으로 정렬된 타임스탬프
-    private Map<String, Boolean> likes;  // 게시물 좋아요 정보
-    private String imageUrl;  // 이미지 URL
+    private String promotionPlace;      // 모임 장소
+    private Long timeStamp;             // 게시물 작성 시간
+    private Long reversedTimestamp;     // 역순으로 정렬된 타임스탬프
+    private Map<String, Boolean> likes; // 게시물 좋아요 정보
+    private String imageUrl;           // 이미지 URL
+    private List<String> selectedButtons;  // 선택한 버튼의 텍스트들
 
-    public HomeItem() {
-    }
+    public HomeItem() {}
 
-    public HomeItem(String title, String recruitPeriod, String fee, String interview, String meetingName, String userId, String promotionNumber, String promotionTarget, String promotionIntroduce, String promotionPlace, String imageUrl) {
+    public HomeItem(String title, String recruitPeriod, String fee, String interview,
+                    String meetingName, String userId, String promotionNumber, String promotionTarget,
+                    String promotionIntroduce, String promotionPlace, String imageUrl, List<String> selectedButtons) {
+
         this.title = title;
         this.recruitPeriod = recruitPeriod;
         this.fee = fee;
@@ -37,8 +41,10 @@ public class HomeItem {
         this.reversedTimestamp = Long.MAX_VALUE - this.timeStamp;
         this.likes = new HashMap<>();
         this.imageUrl = imageUrl;
+        this.selectedButtons = selectedButtons;
     }
 
+    //getter and setter methods
     public String getTitle() {
         return title;
     }
@@ -149,5 +155,13 @@ public class HomeItem {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public List<String> getSelectedButtons() {
+        return selectedButtons;
+    }
+
+    public void setSelectedButtons(List<String> selectedButtons) {
+        this.selectedButtons = selectedButtons;
     }
 }

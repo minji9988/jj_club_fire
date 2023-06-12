@@ -27,6 +27,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PromotionWrite2 extends AppCompatActivity {
@@ -42,6 +43,7 @@ public class PromotionWrite2 extends AppCompatActivity {
 
     private String promotionId;  // 프로모션 ID
     private String imageUrl = "";  // 이미지 업로드 후 이미지 URL 저장 변수
+    private List<String> selectedButtons;  // 선택한 버튼의 텍스트들
 
     private static final int PICK_IMAGE_REQUEST = 1;  // 이미지 선택 요청 코드
 
@@ -101,6 +103,15 @@ public class PromotionWrite2 extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+
+        // Get the selectedButtons list from the intent
+        selectedButtons = intent.getStringArrayListExtra("selectedButtons");
+    }
+
     /**
      * Firebase Realtime Database에 프로모션 정보 저장
      *
@@ -118,6 +129,7 @@ public class PromotionWrite2 extends AppCompatActivity {
         promotionUpdates.put("promotionTarget", promotionTarget);
         promotionUpdates.put("promotionIntroduce", promotionIntroduce);
         promotionUpdates.put("imageUrl", imageUrl);
+        promotionUpdates.put("selectedButtons", selectedButtons);  // Add the selectedButtons list to the Firebase update
 
         databaseRef.updateChildren(promotionUpdates)
                 .addOnSuccessListener(aVoid -> {
