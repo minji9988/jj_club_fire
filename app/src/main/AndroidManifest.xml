@@ -19,7 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Jj_club"
         tools:targetApi="31">
-
+        <activity
+            android:name=".activities.promotion.StudyClubFilterActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.promotion.ApplicationForm"
             android:exported="false" />
@@ -62,8 +64,6 @@
         <activity
             android:name=".activities.profile.ProfileAlarmActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".activities.mbti.MbtiTestQ12Activity"
             android:exported="false" />
@@ -103,12 +103,9 @@
         <activity
             android:name=".activities.mbti.entp"
             android:exported="false" />
-
         <activity
             android:name=".activities.mbti.infj"
             android:exported="false" />
-
-
         <activity
             android:name=".activities.home.SearchActivity"
             android:exported="false" />
@@ -127,7 +124,6 @@
         <activity
             android:name=".activities.mbti.MbtiTestStart"
             android:exported="true" />
-
         <activity
             android:name=".activities.register.EmailVerificationActivity"
             android:exported="true" />

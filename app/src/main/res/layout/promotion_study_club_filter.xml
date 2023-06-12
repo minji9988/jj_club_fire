@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.promotion.StudyClubFilterActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="필터"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginTop="42dp"
+        android:layout_marginLeft="88dp" />
+
+    <Button
+        android:id="@+id/promotionWrite2_filter_check_btn"
+        android:layout_width="80dp"
+        android:layout_height="49dp"
+        android:text="완료"
+        android:textSize="15dp"
+        android:layout_marginLeft="318dp"
+        android:layout_marginTop="38dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="유형"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:layout_marginTop="168dp"
+        android:layout_marginLeft="43dp" />
+
+    <android.widget.Button
+        android:id="@+id/promotion_2_filter_study_btn"
+        android:layout_width="94dp"
+        android:layout_height="45dp"
+        android:background="@drawable/shadow"
+        android:text="스터디"
+        android:textSize="17dp"
+        android:layout_marginTop="228dp"
+        android:layout_marginLeft="42dp" />
+
+    <android.widget.Button
+        android:id="@+id/promotion_2_filter_club_btn"
+        android:layout_width="94dp"
+        android:layout_height="45dp"
+        android:background="@drawable/shadow"
+        android:text="동아리"
+        android:textSize="17dp"
+        android:layout_toRightOf="@id/promotion_2_filter_study_btn"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="228dp" />
+
+    <android.widget.Button
+        android:id="@+id/promotion_2_filter_misc_btn"
+        android:layout_width="94dp"
+        android:layout_height="45dp"
+        android:background="@drawable/shadow"
+        android:text="기타"
+        android:textSize="17dp"
+        android:layout_toRightOf="@id/promotion_2_filter_club_btn"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="228dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="종류"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:layout_marginTop="308dp"
+        android:layout_marginLeft="43dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MBTI"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:layout_marginTop="758dp"
+        android:layout_marginLeft="43dp" />
+
+    <android.widget.Button
+        android:id="@+id/promotion_2_filter_entf_btn"
+        android:layout_width="94dp"
+        android:layout_height="45dp"
+        android:background="@drawable/shadow"
+        android:text="ENTF"
+        android:textSize="17dp"
+        android:layout_marginTop="818dp"
+        android:layout_marginLeft="42dp" />
+
+    <android.widget.Button
+        android:id="@+id/promotion_2_filter_enfj_btn"
+        android:layout_width="94dp"
+        android:layout_height="45dp"
+        android:background="@drawable/shadow"
+        android:text="ENFJ"
+        android:textSize="17dp"
+        android:layout_marginTop="818dp"
+        android:layout_toRightOf="@id/promotion_2_filter_entf_btn"
+        android:layout_marginLeft="20dp" />
+
+</RelativeLayout>
