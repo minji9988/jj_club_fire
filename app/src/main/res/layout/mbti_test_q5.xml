@@ -1,0 +1,97 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ffffff"
+    tools:context=".activities.mbti.MbtiTestQ5Activity">
+
+    <TextView
+        android:id="@+id/textViewType2"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="156dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginTop="360dp"
+        android:layout_marginEnd="135dp"
+        android:layout_marginBottom="399dp"
+        android:lineSpacingExtra="9sp"
+        android:text="시험 기간 때"
+        android:textColor="#3c3c3c"
+        android:textSize="22sp"
+        android:textStyle="normal" />
+
+    <android.widget.Button
+        android:id="@+id/button10"
+        android:layout_width="344dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="658dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="110dp"
+        android:background="@drawable/btn_round_blue_box"
+        android:text="지난 시험 문제는 어떻게 나왔지?"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textViewType"
+        android:layout_width="223dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="104dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginTop="403dp"
+        android:layout_marginEnd="83dp"
+        android:layout_marginBottom="399dp"
+        android:lineSpacingExtra="9sp"
+        android:text="당신이 자주하는 생각은?"
+        android:textColor="#3c3c3c"
+        android:textSize="22sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="128dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginLeft="184dp"
+        android:layout_marginTop="143dp"
+        android:layout_marginEnd="59dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="14sp"
+        android:text="Q5"
+        android:textColor="#1c7eff"
+        android:textSize="44sp"
+        android:textStyle="bold" />
+
+    <android.widget.Button
+        android:id="@+id/button9"
+        android:layout_width="344dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="568dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="198dp"
+        android:background="@drawable/btn_round_blue_box"
+        android:text="시험은 왜 존재하는가?"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+
+</RelativeLayout>
