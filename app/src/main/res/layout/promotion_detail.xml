@@ -20,9 +20,9 @@
             android:layout_marginTop="53dp" />
 
         <!-- 신청하기 버튼 -->
-        <Button
+        <android.widget.Button
             android:id="@+id/promotion_apply_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="77dp"
             android:layout_height="48dp"
             android:layout_marginTop="42dp"
             android:layout_marginLeft="309dp"
@@ -324,23 +324,27 @@
 
         </LinearLayout>
 
+
         <!-- 채팅 탭의 내용 -->
         <LinearLayout
             android:id="@+id/layout_chatting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tab_layout"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:visibility="gone">
+            android:layout_below="@id/view_separator"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="chat"
-                android:textSize="50dp"/>
 
-        </LinearLayout>
+            <!-- 채팅방 리스트 -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_chat_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginTop="90dp"
+                android:padding="10dp" />
+
+    </LinearLayout>
+
 
     </RelativeLayout>
 </ScrollView>
