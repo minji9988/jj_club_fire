@@ -4,16 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.jj_club.R;
 import com.example.jj_club.activities.register.LoginActivity;
@@ -160,7 +158,7 @@ public class ProfileFragment extends Fragment {
                         .setTitle("회원탈퇴").setMessage("정말로 회원을 탈퇴하시겠습니까?")
                         .setPositiveButton("예", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                
+
                                 firebaseAuth.getCurrentUser().delete();
                                 Intent i = new Intent(getActivity(), LoginActivity.class/*이동 액티비티 위치*/);
                                 startActivity(i);
@@ -198,7 +196,7 @@ public class ProfileFragment extends Fragment {
         text_loveIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProfileLoveitActivity.class);
+                Intent intent = new Intent(getActivity(), com.example.jj_club.activities.profile.ProfileLoveitActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent); //액티비티 이동
             }
