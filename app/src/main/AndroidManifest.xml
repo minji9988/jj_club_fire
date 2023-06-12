@@ -19,9 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Jj_club"
         tools:targetApi="31">
-        <activity
-            android:name=".activities.promotion.ChatRoom"
-            android:exported="false" />
+
         <activity
             android:name=".activities.promotion.ApplicationForm"
             android:exported="false" />
