@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jj_club.R;
 import com.example.jj_club.adapters.HomeItemAdapter2;
 import com.example.jj_club.models.HomeItem;
-import com.example.jj_club.models.LoveitItem;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +25,7 @@ public class ProfileLoveitActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private HomeItemAdapter2  mAdapter;
     //private RecyclerView.LayoutManager layoutManager; //리사이클러뷰는 레이아웃매니저랑 연결해줘야하는게 있으
-    private ArrayList<LoveitItem> arrayList; //어뎁터에서 만든거랑 똑같게
+    //private ArrayList<HomeItem> arrayList; //어뎁터에서 만든거랑 똑같게
 
     //private FirebaseDatabase database;
     private DatabaseReference mDatabase;

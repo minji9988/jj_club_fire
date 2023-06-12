@@ -67,7 +67,7 @@ public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemA
 
         /*좋아요 누른것만 뜨게하는 추가부분, 이거 추가하면 최신글이 안보인다
         if (model.getLikes() != null && model.getLikes().containsKey(userId) && model.getLikes().get(userId)) {
-            holder.title.setText(model.getTitle());
+            holder.title.setText(model.get Title());
             holder.description.setText(model.getPromotionIntroduce());
             holder.likeCount.setText(String.valueOf(model.getLikes() != null ? model.getLikes().size() : 0));
 
