@@ -67,53 +67,6 @@
 
 
         <activity
-            android:name=".activities.mbti.MbtiTestStart"
-            android:exported="true" />
-
-
-
-        <activity
-            android:name=".activities.mbti.MbtiTestQ12Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.MbtiTestQ11Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.MbtiTestQ10Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.MbtiTestQ8Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.MbtiTestQ7Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.MbtiTestQ6Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.MbtiTestQ5Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.MbtiTestQ4Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.MbtiTestQ3Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.MbtiTestQ2Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.MbtiTestQ1Activity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.entp"
-            android:exported="false" />
-        <activity
-            android:name=".activities.mbti.infj"
-            android:exported="false" />
-
-
-        <activity
             android:name=".activities.home.SearchActivity"
             android:exported="false" />
         <activity
