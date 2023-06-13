@@ -30,7 +30,7 @@
         android:text="신청서 작성"
         android:textColor="#3c3c3c"
         android:textSize="28sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/button_back"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.widget.Button
@@ -52,37 +52,34 @@
         android:layout_height="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="243dp"
+        android:layout_marginTop="153dp"
         android:layout_marginLeft="42dp"
         android:background="@drawable/btn_round_blue_box"></View>
 
-
+    <!--이름-->
     <EditText
-        android:id="@+id/editTextAppTitle"
+        android:id="@+id/editTextAppName"
         android:layout_width="344dp"
         android:layout_height="70dp"
-        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="274dp"
-        android:layout_marginRight="39dp"
+        android:layout_marginTop="184dp"
         android:background="@drawable/edittext_rounded_corner_rectangle"
         android:ems="10"
-        android:hint="  글의 제목을 입력해 주세요."
+        android:hint="  실명을 입력해 주세요."
         android:inputType="text"
         android:textColorHint="#29000000" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="48dp"
+        android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="239dp"
+        android:layout_marginTop="149dp"
         android:layout_marginLeft="55dp"
         android:lineSpacingExtra="8sp"
-        android:text="제목"
+        android:text="이름"
         android:textColor="#707070"
         android:textSize="16sp"
         android:fontFamily="@font/fontregular"
@@ -95,11 +92,41 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="55dp"
-        android:layout_marginTop="374dp"
+        android:layout_marginTop="279dp"
         android:fontFamily="@font/fontregular"
         android:includeFontPadding="false"
         android:lineSpacingExtra="8sp"
-        android:text="내용"
+        android:text="학번"
+        android:textColor="#707070"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="420dp"
+        android:fontFamily="@font/fontregular"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="8sp"
+        android:text="전화번호"
+        android:textColor="#707070"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="554dp"
+        android:fontFamily="@font/fontregular"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="8sp"
+        android:text="자기소개"
         android:textColor="#707070"
         android:textSize="16sp" />
 
@@ -110,21 +137,70 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="42dp"
-        android:layout_marginTop="377dp"
+        android:layout_marginTop="283dp"
         android:background="@drawable/btn_round_blue_box"></View>
 
+    <View
+        android:id="@+id/view3"
+        android:layout_width="3dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="423dp"
+        android:background="@drawable/btn_round_blue_box"></View>
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="3dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="557dp"
+        android:background="@drawable/btn_round_blue_box"></View>
+
+    <!--학번-->
     <EditText
-        android:id="@+id/editTextAppContent"
+        android:id="@+id/editTextAppNumber"
         android:layout_width="344dp"
-        android:layout_height="294dp"
+        android:layout_height="70dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="408dp"
+        android:layout_marginTop="318dp"
         android:background="@drawable/edittext_rounded_corner_rectangle"
         android:ems="10"
-        android:hint="\n  신청서 내용을 입력해 주세요."
-        android:inputType="textMultiLine"
+        android:hint="  학번을 입력해 주세요."
+        android:inputType="number"
+        android:textColorHint="#29000000" />
+
+    <!--전화번호-->
+    <EditText
+        android:id="@+id/editTextAppPhone"
+        android:layout_width="344dp"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="454dp"
+        android:background="@drawable/edittext_rounded_corner_rectangle"
+        android:ems="10"
+        android:hint="  전화번호를 입력해 주세요."
+        android:inputType="number"
+        android:textColorHint="#29000000" />
+
+    <!--자기소개-->
+    <EditText
+        android:id="@+id/editTextAppIntro"
+        android:layout_width="344dp"
+        android:layout_height="414dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="588dp"
+        android:background="@drawable/edittext_rounded_corner_rectangle"
+        android:ems="10"
         android:gravity="top"
+        android:hint="\n  자기소개서를 작성해 주세요.\n\n  해당 모임에 지원한 사유와\n  모임 관련 유사경험을 작성하면 좋아요!"
+        android:inputType="textMultiLine"
         android:textColorHint="#29000000" />
 
 </RelativeLayout>
