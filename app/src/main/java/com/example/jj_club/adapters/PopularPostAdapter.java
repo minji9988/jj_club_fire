@@ -26,21 +26,24 @@ public class PopularPostAdapter extends FirebaseRecyclerAdapter<MainHomeItem, Po
     @NonNull
     @Override
     public PopularPostHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the item layout
+        // Inflate the item layout in reverse order
         return new PopularPostHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_home_item, parent, false));
     }
 
     @Override
     protected void onBindViewHolder(@NonNull PopularPostHolder holder, int position, @NonNull MainHomeItem model) {
+        // Adjust the position to bind items in reverse order
+        int reversePosition = getItemCount() - 1 - position;
+
         // Populate the item with the data in model
         Glide.with(holder.itemView.getContext())
-                .load(model.getImageUrl())
+                .load(getItem(reversePosition).getImageUrl())
                 .into(holder.postImageView);
-        holder.titleTextView.setText(model.getTitle());
-        holder.recruitPeriodTextView.setText(model.getRecruitPeriod());
+        holder.titleTextView.setText(getItem(reversePosition).getTitle());
+        holder.recruitPeriodTextView.setText(getItem(reversePosition).getRecruitPeriod());
 
-        // Get the ID of the current item
-        String itemId = getRef(position).getKey();
+        // Get the ID of the current item in reverse order
+        String itemId = getRef(reversePosition).getKey();
 
         // Set a click listener on the item view
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +57,8 @@ public class PopularPostAdapter extends FirebaseRecyclerAdapter<MainHomeItem, Po
         });
     }
 
+
+
     public class PopularPostHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         TextView recruitPeriodTextView;
@@ -66,10 +71,5 @@ public class PopularPostAdapter extends FirebaseRecyclerAdapter<MainHomeItem, Po
             titleTextView = itemView.findViewById(R.id.text_view_home_item_title);
             recruitPeriodTextView = itemView.findViewById(R.id.item_home_post_date);
         }
-
-
-
     }
-
-
 }

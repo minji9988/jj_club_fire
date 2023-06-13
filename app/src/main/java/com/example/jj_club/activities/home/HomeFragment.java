@@ -112,12 +112,12 @@ public class HomeFragment extends Fragment {
         latestPostsRecyclerView.setAdapter(adapter);
 
         // Popular posts
-        Query popularPostsQuery = databaseRef.orderByChild("likesCount");  // Assuming 'likesCount' field exists in your database
+        Query popularPostsQuery = databaseRef.orderByChild("likesCount");  // likesCount를 기준으로 오름차순 정렬
         FirebaseRecyclerOptions<MainHomeItem> popularPostsOptions = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
                 .setQuery(popularPostsQuery, MainHomeItem.class)
                 .build();
 
-        PopularPostAdapter = new PopularPostAdapter(popularPostsOptions);  // Assuming you have created PopularPostAdapter
+        PopularPostAdapter = new PopularPostAdapter(popularPostsOptions);
 
         popularPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_popular);
         popularPostsRecyclerView.setHasFixedSize(true);
@@ -139,6 +139,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
 
     @Override
     public void onStart() {
