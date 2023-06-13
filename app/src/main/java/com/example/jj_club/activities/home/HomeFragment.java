@@ -18,6 +18,7 @@ import com.example.jj_club.R;
 import com.example.jj_club.activities.mbti.MbtiTestStart;
 import com.example.jj_club.activities.promotion.PromotionWrite1;
 import com.example.jj_club.adapters.MainHomeAdapter;
+import com.example.jj_club.adapters.PopularPostAdapter;
 import com.example.jj_club.models.MainHomeItem;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
+
+    private RecyclerView popularPostsRecyclerView;
+    private PopularPostAdapter PopularPostAdapter;
 
     private RecyclerView latestPostsRecyclerView;
     private MainHomeAdapter adapter;
@@ -107,11 +111,25 @@ public class HomeFragment extends Fragment {
         latestPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         latestPostsRecyclerView.setAdapter(adapter);
 
+        // Popular posts
+        Query popularPostsQuery = databaseRef.orderByChild("likesCount");  // Assuming 'likesCount' field exists in your database
+        FirebaseRecyclerOptions<MainHomeItem> popularPostsOptions = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
+                .setQuery(popularPostsQuery, MainHomeItem.class)
+                .build();
+
+        PopularPostAdapter = new PopularPostAdapter(popularPostsOptions);  // Assuming you have created PopularPostAdapter
+
+        popularPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_popular);
+        popularPostsRecyclerView.setHasFixedSize(true);
+        popularPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        popularPostsRecyclerView.setAdapter(PopularPostAdapter);
+
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // 데이터 로드가 완료된 후, RecyclerView의 스크롤 위치를 설정
                 latestPostsRecyclerView.scrollToPosition(0);
+                popularPostsRecyclerView.scrollToPosition(0);
             }
 
             @Override
@@ -126,19 +144,23 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         adapter.startListening();
+        PopularPostAdapter.startListening();  // start listening to PopularPostAdapter as well
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        // adapter.stopListening();
+//        adapter.stopListening();
+//        PopularPostAdapter.stopListening();  // stop listening to PopularPostAdapter when the fragment is not visible
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         adapter.stopListening();
+        PopularPostAdapter.stopListening();  // stop listening to PopularPostAdapter when the view is destroyed
     }
+
 
     private class MoreLatestPostsClickListener implements View.OnClickListener {
         @Override
