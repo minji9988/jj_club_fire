@@ -1,9 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ffffff"
     tools:context=".activities.mbti.MbtiTestQ10Activity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textViewType3"
+        android:layout_width="264dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="85dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginTop="392dp"
+        android:layout_marginEnd="62dp"
+        android:layout_marginBottom="399dp"
+        android:lineSpacingExtra="9sp"
+        android:text="3주 뒤에 중간고사를 본다면?"
+        android:textColor="#3c3c3c"
+        android:textSize="22sp"
+        android:textStyle="normal" />
+
+    <android.widget.Button
+        android:id="@+id/button20"
+        android:layout_width="344dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="658dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="110dp"
+        android:background="@drawable/btn_round_blue_box"
+        android:text="나중에 가서 생각해보자~"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="128dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginLeft="184dp"
+        android:layout_marginTop="143dp"
+        android:layout_marginEnd="59dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="14sp"
+        android:text="Q10"
+        android:textColor="#1c7eff"
+        android:textSize="44sp"
+        android:textStyle="bold" />
+
+    <android.widget.Button
+        android:id="@+id/button19"
+        android:layout_width="344dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="568dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="198dp"
+        android:background="@drawable/btn_round_blue_box"
+        android:text="주 단위로 공부 계획 세워야지!"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+
+</RelativeLayout>

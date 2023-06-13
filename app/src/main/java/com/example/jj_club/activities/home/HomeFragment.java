@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -14,17 +15,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jj_club.R;
+import com.example.jj_club.activities.mbti.MbtiTestStart;
 import com.example.jj_club.activities.promotion.PromotionWrite1;
 import com.example.jj_club.adapters.MainHomeAdapter;
 import com.example.jj_club.models.MainHomeItem;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
+
+
     private RecyclerView latestPostsRecyclerView;
     private MainHomeAdapter adapter;
 
@@ -57,11 +64,26 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Find the home_mbti_test_btn button
+        Button mbtiTestButton = view.findViewById(R.id.home_mbti_test_btn);
+
+        // Set a click listener on the button
+        mbtiTestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the MbtiTestStartActivity when the button is clicked
+                Intent intent = new Intent(getActivity(), MbtiTestStart.class);
+                startActivity(intent);
+            }
+        });
+
         TextView moreLatestPostsTextView = view.findViewById(R.id.btn_more_latest_posts);
         moreLatestPostsTextView.setOnClickListener(new MoreLatestPostsClickListener());
 
         return view;
     }
+
+
 
     private void setupRecyclerView(View view) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("promotions");
@@ -78,6 +100,20 @@ public class HomeFragment extends Fragment {
         latestPostsRecyclerView.setHasFixedSize(true);
         latestPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         latestPostsRecyclerView.setAdapter(adapter);
+
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // 데이터 로드가 완료된 후, RecyclerView의 스크롤 위치를 설정
+                latestPostsRecyclerView.scrollToPosition(0);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // 에러 발생 시 처리
+                logMessage(databaseError.getMessage());
+            }
+        });
     }
 
 
@@ -98,6 +134,8 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         adapter.stopListening();
     }
+
+
 
 
     private class MoreLatestPostsClickListener implements View.OnClickListener {

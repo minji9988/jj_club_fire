@@ -1,5 +1,6 @@
 package com.example.jj_club.models;
 
+
 import java.io.Serializable;
 
 public class ApplicationItem implements Serializable {
@@ -15,6 +16,7 @@ public class ApplicationItem implements Serializable {
     // Default constructor
     public ApplicationItem() { }
 
+
     // Constructor for initializing ApplicationItem
     public ApplicationItem(String fromUserId, String promotionId, String appName, String appNumber, String appPhone, String appIntro) {
         this.fromUserId = fromUserId;
@@ -24,8 +26,6 @@ public class ApplicationItem implements Serializable {
         this.appPhone = appPhone;
         this.appIntro = appIntro;
     }
-
-    // Getter and Setter methods for all variables
 
     public String getFromUserId() {
         return fromUserId;

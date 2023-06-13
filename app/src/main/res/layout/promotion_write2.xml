@@ -65,16 +65,6 @@
             android:textColor="#ffffff"
             android:textSize="16sp" />
 
-        <View
-            android:id="@+id/verticalLine1"
-            android:layout_width="3dp"
-            android:layout_height="20dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="1070dp"
-            android:layout_marginLeft="42dp"
-            android:background="@drawable/btn_round_blue_box"></View>
-
 
         <View
             android:id="@+id/verticalLine2"
@@ -97,25 +87,6 @@
             android:background="@drawable/btn_round_blue_box"></View>
 
 
-        <View
-            android:id="@+id/verticalLine4"
-            android:layout_width="3dp"
-            android:layout_height="20dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="884dp"
-            android:layout_marginLeft="42dp"
-            android:background="@drawable/btn_round_blue_box"></View>
-
-        <View
-            android:id="@+id/verticalLine5"
-            android:layout_width="3dp"
-            android:layout_height="20dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="549dp"
-            android:layout_marginLeft="42dp"
-            android:background="@drawable/btn_round_blue_box"></View>
 
         <EditText
             android:id="@+id/editPromotionNumber"
@@ -204,19 +175,6 @@
             android:textColor="#707070"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/textPromotionLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="1065dp"
-            android:layout_marginLeft="55dp"
-            android:lineSpacingExtra="8sp"
-            android:text="모임 장소"
-            android:textColor="#707070"
-            android:textSize="16sp" />
-
         <android.widget.Button
             android:id="@+id/buttonPromotionImage1"
             android:layout_width="100dp"
@@ -259,21 +217,63 @@
             android:text="일반 사진"
             android:textColor="#676767" />
 
-        <EditText
-            android:id="@+id/editPromotionPlace"
+
+        <TextView
+            android:id="@+id/textPromotion_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="1050dp"
+            android:layout_marginLeft="55dp"
+            android:text="모임 필터"
+            android:textColor="#707070"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textPromotion_study_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="50dp"
+            android:layout_alignTop="@id/textPromotion_filter"
+            android:layout_marginLeft="55dp"
+            android:text="스터티/동아리 모임인 경우"
+            android:textColor="#707070"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/promotion_study_filter"
             android:layout_width="344dp"
             android:layout_height="70dp"
-            android:layout_marginTop="1108dp"
             android:layout_marginLeft="42dp"
-            android:layout_marginRight="42dp"
-            android:textSize="18sp"
-            android:textColor="#3c3c3c"
-            android:textColorHint="#d6d6d6"
-            android:paddingStart="20dp"
-            android:background="@drawable/shadow"
-
-            android:hint=" 모임 장소가 있다면 입력해 주세요."
+            android:layout_marginTop="50dp"
+            android:layout_alignTop="@id/textPromotion_study_filter"
+            android:text="모임 필터 선택하기"
+            android:textSize="18dp"
             />
+
+        <TextView
+            android:id="@+id/textPromotion_college_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="55dp"
+            android:layout_alignTop="@id/promotion_study_filter"
+            android:text="단과대 동아리인 경우"
+            android:textColor="#707070"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/promotion_college_filter"
+            android:layout_width="344dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="42dp"
+            android:layout_alignTop="@id/textPromotion_college_filter"
+            android:layout_marginTop="50dp"
+            android:text="모임 필터 선택하기"
+            android:textSize="18dp"
+            />
+
+
 
         <View
             android:id="@+id/verticalLine6"
@@ -281,11 +281,14 @@
             android:layout_height="20dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="1270dp"
+            android:layout_marginTop="1400dp"
             android:layout_marginLeft="42dp"
             android:background="@drawable/home_round_white_box">
 
         </View>
+
+
+
 
     </RelativeLayout>
 

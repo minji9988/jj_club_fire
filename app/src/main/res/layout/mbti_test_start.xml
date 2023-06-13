@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#ffffff"
-    tools:context=".activities.mbti.MbtiTestStart">>
+    tools:context=".activities.mbti.MbtiTestStart">
 
     <ImageView
         android:id="@+id/imageView"
@@ -70,5 +70,6 @@
         android:text="검사 하러 가기"
         android:textColor="#ffffff"
         android:textSize="18sp" />
+
 
 </RelativeLayout>
