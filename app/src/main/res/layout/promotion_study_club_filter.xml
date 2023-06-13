@@ -240,7 +240,7 @@
             android:textColor="@color/blue"
             android:textStyle="italic"
             android:text="우리 모임에 들어왔음 하는 MBTI 유형은? "
-            android:textSize="13sp" />
+            android:textSize="14sp" />
 
         <android.widget.Button
             android:id="@+id/promotion_2_filter_entj_btn"

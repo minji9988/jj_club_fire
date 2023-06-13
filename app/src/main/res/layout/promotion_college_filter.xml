@@ -158,13 +158,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="90dp"
-            android:layout_marginTop="506dp"
+            android:layout_marginTop="509dp"
 
             android:layout_alignLeft="@+id/text_promotion_MBTI"
             android:textColor="@color/blue"
             android:textStyle="italic"
             android:text="우리 모임에 들어왔음 하는 MBTI 유형은? "
-            android:textSize="13sp" />
+            android:textSize="14sp" />
 
 
         <android.widget.Button
