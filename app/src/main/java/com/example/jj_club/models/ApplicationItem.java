@@ -1,24 +1,31 @@
 package com.example.jj_club.models;
 
-public class ApplicationItem {
-    private String fromUserId; //신청서 보내는사람
-    private String promotionId;//홍보글 고유id
-    private String title;
-    private String content;
-    private String sendToUserId; //받는사람, 홍보글 작성한사람
 
-    public ApplicationItem() {
-        // Default constructor required for Firebase
-    }
+import java.io.Serializable;
 
-    public ApplicationItem(String fromUserId, String promotionId, String title, String content) {
+public class ApplicationItem implements Serializable {
+
+    private String fromUserId; // User who sends the application
+    private String promotionId; // Promotion id associated with the application
+    private String appName; // Application name
+    private String appNumber; // Application number
+    private String appPhone; // Application phone number
+    private String appIntro; // Application introduction
+    private String sendToUserId; // User who should receive the application
+
+    // Default constructor
+    public ApplicationItem() { }
+
+
+    // Constructor for initializing ApplicationItem
+    public ApplicationItem(String fromUserId, String promotionId, String appName, String appNumber, String appPhone, String appIntro) {
         this.fromUserId = fromUserId;
         this.promotionId = promotionId;
-        this.title = title;
-        this.content = content;
+        this.appName = appName;
+        this.appNumber = appNumber;
+        this.appPhone = appPhone;
+        this.appIntro = appIntro;
     }
-
-    // Getters and setters
 
     public String getFromUserId() {
         return fromUserId;
@@ -36,20 +43,36 @@ public class ApplicationItem {
         this.promotionId = promotionId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getAppName() {
+        return appName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 
-    public String getContent() {
-        return content;
+    public String getAppNumber() {
+        return appNumber;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setAppNumber(String appNumber) {
+        this.appNumber = appNumber;
+    }
+
+    public String getAppPhone() {
+        return appPhone;
+    }
+
+    public void setAppPhone(String appPhone) {
+        this.appPhone = appPhone;
+    }
+
+    public String getAppIntro() {
+        return appIntro;
+    }
+
+    public void setAppIntro(String appIntro) {
+        this.appIntro = appIntro;
     }
 
     public String getSendToUserId() {
