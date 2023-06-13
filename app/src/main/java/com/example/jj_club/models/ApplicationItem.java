@@ -1,11 +1,11 @@
 package com.example.jj_club.models;
 
 public class ApplicationItem {
-    private String fromUserId;
-    private String promotionId;
+    private String fromUserId; //신청서 보내는사람
+    private String promotionId;//홍보글 고유id
     private String title;
     private String content;
-    private String sendToUserId;
+    private String sendToUserId; //받는사람, 홍보글 작성한사람
 
     public ApplicationItem() {
         // Default constructor required for calls to DataSnapshot.getValue(ApplicationItem.class)
