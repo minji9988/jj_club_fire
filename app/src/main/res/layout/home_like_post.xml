@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:context=".activities.home.LikePostActivity">
+
+
+
+    <!-- 스터디/동아리와 돋보기 아이콘, 알림 아이콘을 가로로 나란히 배치한 LinearLayout -->
+
+
+    <ImageButton
+        android:id="@+id/btn_back_like_posts"
+        android:background="@drawable/arrow_left"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="42dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="인기글"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="90dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:textColor="#3c3c3c"
+        />
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/like_page_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:layout_marginLeft="42dp"
+        />
+
+</RelativeLayout>
+
