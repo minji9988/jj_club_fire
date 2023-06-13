@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.promotion.StudyClubFilterActivity">
+    tools:context=".activities.promotion.CollegeFilterActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,221 +33,147 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="43dp"
             android:layout_marginTop="168dp"
-            android:text="유형"
+            android:text="단과대"
             android:textSize="23sp"
             android:textStyle="bold" />
 
         <android.widget.Button
-            android:id="@+id/promotion_2_filter_study_btn"
+            android:id="@+id/medical_college_button"
             android:layout_width="94dp"
             android:layout_height="45dp"
             android:layout_marginLeft="42dp"
             android:layout_marginTop="228dp"
             android:background="@drawable/shadow"
-            android:text="스터디"
+            android:text="의과대"
             android:textSize="17dp" />
 
         <android.widget.Button
-            android:id="@+id/promotion_2_filter_club_btn"
+            android:id="@+id/liberal_arts_button"
             android:layout_width="94dp"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="228dp"
-            android:layout_toRightOf="@id/promotion_2_filter_study_btn"
+            android:layout_toRightOf="@id/medical_college_button"
             android:background="@drawable/shadow"
-            android:text="동아리"
+            android:text="사과대"
             android:textSize="17dp" />
 
         <android.widget.Button
-            android:id="@+id/promotion_2_filter_misc_btn"
+            android:id="@+id/engineering_college_button"
             android:layout_width="94dp"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="228dp"
-            android:layout_toRightOf="@id/promotion_2_filter_club_btn"
+            android:layout_toRightOf="@id/liberal_arts_button"
             android:background="@drawable/shadow"
-            android:text="기타"
+            android:text="공과대"
+            android:textSize="17dp" />
+
+
+        <!-- '인문대' button below '의과대' button -->
+        <android.widget.Button
+            android:id="@+id/humanities_college_button"
+            android:layout_width="94dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/medical_college_button"
+            android:layout_alignStart="@id/medical_college_button"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shadow"
+            android:text="인문대"
+            android:textSize="17dp" />
+
+        <!-- '경영대' button to the right of '인문대' button -->
+        <android.widget.Button
+            android:id="@+id/business_college_button"
+            android:layout_width="94dp"
+            android:layout_height="45dp"
+            android:layout_alignTop="@id/humanities_college_button"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/humanities_college_button"
+            android:background="@drawable/shadow"
+            android:text="경영대"
+            android:textSize="17dp" />
+
+        <!-- '사범대' button to the right of '경영대' button -->
+        <android.widget.Button
+            android:id="@+id/education_college_button"
+            android:layout_width="94dp"
+            android:layout_height="45dp"
+            android:layout_alignTop="@id/business_college_button"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/business_college_button"
+            android:background="@drawable/shadow"
+            android:text="사범대"
+            android:textSize="17dp" />
+
+        <!-- '문화융합대' button below '인문대' button -->
+        <android.widget.Button
+            android:id="@+id/culture_convergence_college_button"
+            android:layout_width="94dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/humanities_college_button"
+            android:layout_alignStart="@id/humanities_college_button"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shadow"
+            android:text="문화융합대"
+            android:textSize="17dp" />
+
+        <!-- '문화관광대' button to the right of '문화융합대' button -->
+        <android.widget.Button
+            android:id="@+id/culture_tourism_college_button"
+            android:layout_width="94dp"
+            android:layout_height="45dp"
+            android:layout_alignTop="@id/culture_convergence_college_button"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/culture_convergence_college_button"
+            android:background="@drawable/shadow"
+            android:text="문화관광대"
+            android:textSize="17dp" />
+
+        <!-- '미래융합대' button below '문화융합대' button -->
+        <android.widget.Button
+            android:id="@+id/future_convergence_college_button"
+            android:layout_width="94dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/culture_convergence_college_button"
+            android:layout_alignStart="@id/culture_convergence_college_button"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shadow"
+            android:text="미래융합대"
             android:textSize="17dp" />
 
 
         <TextView
+            android:id="@+id/text_promotion_MBTI"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="43dp"
-            android:layout_marginTop="308dp"
-            android:text="종류"
-            android:textSize="23sp"
-            android:textStyle="bold" />
-
-
-        <android.widget.Button
-            android:id="@+id/promotion_2_filter_sports_btn"
-            android:layout_width="94dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="42dp"
-            android:layout_marginTop="378dp"
-            android:background="@drawable/shadow"
-            android:text="스포츠"
-            android:textSize="17dp" />
-
-        <android.widget.Button
-            android:id="@+id/promotion_2_filter_social_btn"
-            android:layout_width="94dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="378dp"
-            android:layout_toRightOf="@id/promotion_2_filter_sports_btn"
-            android:background="@drawable/shadow"
-            android:text="친목"
-            android:textSize="17dp" />
-
-        <android.widget.Button
-            android:id="@+id/promotion_2_filter_travel_btn"
-            android:layout_width="94dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="378dp"
-            android:layout_toRightOf="@id/promotion_2_filter_social_btn"
-            android:background="@drawable/shadow"
-            android:text="여행"
-            android:textSize="17dp" />
-
-        <android.widget.Button
-            android:id="@+id/promotion_2_filter_religion_btn"
-            android:layout_width="94dp"
-            android:layout_height="45dp"
-            android:layout_alignTop="@id/promotion_2_filter_sports_btn"
-            android:layout_marginLeft="42dp"
-            android:layout_marginTop="60dp"
-            android:background="@drawable/shadow"
-            android:text="종교"
-            android:textSize="17dp" />
-
-        <android.widget.Button
-            android:id="@+id/promotion_2_filter_volunteer_btn"
-            android:layout_width="94dp"
-            android:layout_height="45dp"
-            android:layout_alignLeft="@id/promotion_2_filter_religion_btn"
-            android:layout_alignTop="@id/promotion_2_filter_sports_btn"
-            android:layout_marginLeft="115dp"
-            android:layout_marginTop="60dp"
-            android:background="@drawable/shadow"
-            android:text="봉사"
-            android:textSize="17dp" />
-
-        <android.widget.Button
-            android:id="@+id/promotion_2_filter_language_btn"
-            android:layout_width="94dp"
-            android:layout_height="45dp"
-            android:layout_alignTop="@id/promotion_2_filter_social_btn"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="60dp"
-            android:layout_toRightOf="@id/promotion_2_filter_volunteer_btn"
-            android:background="@drawable/shadow"
-            android:text="어학"
-            android:textSize="17dp" />
-
-
-        <!-- Add the 'Employment' button below the 'Religion' button -->
-        <android.widget.Button
-            android:id="@+id/promotion_2_filter_employment_btn"
-            android:layout_width="94dp"
-            android:layout_height="45dp"
-            android:layout_below="@id/promotion_2_filter_religion_btn"
-            android:layout_alignStart="@id/promotion_2_filter_religion_btn"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shadow"
-            android:text="취업"
-            android:textSize="17dp" />
-
-        <!-- Add the 'Game' button right next to the 'Employment' button -->
-        <android.widget.Button
-            android:id="@+id/promotion_2_filter_game_btn"
-            android:layout_width="94dp"
-            android:layout_height="45dp"
-            android:layout_alignTop="@id/promotion_2_filter_employment_btn"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/promotion_2_filter_employment_btn"
-            android:background="@drawable/shadow"
-            android:text="게임"
-            android:textSize="17dp" />
-
-        <!-- Add the 'Start-up' button right next to the 'Game' button -->
-        <android.widget.Button
-            android:id="@+id/promotion_2_filter_startup_btn"
-            android:layout_width="94dp"
-            android:layout_height="45dp"
-            android:layout_alignTop="@id/promotion_2_filter_game_btn"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/promotion_2_filter_game_btn"
-            android:background="@drawable/shadow"
-            android:text="창업"
-            android:textSize="17dp" />
-
-        <!-- Add the 'Culture/Art/Performance' button right below the 'Employment' button -->
-        <android.widget.Button
-            android:id="@+id/promotion_2_filter_culture_btn"
-            android:layout_width="140dp"
-            android:layout_height="45dp"
-            android:layout_below="@id/promotion_2_filter_employment_btn"
-            android:layout_alignStart="@id/promotion_2_filter_employment_btn"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shadow"
-            android:text="문화/예술/공연"
-            android:textSize="17dp" />
-
-        <!-- Add the 'Misc' button right next to the 'Culture/Art/Performance' button -->
-        <android.widget.Button
-            android:id="@+id/promotion_2_filter_misc_btn2"
-            android:layout_width="94dp"
-            android:layout_height="45dp"
-            android:layout_alignTop="@id/promotion_2_filter_culture_btn"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/promotion_2_filter_culture_btn"
-            android:background="@drawable/shadow"
-            android:text="기타"
-            android:textSize="17dp" />
-
-        <!-- Add the 'Crafts/Making' button right below the 'Culture/Art/Performance' button -->
-        <android.widget.Button
-            android:id="@+id/promotion_2_filter_crafts_btn2"
-            android:layout_width="130dp"
-            android:layout_height="45dp"
-            android:layout_below="@id/promotion_2_filter_culture_btn"
-            android:layout_alignStart="@id/promotion_2_filter_culture_btn"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/shadow"
-            android:text="공예/만들기"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/text_mbti"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="43dp"
-            android:layout_marginTop="758dp"
+            android:layout_marginLeft="46dp"
+            android:layout_marginTop="506dp"
             android:text="MBTI"
-            android:textStyle="bold"
-            android:textSize="23sp" />
+            android:textSize="23sp"
+            android:textStyle="bold" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="90dp"
-            android:layout_marginTop="763dp"
-            android:layout_alignLeft="@+id/text_mbti"
+            android:layout_marginTop="506dp"
+
+            android:layout_alignLeft="@+id/text_promotion_MBTI"
             android:textColor="@color/blue"
             android:textStyle="italic"
             android:text="우리 모임에 들어왔음 하는 MBTI 유형은? "
             android:textSize="13sp" />
 
+
         <android.widget.Button
             android:id="@+id/promotion_2_filter_entj_btn"
             android:layout_width="94dp"
             android:layout_height="45dp"
+            android:layout_alignTop="@+id/text_promotion_MBTI"
             android:layout_marginLeft="42dp"
-            android:layout_marginTop="818dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/shadow"
             android:text="ENTJ"
             android:textSize="17dp" />
@@ -256,8 +182,9 @@
             android:id="@+id/promotion_2_filter_enfj_btn"
             android:layout_width="94dp"
             android:layout_height="45dp"
+            android:layout_alignTop="@+id/text_promotion_MBTI"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="818dp"
+            android:layout_marginTop="50dp"
             android:layout_toRightOf="@id/promotion_2_filter_entj_btn"
             android:background="@drawable/shadow"
             android:text="ENFJ"
@@ -400,40 +327,38 @@
             android:id="@+id/promotion_2_filter_infj_btn"
             android:layout_width="94dp"
             android:layout_height="45dp"
+            android:layout_alignTop="@id/promotion_2_filter_intj_btn"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/promotion_2_filter_intj_btn"
             android:background="@drawable/shadow"
             android:text="INFJ"
-            android:textSize="17dp"
-            android:layout_toRightOf="@id/promotion_2_filter_intj_btn"
-            android:layout_alignTop="@id/promotion_2_filter_intj_btn"
-            android:layout_marginLeft="20dp" />
+            android:textSize="17dp" />
 
         <!-- Add the 'ISFJ' button right next to the 'INFJ' button -->
         <android.widget.Button
             android:id="@+id/promotion_2_filter_isfj_btn"
             android:layout_width="94dp"
             android:layout_height="45dp"
+            android:layout_alignTop="@id/promotion_2_filter_infj_btn"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/promotion_2_filter_infj_btn"
             android:background="@drawable/shadow"
             android:text="ISFJ"
-            android:textSize="17dp"
-            android:layout_toRightOf="@id/promotion_2_filter_infj_btn"
-            android:layout_alignTop="@id/promotion_2_filter_infj_btn"
-            android:layout_marginLeft="20dp" />
+            android:textSize="17dp" />
 
         <!-- Add the 'ISTJ' button right below the 'INTJ' button -->
         <android.widget.Button
             android:id="@+id/promotion_2_filter_istj_btn"
             android:layout_width="94dp"
             android:layout_height="45dp"
-            android:background="@drawable/shadow"
-            android:text="ISTJ"
-            android:textSize="17dp"
             android:layout_below="@id/promotion_2_filter_intj_btn"
             android:layout_alignStart="@id/promotion_2_filter_intj_btn"
-            android:layout_marginTop="20dp" />
-
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shadow"
+            android:text="ISTJ"
+            android:textSize="17dp" />
 
 
     </RelativeLayout>
 
 </ScrollView>
-

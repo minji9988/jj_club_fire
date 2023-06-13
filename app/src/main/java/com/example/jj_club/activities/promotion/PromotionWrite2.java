@@ -39,7 +39,10 @@ public class PromotionWrite2 extends AppCompatActivity {
 
     private Button promotion_write2_buttonNext;  // 다음 버튼
     private Button imageButton;  // 이미지 업로드 버튼
-    private Button promotion_write2_buttonFilter;  // 필터 버튼
+    private Button promotion_write2_buttonFilter;  // 스터티/ 동아리 필터 버튼
+
+    private Button promotion_write2_buttonFilter_2;  // 단과대 필터 버튼
+
 
     private String promotionId;  // 프로모션 ID
     private String imageUrl = "";  // 이미지 업로드 후 이미지 URL 저장 변수
@@ -56,9 +59,13 @@ public class PromotionWrite2 extends AppCompatActivity {
         editPromotionTarget = findViewById(R.id.editPromotionTarget);
         editPromotionIntroduce = findViewById(R.id.editPromotionIntroduce);
 
+
+
         promotion_write2_buttonNext = findViewById(R.id.promotion_write2_buttonNext);
         imageButton = findViewById(R.id.buttonPromotionImage1);  // 레이아웃에 추가한 이미지 업로드 버튼
-        promotion_write2_buttonFilter = findViewById(R.id.promotion_study_filter);  // 레이아웃에 추가한 필터 버튼
+        promotion_write2_buttonFilter = findViewById(R.id.promotion_study_filter);  // 스터디/동아리 필터
+        promotion_write2_buttonFilter_2 = findViewById(R.id.promotion_college_filter); // 단과대 필터
+
 
         promotionId = getIntent().getStringExtra("promotionId");  // 이전 액티비티로부터 전달받은 프로모션 ID
 
@@ -94,6 +101,8 @@ public class PromotionWrite2 extends AppCompatActivity {
             }
         });
 
+
+
         promotion_write2_buttonFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +110,15 @@ public class PromotionWrite2 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        promotion_write2_buttonFilter_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PromotionWrite2.this, CollegeFilterActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

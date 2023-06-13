@@ -61,14 +61,6 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/vector_filter" />
 
-            <Button
-                android:id="@+id/home_mbti_test_btn"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="60dp"
-                android:text="MBTI 검사하러가기"
-                android:textSize="17dp" />
-
             <!-- 인기글 -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -140,7 +132,7 @@
                 android:id="@+id/recycler_view_main_page_latest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -159,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="42dp"
                     android:fontFamily="@font/notosanskrbold"
-                    android:text="내 mbti와 똑같은 글"
+                    android:text="내 MBTI와 똑같은 모임"
                     android:textColor="#3c3c3c"
                     android:textSize="25sp" />
 
@@ -184,6 +176,17 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+
+            <Button
+                android:id="@+id/home_mbti_test_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginLeft="60dp"
+
+                android:text="MBTI 검사를 하면 확인할 수 있어요!"
+                android:textSize="17dp" />
+
+
             <!-- 내 MBTI 궁합이 맞는 글 -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -196,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="42dp"
                     android:fontFamily="@font/notosanskrbold"
-                    android:text="내 mbti 궁합이 맞는 글"
+                    android:text="내 MBTI 궁합이 맞는 모임"
                     android:textColor="#3c3c3c"
                     android:textSize="25sp" />
 

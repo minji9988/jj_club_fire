@@ -219,10 +219,21 @@
 
 
         <TextView
-            android:id="@+id/textPromotion_study_filter"
+            android:id="@+id/textPromotion_filter"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_marginTop="1050dp"
+            android:layout_marginLeft="55dp"
+            android:text="모임 필터"
+            android:textColor="#707070"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textPromotion_study_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="50dp"
+            android:layout_alignTop="@id/textPromotion_filter"
             android:layout_marginLeft="55dp"
             android:text="스터티/동아리 모임인 경우"
             android:textColor="#707070"
@@ -234,10 +245,34 @@
             android:layout_width="344dp"
             android:layout_height="70dp"
             android:layout_marginLeft="42dp"
-            android:layout_marginTop="1100dp"
+            android:layout_marginTop="50dp"
+            android:layout_alignTop="@id/textPromotion_study_filter"
             android:text="모임 필터 선택하기"
             android:textSize="18dp"
             />
+
+        <TextView
+            android:id="@+id/textPromotion_college_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="55dp"
+            android:layout_alignTop="@id/promotion_study_filter"
+            android:text="단과대 동아리인 경우"
+            android:textColor="#707070"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/promotion_college_filter"
+            android:layout_width="344dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="42dp"
+            android:layout_alignTop="@id/textPromotion_college_filter"
+            android:layout_marginTop="50dp"
+            android:text="모임 필터 선택하기"
+            android:textSize="18dp"
+            />
+
 
 
         <View
@@ -246,7 +281,7 @@
             android:layout_height="20dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="1200dp"
+            android:layout_marginTop="1400dp"
             android:layout_marginLeft="42dp"
             android:background="@drawable/home_round_white_box">
 
