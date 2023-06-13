@@ -8,7 +8,7 @@ public class ApplicationItem {
     private String sendToUserId;
 
     public ApplicationItem() {
-        // Default constructor required for calls to DataSnapshot.getValue(ApplicationItem.class)
+        // Default constructor required for Firebase
     }
 
     public ApplicationItem(String fromUserId, String promotionId, String title, String content) {
@@ -17,6 +17,8 @@ public class ApplicationItem {
         this.title = title;
         this.content = content;
     }
+
+    // Getters and setters
 
     public String getFromUserId() {
         return fromUserId;
