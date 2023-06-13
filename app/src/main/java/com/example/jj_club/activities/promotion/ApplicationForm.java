@@ -23,40 +23,52 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ApplicationForm extends AppCompatActivity {
 
-    private EditText editTextAppTitle;
-    private EditText editTextAppContent;
-    private Button buttonTurnIn;
-    private ImageButton buttonBack;
+    private EditText editTextAppName; //신청서 이름
+    private EditText editTextAppNumber; //신청서 번호
+    private EditText editTextAppPhone; //신청서 전화번호
+    private EditText editTextAppIntro; //신청서 소개
+    private Button buttonTurnIn; //신청서 제출 버튼
+    private ImageButton buttonBack; //뒤로 돌아가기 버튼
 
     private DatabaseReference databaseReference;
     private DatabaseReference promotionsReference;
 
-    private String promotionId;
+    private String promotionId; //홍보글 자체 id
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.promotion_application_form);
 
-        editTextAppTitle = findViewById(R.id.editTextAppTitle);
-        editTextAppContent = findViewById(R.id.editTextAppContent);
+        // Find the EditText views by id
+        editTextAppName = findViewById(R.id.editTextAppName);
+        editTextAppNumber = findViewById(R.id.editTextAppNumber);
+        editTextAppPhone = findViewById(R.id.editTextAppPhone);
+        editTextAppIntro = findViewById(R.id.editTextAppIntro);
         buttonTurnIn = findViewById(R.id.button_TurnIn);
         buttonBack = findViewById(R.id.button_back);
 
+        // Get references to the database
         databaseReference = FirebaseDatabase.getInstance().getReference("applicationItems");
         promotionsReference = FirebaseDatabase.getInstance().getReference("promotions");
 
+        // Get the promotion id from the intent
         promotionId = getIntent().getStringExtra("promotion_id");
 
+        // Set up the event for the button click
         buttonTurnIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = editTextAppTitle.getText().toString().trim();
-                String content = editTextAppContent.getText().toString().trim();
+                String name = editTextAppName.getText().toString().trim();
+                String number = editTextAppNumber.getText().toString().trim();
+                String phone = editTextAppPhone.getText().toString().trim();
+                String intro = editTextAppIntro.getText().toString().trim();
 
-                if (title.isEmpty() || content.isEmpty()) {
+                // If any of the fields are empty, show a Toast message
+                if (name.isEmpty() || number.isEmpty() || phone.isEmpty() || intro.isEmpty()) {
                     Toast.makeText(ApplicationForm.this, "양식을 채워주세요.", Toast.LENGTH_SHORT).show();
                 } else {
+                    // If all fields are filled, start the process of sending the application
                     final String fromUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                     promotionsReference.child(promotionId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -65,13 +77,16 @@ public class ApplicationForm extends AppCompatActivity {
                             if (dataSnapshot.exists()) {
                                 String sendToUserId = dataSnapshot.child("userId").getValue(String.class);
 
-                                ApplicationItem applicationItem = new ApplicationItem(fromUserId, promotionId, title, content);
+                                // Create a new ApplicationItem object
+                                ApplicationItem applicationItem = new ApplicationItem(fromUserId, promotionId, name, number, phone, intro);
                                 applicationItem.setSendToUserId(sendToUserId);
 
+                                // Save the application to the database
                                 databaseReference.push().setValue(applicationItem)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
+                                                // If the save was successful, show a Toast message and finish the activity
                                                 Toast.makeText(ApplicationForm.this, "제출이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                                                 finish();
                                             }
@@ -79,6 +94,7 @@ public class ApplicationForm extends AppCompatActivity {
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
+                                                // If the save was not successful, show a Toast message
                                                 Toast.makeText(ApplicationForm.this, "제출이 실패했습니다.", Toast.LENGTH_SHORT).show();
                                             }
                                         });
@@ -94,6 +110,7 @@ public class ApplicationForm extends AppCompatActivity {
             }
         });
 
+        // Set up the event for the back button click
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
