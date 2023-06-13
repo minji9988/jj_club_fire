@@ -16,11 +16,8 @@ import com.example.jj_club.models.HomeItem;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -64,17 +61,6 @@ public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemA
         } else {
             holder.likeButton.setImageResource(R.drawable.icon_love_outline);
         }
-
-        /*좋아요 누른것만 뜨게하는 추가부분, 이거 추가하면 최신글이 안보인다
-        if (model.getLikes() != null && model.getLikes().containsKey(userId) && model.getLikes().get(userId)) {
-            holder.title.setText(model.get Title());
-            holder.description.setText(model.getPromotionIntroduce());
-            holder.likeCount.setText(String.valueOf(model.getLikes() != null ? model.getLikes().size() : 0));
-
-            // 나머지 코드
-        } else {
-            holder.itemView.setVisibility(View.GONE); // 좋아요가 true가 아닌 경우 해당 아이템을 숨깁니다.
-        }*/
 
 
         holder.likeButton.setOnClickListener(new View.OnClickListener() {

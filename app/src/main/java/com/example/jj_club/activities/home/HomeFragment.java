@@ -31,7 +31,6 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
 
-
     private RecyclerView latestPostsRecyclerView;
     private MainHomeAdapter adapter;
 
@@ -80,10 +79,17 @@ public class HomeFragment extends Fragment {
         TextView moreLatestPostsTextView = view.findViewById(R.id.btn_more_latest_posts);
         moreLatestPostsTextView.setOnClickListener(new MoreLatestPostsClickListener());
 
+        TextView morePopularPostsButton = view.findViewById(R.id.btn_more_popular_posts);
+        morePopularPostsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LikePostActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
-
-
 
     private void setupRecyclerView(View view) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("promotions");
@@ -116,7 +122,6 @@ public class HomeFragment extends Fragment {
         });
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -135,9 +140,6 @@ public class HomeFragment extends Fragment {
         adapter.stopListening();
     }
 
-
-
-
     private class MoreLatestPostsClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -146,7 +148,6 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         }
     }
-
 
     // Logcat에 오류 및 디버그 메시지 출력을 위한 메서드
     private void logMessage(String message) {

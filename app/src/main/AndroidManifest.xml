@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Jj_club"
         tools:targetApi="31">
         <activity
+            android:name=".activities.home.LikePostActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.promotion.CollegeFilterActivity"
             android:exported="false" />
         <activity

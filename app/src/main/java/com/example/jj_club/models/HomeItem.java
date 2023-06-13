@@ -53,6 +53,11 @@ public class HomeItem {
         this.title = title;
     }
 
+    public int getLikesCount() {
+        return likes != null ? likes.size() : 0;
+    }
+
+
     public String getRecruitPeriod() {
         return recruitPeriod;
     }
