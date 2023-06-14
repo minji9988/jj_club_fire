@@ -64,7 +64,7 @@ public class LikePostAdapter extends FirebaseRecyclerAdapter<HomeItem, LikePostA
         }
 
         if (model.getLikes() != null && model.getLikes().containsKey(userId)) {
-            holder.likeButton.setImageResource(R.drawable.icon_love_blue);
+            holder.likeButton.setImageResource(R.drawable.home_blue_like_icon);
         } else {
             holder.likeButton.setImageResource(R.drawable.icon_love_outline);
         }

@@ -5,27 +5,29 @@ import java.util.List;
 import java.util.Map;
 
 public class HomeItem {
-    private String title;               // 게시물 제목
-    private String recruitPeriod;       // 모집 기간
-    private String fee;                 // 회비
-    private String interview;           // 면접 유무
-    private String meetingName;         // 모임 이름
-    private String userId;              // 사용자 ID
-    private String promotionNumber;     // 모집 인원
-    private String promotionTarget;     // 모집 대상
-    private String promotionIntroduce;  // 모임 소개 및 활동 계획
-    private String promotionPlace;      // 모임 장소
-    private Long timeStamp;             // 게시물 작성 시간
-    private Long reversedTimestamp;     // 역순으로 정렬된 타임스탬프
-    private Map<String, Boolean> likes; // 게시물 좋아요 정보
-    private String imageUrl;           // 이미지 URL
-    private List<String> selectedButtons;  // 선택한 버튼의 텍스트들
+    private String title;
+    private String recruitPeriod;
+    private String fee;
+    private String interview;
+    private String meetingName;
+    private String userId;
+    private String promotionNumber;
+    private String promotionTarget;
+    private String promotionIntroduce;
+    private String promotionPlace;
+    private Long timeStamp;
+    private Long reversedTimestamp;
+    private Map<String, Boolean> likes;
+    private String imageUrl;
+    private List<String> selectedButtons;
+    private String mbti;
 
     public HomeItem() {}
 
     public HomeItem(String title, String recruitPeriod, String fee, String interview,
                     String meetingName, String userId, String promotionNumber, String promotionTarget,
-                    String promotionIntroduce, String promotionPlace, String imageUrl, List<String> selectedButtons) {
+                    String promotionIntroduce, String promotionPlace, String imageUrl, List<String> selectedButtons,
+                    String mbti) {
 
         this.title = title;
         this.recruitPeriod = recruitPeriod;
@@ -37,11 +39,12 @@ public class HomeItem {
         this.promotionTarget = promotionTarget;
         this.promotionIntroduce = promotionIntroduce;
         this.promotionPlace = promotionPlace;
+        this.imageUrl = imageUrl;
+        this.selectedButtons = selectedButtons;
+        this.mbti = mbti;
         this.timeStamp = System.currentTimeMillis();
         this.reversedTimestamp = Long.MAX_VALUE - this.timeStamp;
         this.likes = new HashMap<>();
-        this.imageUrl = imageUrl;
-        this.selectedButtons = selectedButtons;
     }
 
     //getter and setter methods
@@ -56,7 +59,6 @@ public class HomeItem {
     public int getLikesCount() {
         return likes != null ? likes.size() : 0;
     }
-
 
     public String getRecruitPeriod() {
         return recruitPeriod;
@@ -154,6 +156,24 @@ public class HomeItem {
         this.likes = likes;
     }
 
+    public boolean isLikedByUser(String userId) {
+        if (likes == null) {
+            return false;
+        }
+        return likes.containsKey(userId);
+    }
+
+    public void toggleLike(String userId) {
+        if (isLikedByUser(userId)) {
+            likes.remove(userId);
+        } else {
+            if (likes == null) {
+                likes = new HashMap<>();
+            }
+            likes.put(userId, true);
+        }
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -168,5 +188,13 @@ public class HomeItem {
 
     public void setSelectedButtons(List<String> selectedButtons) {
         this.selectedButtons = selectedButtons;
+    }
+
+    public String getMBTI() {
+        return mbti;
+    }
+
+    public void setMBIT(String mbti) {
+        this.mbti = mbti;
     }
 }

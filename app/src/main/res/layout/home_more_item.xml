@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="210.5dp"
             android:layout_marginTop="155.4dp"
-            android:background="@drawable/love_outline" />
+            android:background="@drawable/home_love_icon_outline" />
 
         <!-- love-count  TextView -->
         <TextView

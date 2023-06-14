@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
 
     private RecyclerView popularPostsRecyclerView;
-    private PopularPostAdapter PopularPostAdapter;
+    private PopularPostAdapter popularPostAdapter;
 
     private RecyclerView latestPostsRecyclerView;
     private MainHomeAdapter adapter;
@@ -92,6 +92,19 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Find the btn_more_same_mbti_posts button
+        TextView moreSameMBTIPostsButton = view.findViewById(R.id.btn_more_same_mbti_posts);
+
+        // Set a click listener on the button
+        moreSameMBTIPostsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the SameMBTIActivity when the button is clicked
+                Intent intent = new Intent(getActivity(), SameMBTIActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
@@ -117,12 +130,12 @@ public class HomeFragment extends Fragment {
                 .setQuery(popularPostsQuery, MainHomeItem.class)
                 .build();
 
-        PopularPostAdapter = new PopularPostAdapter(popularPostsOptions);
+        popularPostAdapter = new PopularPostAdapter(popularPostsOptions);
 
         popularPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_popular);
         popularPostsRecyclerView.setHasFixedSize(true);
         popularPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        popularPostsRecyclerView.setAdapter(PopularPostAdapter);
+        popularPostsRecyclerView.setAdapter(popularPostAdapter);
 
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -140,28 +153,26 @@ public class HomeFragment extends Fragment {
         });
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
         adapter.startListening();
-        PopularPostAdapter.startListening();  // start listening to PopularPostAdapter as well
+        popularPostAdapter.startListening();  // start listening to popularPostAdapter as well
     }
 
     @Override
     public void onStop() {
         super.onStop();
 //        adapter.stopListening();
-//        PopularPostAdapter.stopListening();  // stop listening to PopularPostAdapter when the fragment is not visible
+//        popularPostAdapter.stopListening();  // stop listening to popularPostAdapter when the fragment is not visible
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         adapter.stopListening();
-        PopularPostAdapter.stopListening();  // stop listening to PopularPostAdapter when the view is destroyed
+        popularPostAdapter.stopListening();  // stop listening to popularPostAdapter when the view is destroyed
     }
-
 
     private class MoreLatestPostsClickListener implements View.OnClickListener {
         @Override

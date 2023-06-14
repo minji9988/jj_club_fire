@@ -81,7 +81,7 @@ public class PromotionWrite1 extends AppCompatActivity {
 
         String promotionId = databaseRef.push().getKey(); // 고유한 게시글 ID 생성
 
-        HomeItem promotion = new HomeItem(title, recruitPeriod, fee, interview, meetingName, userId, null, null, null, null, null, null);
+        HomeItem promotion = new HomeItem(title, recruitPeriod, fee, interview, meetingName, userId, null, null, null, null, null, null, null);
 
         databaseRef.child(promotionId).setValue(promotion)
                 .addOnSuccessListener(aVoid -> Log.d(TAG, "Promotion added with ID: " + promotionId))
