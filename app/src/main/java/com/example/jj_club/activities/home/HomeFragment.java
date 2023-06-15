@@ -177,9 +177,15 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        adapter.startListening();
-        popularPostAdapter.startListening();  // start listening to popularPostAdapter as well
-        MBTIFilteredHomeAdapter.startListening();
+        if (adapter != null) {
+            adapter.startListening();
+        }
+        if (popularPostAdapter != null) {
+            popularPostAdapter.startListening();
+        }
+        if (MBTIFilteredHomeAdapter != null) {
+            MBTIFilteredHomeAdapter.startListening();
+        }
     }
 
     @Override
