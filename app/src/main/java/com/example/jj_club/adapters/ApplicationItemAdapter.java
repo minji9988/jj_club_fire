@@ -18,6 +18,7 @@ import com.example.jj_club.models.ApplicationItem;
 import com.example.jj_club.models.HomeItem;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,11 +32,16 @@ public class ApplicationItemAdapter extends RecyclerView.Adapter<ApplicationItem
 
     private Context context; //액티비티마다 콘텍스트가 있는데 어뎁터에서 액티비티 액션을 가져올때\
 
+    private HomeItemAdapter.OnItemClickListener mListener;
+
+    private DatabaseReference mDatabase;
+
 
 
     //알트 인서트 -> 컨스트럭쳐
     public ApplicationItemAdapter(ArrayList<ApplicationItem> arrayList, Context context) {
         this.arrayList = arrayList;
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("applicationItems");
         this.context = context;
 
     }
@@ -60,7 +66,7 @@ public class ApplicationItemAdapter extends RecyclerView.Adapter<ApplicationItem
         holder.tv_application_content.setText(arrayList.get(position).getAppIntro());
 
 
-
+        //클릭시 화면전환
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +83,14 @@ public class ApplicationItemAdapter extends RecyclerView.Adapter<ApplicationItem
     public int getItemCount() {
         //삼항 연산자
         return (arrayList != null ? arrayList.size() : 0); //참이면 어레이리스트 사이즈를 가지고와라
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(String postId);
+    }
+
+    public void setOnItemClickListener(HomeItemAdapter.OnItemClickListener listener) {
+        mListener = listener;
     }
 
 

@@ -49,6 +49,11 @@ public class ProfileRecivedapplicationformActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance(); //파이어베이스db를 가져와라(연동)
         databaseReference = database.getReference("applicationItems"); //db테이블 연결,   firebase콘솔의 applicationItems를 의미
 
+        //사용자 uid사져오기
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid(); //추가1
+        //받은 신청서만 쿼리
+        databaseReference = database.getReference("applicationItems").orderByChild("sendToUserId").equalTo(currentUserId).getRef(); //추가1
+
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -68,6 +73,7 @@ public class ProfileRecivedapplicationformActivity extends AppCompatActivity {
 
         adapter = new ApplicationItemAdapter(arrayList,this); //커스텀어뎁터 클래스 여기서 소환
         recyclerView.setAdapter(adapter); //리사이클러뷰에 어뎁터 연결
+
 
         btn_GoBackProfile_fromRecivedapplicationformActivity = (ImageButton) findViewById(R.id.btn_GoBackProfile_fromRecivedapplicationformActivity);
         btn_GoBackProfile_fromRecivedapplicationformActivity.setOnClickListener(new View.OnClickListener() {
