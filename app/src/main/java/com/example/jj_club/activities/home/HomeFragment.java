@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -67,6 +68,7 @@ public class HomeFragment extends Fragment {
         setupRecyclerView(view);
 
         ImageButton writePostButton = view.findViewById(R.id.btn_write_post);
+        ImageView blurImageView = view.findViewById(R.id.fragment_home_blur);
         writePostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,12 +87,17 @@ public class HomeFragment extends Fragment {
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // if user has already taken the MBTI test, do not display the button
-                String userMbti = dataSnapshot.child("mbti").getValue(String.class);
-                if (userMbti != null && !userMbti.isEmpty()) {
+                // 사용자가 MBTI 검사를 완료했는지 확인합니다.
+                boolean mbtiTestCompleted = dataSnapshot.child("mbti").exists();
+                if (mbtiTestCompleted) {
+                    // 사용자가 MBTI 검사를 완료한 경우, 블러 이미지를 숨깁니다.
                     mbtiTestButton.setVisibility(View.GONE);
+                    blurImageView.setVisibility(View.GONE);
                 } else {
+                    // 사용자가 MBTI 검사를 아직 완료하지 않은 경우, 블러 이미지를 표시합니다.
                     mbtiTestButton.setVisibility(View.VISIBLE);
+                    blurImageView.setVisibility(View.VISIBLE);
+
 
                     // Set a click listener on the button
                     mbtiTestButton.setOnClickListener(new View.OnClickListener() {
