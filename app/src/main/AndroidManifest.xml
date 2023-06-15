@@ -53,9 +53,6 @@
             android:name=".activities.profile.ProfileWirtepostActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.profile.ProfileSendapplicationformActivity2"
-            android:exported="false" />
-        <activity
             android:name=".activities.profile.ProfileSendapplicationformActivity"
             android:exported="false" />
         <activity

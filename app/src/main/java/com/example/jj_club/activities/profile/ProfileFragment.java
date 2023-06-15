@@ -1,5 +1,9 @@
 package com.example.jj_club.activities.profile;
-
+//받은 - 1순위
+//검색-필터, 보낸-받은 신청서(수락시 true), 회원정보수정(비밀번호 숫자그런거기준o,mbti는 선택으로?)
+//내가쓴거는 신청안되게
+//글쓴거 수정하기
+//
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
