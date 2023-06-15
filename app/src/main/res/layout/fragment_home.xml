@@ -152,6 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="42dp"
+                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/notosanskrbold"
                     android:text="내 MBTI와 똑같은 모임"
                     android:textColor="#3c3c3c"
@@ -163,6 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="70dp"
+                    android:layout_marginTop="30dp"
                     android:text="더보기"
                     android:textColor="#aaaaaa"
                     android:textSize="15sp" />
@@ -172,65 +174,67 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_main_page_same_mbti"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
-            <Button
-                android:id="@+id/home_mbti_test_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginLeft="60dp"
 
-                android:text="MBTI 검사를 하면 확인할 수 있어요!"
-                android:textSize="17dp" />
+<!--            &lt;!&ndash; 내 MBTI 궁합이 맞는 글 &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
 
+<!--                &lt;!&ndash; 내 MBTI 궁합이 맞는 글 텍스트 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="42dp"-->
+<!--                    android:fontFamily="@font/notosanskrbold"-->
+<!--                    android:text="내 MBTI 궁합이 맞는 모임"-->
+<!--                    android:textColor="#3c3c3c"-->
+<!--                    android:textSize="25sp" />-->
 
-            <!-- 내 MBTI 궁합이 맞는 글 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+<!--                &lt;!&ndash; 더보기 &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/btn_more_compatible_mbti_posts"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="40dp"-->
+<!--                    android:text="더보기"-->
+<!--                    android:textColor="#aaaaaa"-->
+<!--                    android:textSize="15sp" />-->
+<!--            </LinearLayout>-->
 
-                <!-- 내 MBTI 궁합이 맞는 글 텍스트 -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="42dp"
-                    android:fontFamily="@font/notosanskrbold"
-                    android:text="내 MBTI 궁합이 맞는 모임"
-                    android:textColor="#3c3c3c"
-                    android:textSize="25sp" />
-
-                <!-- 더보기 -->
-                <TextView
-                    android:id="@+id/btn_more_compatible_mbti_posts"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:text="더보기"
-                    android:textColor="#aaaaaa"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <!-- 내 MBTI 궁합이 맞는 글 RecyclerView -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_main_page_compatible_mbti"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:nestedScrollingEnabled="false"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+<!--            &lt;!&ndash; 내 MBTI 궁합이 맞는 글 RecyclerView &ndash;&gt;-->
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/recycler_view_main_page_compatible_mbti"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="30dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:nestedScrollingEnabled="false"-->
+<!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />-->
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+
+
+    <Button
+        android:id="@+id/home_mbti_test_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="59dp"
+        android:text="MBTI 검사를 하면 확인할 수 있어요!"
+        android:textSize="17dp" />
 
 
     <!-- '글쓰기' 버튼 -->
