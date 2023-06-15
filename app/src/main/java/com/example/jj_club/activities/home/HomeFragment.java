@@ -41,7 +41,8 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView sameMBTIPostsRecyclerView;
     private MBTIFilteredHomeAdapter MBTIFilteredHomeAdapter;
-    private String userMBTI;
+    private String userMBTI = "ENFJ";
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -163,7 +164,6 @@ public class HomeFragment extends Fragment {
                 latestPostsRecyclerView.scrollToPosition(0);
                 popularPostsRecyclerView.scrollToPosition(0);
                 sameMBTIPostsRecyclerView.scrollToPosition(0);
-
             }
 
             @Override
