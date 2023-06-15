@@ -162,6 +162,8 @@ public class HomeFragment extends Fragment {
                 // 데이터 로드가 완료된 후, RecyclerView의 스크롤 위치를 설정
                 latestPostsRecyclerView.scrollToPosition(0);
                 popularPostsRecyclerView.scrollToPosition(0);
+                sameMBTIPostsRecyclerView.scrollToPosition(0);
+
             }
 
             @Override
