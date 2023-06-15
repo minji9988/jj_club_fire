@@ -47,6 +47,11 @@ public class MainHomeItem {
         return selectedButtons;
     }
 
+    public boolean matchesMBTI(String userMBTI) {
+        return selectedButtons != null && selectedButtons.contains(userMBTI);
+    }
+
+
     public void setSelectedButtons(List<String> selectedButtons) {
         this.selectedButtons = selectedButtons;
     }

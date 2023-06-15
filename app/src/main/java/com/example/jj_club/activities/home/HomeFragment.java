@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jj_club.R;
 import com.example.jj_club.activities.mbti.MbtiTestStart;
 import com.example.jj_club.activities.promotion.PromotionWrite1;
+import com.example.jj_club.adapters.MBTIFilteredHomeAdapter;
 import com.example.jj_club.adapters.MainHomeAdapter;
 import com.example.jj_club.adapters.PopularPostAdapter;
 import com.example.jj_club.models.MainHomeItem;
@@ -37,6 +38,10 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView latestPostsRecyclerView;
     private MainHomeAdapter adapter;
+
+    private RecyclerView sameMBTIPostsRecyclerView;
+    private MBTIFilteredHomeAdapter MBTIFilteredHomeAdapter;
+    private String userMBTI;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -137,6 +142,20 @@ public class HomeFragment extends Fragment {
         popularPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         popularPostsRecyclerView.setAdapter(popularPostAdapter);
 
+
+        // Same MBTI posts
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("promotions");
+        Query sameMBTIPostsQuery = ref.orderByChild("reversedTimestamp");
+        FirebaseRecyclerOptions<MainHomeItem> sameMBTIPostsOptions = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
+                .setQuery(sameMBTIPostsQuery, MainHomeItem.class)
+                .build();
+
+        MBTIFilteredHomeAdapter = new MBTIFilteredHomeAdapter(sameMBTIPostsOptions, userMBTI);
+
+        sameMBTIPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_same_mbti);
+        sameMBTIPostsRecyclerView.setHasFixedSize(true);
+        sameMBTIPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        sameMBTIPostsRecyclerView.setAdapter(MBTIFilteredHomeAdapter);
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -158,6 +177,7 @@ public class HomeFragment extends Fragment {
         super.onStart();
         adapter.startListening();
         popularPostAdapter.startListening();  // start listening to popularPostAdapter as well
+        MBTIFilteredHomeAdapter.startListening();
     }
 
     @Override
@@ -171,6 +191,7 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         adapter.stopListening();
+        MBTIFilteredHomeAdapter.stopListening();
         popularPostAdapter.stopListening();  // stop listening to popularPostAdapter when the view is destroyed
     }
 
