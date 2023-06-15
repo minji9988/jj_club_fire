@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,7 @@ import com.example.jj_club.adapters.MainHomeAdapter;
 import com.example.jj_club.adapters.PopularPostAdapter;
 import com.example.jj_club.models.MainHomeItem;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -76,15 +78,39 @@ public class HomeFragment extends Fragment {
         // Find the home_mbti_test_btn button
         Button mbtiTestButton = view.findViewById(R.id.home_mbti_test_btn);
 
-        // Set a click listener on the button
-        mbtiTestButton.setOnClickListener(new View.OnClickListener() {
+// fetch user information from database
+        String currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(currentUserID);
+
+        userRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                // Start the MbtiTestStartActivity when the button is clicked
-                Intent intent = new Intent(getActivity(), MbtiTestStart.class);
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // if user has already taken the MBTI test, do not display the button
+                String userMbti = dataSnapshot.child("mbti").getValue(String.class);
+                if (userMbti != null && !userMbti.isEmpty()) {
+                    mbtiTestButton.setVisibility(View.GONE);
+                } else {
+                    mbtiTestButton.setVisibility(View.VISIBLE);
+
+                    // Set a click listener on the button
+                    mbtiTestButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Start the MbtiTestStartActivity when the button is clicked
+                            Intent intent = new Intent(getActivity(), MbtiTestStart.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // handle error
             }
         });
+
+
 
         TextView moreLatestPostsTextView = view.findViewById(R.id.btn_more_latest_posts);
         moreLatestPostsTextView.setOnClickListener(new MoreLatestPostsClickListener());
