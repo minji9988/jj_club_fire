@@ -53,6 +53,23 @@ public class MoreSameMBTIAdapter extends FirebaseRecyclerAdapter<HomeItem, MoreS
     @Override
     protected void onBindViewHolder(@NonNull MoreSameMBTIViewHolder holder, int position, @NonNull HomeItem model) {
         Log.d(TAG, "onBindViewHolder called for position " + position);
+        Log.d(TAG, "Model toString: " + model.toString());  // 이 코드는 MainHomeItem에서 toString() 메소드를 오버라이드 한 경우 유용합니다.
+
+        // 아래는 각 필드를 직접 로그에 출력하는 코드입니다. 필요에 따라 수정하십시오.
+        Log.d(TAG, "Model promotionIntroduce: " + model.getPromotionIntroduce());
+        Log.d(TAG, "Model imageUrl: " + model.getImageUrl());
+        Log.d(TAG, "Model selectedButtons: " + model.getSelectedButtons());
+
+        // selectedButtons null check
+        if (model.getSelectedButtons() == null) {
+            Log.d("MoreSameMBTIAdapter", "Model selectedButtons is null at position: " + position);
+            // Do not update the view if selectedButtons is null.
+            return;
+        } else {
+            Log.d("MoreSameMBTIAdapter", "Model selectedButtons: " + model.getSelectedButtons());
+            // Rest of your code...
+        }
+
         // Only display this item if it matches the user's MBTI
         if (model.getSelectedButtons().contains(userMBTI)) {
             Log.d(TAG, "Item at position " + position + " matches user MBTI");
