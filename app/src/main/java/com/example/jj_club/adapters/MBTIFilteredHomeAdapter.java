@@ -23,6 +23,8 @@ public class MBTIFilteredHomeAdapter extends FirebaseRecyclerAdapter<MainHomeIte
     private static final String TAG = "MBTIFilteredHomeAdapter";
     private String userMBTI;
 
+
+
     public MBTIFilteredHomeAdapter(@NonNull FirebaseRecyclerOptions<MainHomeItem> options, String userMBTI) {
         super(options);
         this.userMBTI = userMBTI;

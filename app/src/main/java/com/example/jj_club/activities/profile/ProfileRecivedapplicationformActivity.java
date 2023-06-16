@@ -1,8 +1,6 @@
 package com.example.jj_club.activities.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -49,12 +47,19 @@ public class ProfileRecivedapplicationformActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance(); //파이어베이스db를 가져와라(연동)
         databaseReference = database.getReference("applicationItems"); //db테이블 연결,   firebase콘솔의 applicationItems를 의미
 
-        //사용자 uid사져오기
-        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid(); //추가1
-        //받은 신청서만 쿼리
-        databaseReference = database.getReference("applicationItems").orderByChild("sendToUserId").equalTo(currentUserId).getRef(); //추가1
 
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        // 사용자 uid사져오기
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // 받은 신청서만 쿼리(해당 부분 수정)
+        Query query = database.getReference("applicationItems").orderByChild("sendToUserId").equalTo(currentUserId);
+        // 기존 코드: databaseReference = database.getReference("applicationItems").orderByChild("sendToUserId").equalTo(currentUserId).getRef(); //추가1
+        // 이미 48줄에 databaseReference를 선언했는데 또 선언하고 있음.
+        // 55번째 줄에서 getRef() 메소드는 원래의 레퍼런스를 반환(하는 메소드이므로, 즉 48번째 줄에 있는 모든 신청서들을 반환하게 돼서
+        // orderByChild와 equalTo 호출이 무시되는 문제가 발생. 이 쿼리가 사용자가 받은 신청서만 보여주도록 하는 쿼리인데 이걸 무시하게 되니
+        // 자연스럽게 모든 신청서가 노출되는 문제 발생
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();
