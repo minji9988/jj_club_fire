@@ -29,6 +29,7 @@ public class ProfileRecivedapplicationformActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private RecyclerView.Adapter adapter;
+    private ApplicationItemAdapter mAdapter;
 
     private RecyclerView.LayoutManager layoutManager; //리사이클러뷰는 레이아웃매니저랑 연결해줘야하는게 있으
     private ArrayList<ApplicationItem> arrayList; //어뎁터에서 만든거랑 똑같게
@@ -47,7 +48,7 @@ public class ProfileRecivedapplicationformActivity extends AppCompatActivity {
         arrayList = new ArrayList<>(); //User객체를 담은 어레이리스트(어뎁터쪽으로 날릴려고함)
 
         database = FirebaseDatabase.getInstance(); //파이어베이스db를 가져와라(연동)
-        databaseReference = database.getReference("applicationItems"); //db테이블 연결,   firebase콘솔의 applicationItems를 의미
+        //databaseReference = database.getReference("applicationItems"); //db테이블 연결,   firebase콘솔의 applicationItems를 의미
 
         //사용자 uid사져오기
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid(); //추가1
@@ -70,10 +71,34 @@ public class ProfileRecivedapplicationformActivity extends AppCompatActivity {
             }
         });
 
-
         adapter = new ApplicationItemAdapter(arrayList,this); //커스텀어뎁터 클래스 여기서 소환
         recyclerView.setAdapter(adapter); //리사이클러뷰에 어뎁터 연결
 
+        mAdapter.setOnItemClickListener(new ApplicationItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String sendToUserId) {
+                Intent intent = new Intent(ProfileRecivedapplicationformActivity.this, ProfileRecivedapplicationformActivity2.class);
+                intent.putExtra("sendToUserId", sendToUserId);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        //추가1
+/*      mAdapter.setOnItemClickListener(new ApplicationItemAdapter.OnItemClickListener(){
+
+                                            @Override
+                                            public void onItemClick(String postId) {
+                                                Intent intent = new Intent(ProfileRecivedapplicationformActivity.this, ProfileRecivedapplicationformActivity2.class);
+                                                intent.putExtra("sendToUserId",postId);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                finish();
+
+                                            }
+                                        });
+*/
 
         btn_GoBackProfile_fromRecivedapplicationformActivity = (ImageButton) findViewById(R.id.btn_GoBackProfile_fromRecivedapplicationformActivity);
         btn_GoBackProfile_fromRecivedapplicationformActivity.setOnClickListener(new View.OnClickListener() {

@@ -2,6 +2,8 @@ package com.example.jj_club.activities.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import com.example.jj_club.R;
 import com.example.jj_club.activities.promotion.ApplicationForm;
 import com.example.jj_club.activities.promotion.PromotionDetailActivity;
 import com.example.jj_club.models.ApplicationItem;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,17 +41,16 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
         tv_received_form_classof = findViewById(R.id. tv_received_form_classof);
         tv_received_form_phone = findViewById(R.id. tv_received_form_phone);
         tv_introduce = findViewById(R.id. tv_introduce);
+        btn_approval = findViewById(R.id.btn_approval);
 
-/*
-        Intent intent = new Intent(,);
-        String promotionId = getIntent().getStringExtra("promotion_id"); // Get the promotion_id from the intent
-        intent.putExtra("promotion_id", promotionId); // Add the promotion_id to the intent
+        database = FirebaseDatabase.getInstance();
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid(); //추가1
+        //받은 신청서만 쿼리
+        databaseReference = database.getReference("applicationItems").orderByChild("sendToUserId").equalTo(currentUserId).getRef(); //추가1
 
- */
-        String key = getIntent().getStringExtra("promotion_id");
+        String key = getIntent().getStringExtra("sendToUserId");
         if (key != null){
             DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("applicationItems").child(key);
-
             dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -61,13 +63,19 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    Log.e("ProfileRecivedapplicationformActivity2", "Failed to retrieve data from Firebase: " + error.getMessage());
                 }
             });
         } else {
-
+            Log.e("ProfileRecivedapplicationformActivity2", "Failed to retrieve key from intent");
         }
 
+        btn_approval.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 }

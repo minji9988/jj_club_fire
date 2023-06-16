@@ -86,12 +86,19 @@ public class ApplicationItemAdapter extends RecyclerView.Adapter<ApplicationItem
     }
 
     public interface OnItemClickListener {
-        void onItemClick(String postId);
+        void onItemClick(String sendToUserId);
+    }
+    private OnItemClickListener listener;//추가
+
+    public void setOnItemClickListener(OnItemClickListener listener) { //sendToUserId를 listener로하고
+        this.listener = listener;                                       // mListener = listener;추가
     }
 
+
+    /*
     public void setOnItemClickListener(HomeItemAdapter.OnItemClickListener listener) {
         mListener = listener;
-    }
+    }*/
 
 
     //리사이클러 홀더 상속
@@ -106,6 +113,19 @@ public class ApplicationItemAdapter extends RecyclerView.Adapter<ApplicationItem
             this.iv_profileImage = itemView.findViewById(R.id.iv_profileImage);
             this.tv_id = itemView.findViewById(R.id.tv_id);
             this.tv_application_content = itemView.findViewById(R.id.tv_application_content);
+
+            //추가
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && listener != null) {
+                        ApplicationItem applicationItem = arrayList.get(position);
+                        String sendToUserId = applicationItem.getSendToUserId();
+                        listener.onItemClick(sendToUserId);
+                    }
+                }
+            });
 
         }
     }
