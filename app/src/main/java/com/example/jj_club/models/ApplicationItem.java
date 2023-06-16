@@ -5,13 +5,13 @@ import java.io.Serializable;
 
 public class ApplicationItem implements Serializable {
 
-    private String fromUserId; // User who sends the application
-    private String promotionId; // Promotion id associated with the application
+    private String fromUserId; // User who sends the application, 신청서 보내는사람
+    private String promotionId; // Promotion id associated with the application(신청서id)
     private String appName; // Application name
     private String appNumber; // Application number
     private String appPhone; // Application phone number
     private String appIntro; // Application introduction
-    private String sendToUserId; // User who should receive the application
+    private String sendToUserId; // User who should receive the application, 신청서 작성한사람(받는사람)
 
     // Default constructor
     public ApplicationItem() { }
@@ -82,4 +82,6 @@ public class ApplicationItem implements Serializable {
     public void setSendToUserId(String sendToUserId) {
         this.sendToUserId = sendToUserId;
     }
+
+
 }

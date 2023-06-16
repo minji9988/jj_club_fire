@@ -33,8 +33,8 @@ public class ProfileWirtepostActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_writePost);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setReverseLayout(true);  // 역순으로 아이템 표시
-        layoutManager.setStackFromEnd(true);  // 아래쪽에서부터 아이템 쌓기
+        //layoutManager.setReverseLayout(true);  // 역순으로 아이템 표시
+        //layoutManager.setStackFromEnd(true);  // 아래쪽에서부터 아이템 쌓기
         mRecyclerView.setLayoutManager(layoutManager);
 
         mUserLikesDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(getCurrentUserUid());

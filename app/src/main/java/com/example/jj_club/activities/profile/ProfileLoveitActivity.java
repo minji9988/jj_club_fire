@@ -25,13 +25,12 @@ public class ProfileLoveitActivity extends AppCompatActivity {
     private ImageButton btn_GoBackProfile_fromLoveIt;
     private RecyclerView mRecyclerView;
     private HomeItemAdapter2  mAdapter;
-    //private RecyclerView.LayoutManager layoutManager; //리사이클러뷰는 레이아웃매니저랑 연결해줘야하는게 있으
-    //private ArrayList<HomeItem> arrayList; //어뎁터에서 만든거랑 똑같게
-
-    //private FirebaseDatabase database;
     private DatabaseReference mDatabase;
     private DatabaseReference mUserLikesDatabase; // 사용자가 좋아하는 게시물을 저장하는 Firebase 데이터베이스 참조 객체
 
+    //private RecyclerView.LayoutManager layoutManager; //리사이클러뷰는 레이아웃매니저랑 연결해줘야하는게 있으
+    //private ArrayList<HomeItem> arrayList; //어뎁터에서 만든거랑 똑같게
+    //private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +46,18 @@ public class ProfileLoveitActivity extends AppCompatActivity {
 
         // Firebase 데이터베이스 참조 초기화
         mDatabase = FirebaseDatabase.getInstance().getReference().child("promotions");
-        mUserLikesDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(getCurrentUserUid()).child("likedPosts");
+        //mUserLikesDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(getCurrentUserUid()).child("likedPosts");
 
-        Query query = mDatabase.orderByChild("timeStamp");
+        Query query = mDatabase;
         //이거 추가하면 찜목록에 아무것도 안뜸
         //.equalTo(true);
+
 
         FirebaseRecyclerOptions<HomeItem> options =
                 new FirebaseRecyclerOptions.Builder<HomeItem>()
                         .setQuery(query, HomeItem.class)
                         .build();
+
 
         //mAdapter = new HomeItemAdapter2(options, mUserLikesDatabase, mDatabase.child("likes"))
         mAdapter = new HomeItemAdapter2(options, mUserLikesDatabase);

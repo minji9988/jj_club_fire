@@ -4,19 +4,27 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.jj_club.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.core.Tag;
 
 public class ProfileEditActivity extends AppCompatActivity {
 
@@ -27,6 +35,8 @@ public class ProfileEditActivity extends AppCompatActivity {
     private Button btn_save;
 
     private DatabaseReference databaseReference;
+
+    private FirebaseAuth firebaseAuth;
 
 
 
@@ -57,6 +67,23 @@ public class ProfileEditActivity extends AppCompatActivity {
         btn_save = findViewById(R.id.btn_save);
         btn_profileImage = (ImageButton) findViewById(R.id.btn_profileImage);
         btn_GoBackProfile_fromProfileEdit = (ImageButton) findViewById(R.id.btn_GoBackProfile_fromProfileEdit);
+
+        //밑 다 추가
+        /*
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName("name").build();
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Log.d(Tag, "User profile updated.");
+                        }
+                    }
+                });
+         */
+
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("users");

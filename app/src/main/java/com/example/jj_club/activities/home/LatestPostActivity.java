@@ -72,6 +72,7 @@ public class LatestPostActivity extends AppCompatActivity {
             }
         });
 
+
         // 뒤로가기 버튼 초기화 및 클릭 이벤트 처리
         btnBack = findViewById(R.id.btn_back_latest_posts);
         btnBack.setOnClickListener(new View.OnClickListener() {
