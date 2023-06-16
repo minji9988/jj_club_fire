@@ -1,26 +1,41 @@
 package com.example.jj_club.activities.promotion;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.jj_club.R;
+import com.example.jj_club.adapters.ChatRoomListAdapter;
+import com.example.jj_club.models.ChatRoom;
 import com.example.jj_club.models.HomeItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PromotionDetailActivity extends AppCompatActivity {
 
@@ -34,10 +49,42 @@ public class PromotionDetailActivity extends AppCompatActivity {
     private ImageView imagePromotion;
     private TextView textRecruitPeriod, textFee, textInterview, textMeetingName, textRecruitmentCount, textClubIntro, textRecruitmentTarget;
 
+    private RecyclerView recyclerChatRoomList;
+    private List<ChatRoom> chatRoomList = new ArrayList<>();
+    private ChatRoomListAdapter chatRoomListAdapter;
+
+    private ImageButton btnAddChatRoom;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.promotion_detail);
+
+        // chat
+        recyclerChatRoomList = findViewById(R.id.recycler_chat_room_list); // RecyclerView의 ID를 적절히 수정해주세요.
+        chatRoomListAdapter = new ChatRoomListAdapter(chatRoomList);
+        recyclerChatRoomList.setAdapter(chatRoomListAdapter);
+
+        btnAddChatRoom = findViewById(R.id.promotion_add_chat_btn); // Create chat room btn
+
+        btnAddChatRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createChatRoom();
+            }
+        });
+
+
+        chatRoomListAdapter.setOnItemClickListener(new ChatRoomListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ChatRoom chatRoom) {
+                Intent intent = new Intent(PromotionDetailActivity.this, ChatActivity.class);
+                intent.putExtra("room_id", chatRoom.getRoomId());
+                startActivity(intent);
+            }
+        });
+
 
         // Find the layout views
         layoutIntro = findViewById(R.id.layout_intro);
@@ -100,7 +147,7 @@ public class PromotionDetailActivity extends AppCompatActivity {
         // Hide the chat-related elements initially
         layoutChatting.setVisibility(View.GONE);
 
-      
+
         // Set the onClickListener for the apply button
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,5 +191,100 @@ public class PromotionDetailActivity extends AppCompatActivity {
         } else {
             Log.e("PromotionDetailActivity", "Failed to retrieve key from intent");
         }
+
+        // Fetch chat rooms
+        fetchChatRooms();
     }
+
+    private void createChatRoom() {
+
+
+        // Create a dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Create a Chat Room");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // When the user clicks "OK", create a new chat room with the given name
+                String chatRoomName = input.getText().toString();
+                createNewChatRoom(chatRoomName);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+
+
+    }
+
+
+
+    private void createNewChatRoom(String chatRoomName) {
+        String roomId = FirebaseDatabase.getInstance().getReference("chatrooms").push().getKey();
+        Map<String, Boolean> users = new HashMap<>();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser == null) {
+            // User is not signed in, cannot create a chat room
+            Log.e("PromotionDetailActivity", "Failed to create new chat room: User is not signed in.");
+            return;
+        }
+
+        String currentUserId = currentUser.getUid();
+        users.put(currentUserId, true);
+
+        ChatRoom chatRoom = new ChatRoom(roomId, users, "", chatRoomName);
+
+        // get the promotion_id from the intent and set it to the chat room
+        String promotionId = getIntent().getStringExtra("promotion_id");
+        chatRoom.setPromotionId(promotionId);
+
+        if (roomId != null) {
+            FirebaseDatabase.getInstance().getReference("chatrooms").child(roomId).setValue(chatRoom).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    // Fetch chat rooms again to update the list
+                    fetchChatRooms();
+                } else {
+                    Log.e("PromotionDetailActivity", "Failed to create new chat room: " + task.getException().getMessage());
+                }
+            });
+        }
+    }
+
+
+
+    private void fetchChatRooms() {
+        String promotionId = getIntent().getStringExtra("promotion_id"); // get the promotion_id from the intent
+        DatabaseReference chatRoomsRef = FirebaseDatabase.getInstance().getReference("chatrooms");
+
+        chatRoomsRef.orderByChild("promotionId").equalTo(promotionId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                chatRoomList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    ChatRoom chatRoom = snapshot.getValue(ChatRoom.class);
+                    chatRoomList.add(chatRoom);
+                }
+                chatRoomListAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("PromotionDetailActivity", "Failed to fetch chat rooms: " + databaseError.getMessage());
+            }
+        });
+    }
+
 }

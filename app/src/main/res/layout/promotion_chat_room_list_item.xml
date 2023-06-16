@@ -25,7 +25,7 @@
             android:id="@+id/text_chat_room_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:text="채팅방 이름"
             android:textStyle="bold"
             android:textColor="@color/blue"

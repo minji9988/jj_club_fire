@@ -19,8 +19,16 @@ public class User {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getMbti() {
@@ -31,5 +39,5 @@ public class User {
         this.mbti = mbti;
     }
 
-    // 추가적인 getter 및 setter 메서드를 필요에 따라 포함시킬 수 있습니다.
+
 }

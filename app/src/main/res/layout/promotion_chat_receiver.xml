@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp">
+
+    <!-- 상대방의 메시지 레이아웃 -->
+
+    <ImageView
+        android:id="@+id/image_receiver"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/gray_round"
+        android:padding="2dp" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_receiver_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19sp"
+            android:textColor="@color/black"
+            android:text="Sender Name"
+            />
+
+        <TextView
+            android:id="@+id/text_receiver_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/text_receiver_name"
+            android:layout_marginTop="35dp"
+            android:textSize="19sp"
+            android:textColor="@color/black"
+            android:text="message"
+            android:background="@drawable/promotion_chat_bubble"
+            android:padding="15dp" />
+
+
+        <TextView
+            android:id="@+id/text_message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/text_receiver_message"
+            android:layout_alignBottom="@+id/text_receiver_message"
+            android:textSize="16sp"
+            android:textColor="#939393"
+            android:layout_marginLeft="120dp"
+            android:text="5:21"
+            />
+
+    </RelativeLayout>
+
+
+</LinearLayout>
