@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageButton
+        android:id="@+id/button_back2"
+        android:layout_width="28dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="53dp"
+        android:layout_marginLeft="43dp"
+        android:background="#00000000"
+        android:src="@drawable/arrow_left"/>
+
+    <TextView
+        android:layout_width="136dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginLeft="89dp"
+        android:fontFamily="@font/fontbold"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="12sp"
+        android:text="보낸 신청서"
+        android:textColor="#3c3c3c"
+        android:textSize="28sp"
+        />
+
+
+    <!--이름-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="155dp"
+        android:layout_marginLeft="43dp"
+        android:lineSpacingExtra="8sp"
+        android:text="인적사항"
+        android:textColor="#1c7eff"
+        android:textSize="23sp"
+        android:fontFamily="@font/fontregular"
+        android:includeFontPadding="false" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="344dp"
+        android:layout_height="179dp"
+        android:layout_marginTop="219dp"
+        android:layout_marginLeft="43dp">
+
+        <!--이름-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:textSize="16sp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="36dp"
+            android:textStyle="normal"
+            android:textColor="#707070" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_received_form_name2"
+            android:text="이름"
+            android:textColor="#3c3c3c"
+            android:textSize="18sp"
+            android:layout_marginTop="36dp"
+            android:layout_marginLeft="133dp"/>
+
+        <!--학번-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="학번"
+            android:textSize="16sp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="78dp"
+            android:textStyle="normal"
+            android:textColor="#707070" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_received_form_classof2"
+            android:text="학번"
+            android:textColor="#3c3c3c"
+            android:textSize="18sp"
+            android:layout_marginTop="78dp"
+            android:layout_marginLeft="133dp"/>
+
+        <!--전화번호-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전화번호"
+            android:textSize="16sp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="120dp"
+            android:textStyle="normal"
+            android:textColor="#707070" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_received_form_phone2"
+            android:text="전화번호"
+            android:textColor="#3c3c3c"
+            android:textSize="18sp"
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="133dp"/>
+    </androidx.cardview.widget.CardView>
+
+    <!--자기소개-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="465dp"
+        android:layout_marginLeft="43dp"
+        android:lineSpacingExtra="8sp"
+        android:text="자기소개"
+        android:textColor="#1c7eff"
+        android:textSize="23sp"
+        android:fontFamily="@font/fontregular"
+        android:includeFontPadding="false" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="343dp"
+        android:layout_height="309dp"
+        android:layout_marginTop="527dp"
+        android:layout_marginLeft="43dp">
+
+        <TextView
+            android:id="@+id/tv_introduce2"
+            android:layout_width="289dp"
+            android:layout_height="234dp"
+            android:layout_marginTop="33dp"
+            android:layout_marginLeft="28dp"
+            android:text="자기소개"
+            android:textColor="#3c3c3c"
+            android:textSize="18sp"/>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
