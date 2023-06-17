@@ -1,5 +1,6 @@
 package com.example.jj_club.activities.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -24,21 +25,24 @@ import java.util.ArrayList;
 
 public class ProfileRecivedapplicationformActivity extends AppCompatActivity {
 
+    private static final String TAG = "ProfileRecivedapplicationformActivity";
     private RecyclerView recyclerView;
 
     private RecyclerView.Adapter adapter;
+    private ApplicationItemAdapter mAdapter;
 
     private RecyclerView.LayoutManager layoutManager; //리사이클러뷰는 레이아웃매니저랑 연결해줘야하는게 있으
     private ArrayList<ApplicationItem> arrayList; //어뎁터에서 만든거랑 똑같게
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private ImageButton btn_GoBackProfile_fromRecivedapplicationformActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_recivedapplicationform);
 
-        recyclerView=findViewById(R.id.recycler_receivedForm);
+        recyclerView = findViewById(R.id.recycler_receivedForm);
         recyclerView.setHasFixedSize(true); //리사이클러뷰 성능강화
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -53,32 +57,43 @@ public class ProfileRecivedapplicationformActivity extends AppCompatActivity {
 
         // 받은 신청서만 쿼리(해당 부분 수정)
         Query query = database.getReference("applicationItems").orderByChild("sendToUserId").equalTo(currentUserId);
-        // 기존 코드: databaseReference = database.getReference("applicationItems").orderByChild("sendToUserId").equalTo(currentUserId).getRef(); //추가1
+        // 기존 코드: databaseReference = database.getReference("applicationItems").orderByChild("sendToUserId").equalTo(currentUserId).getRef();
         // 이미 48줄에 databaseReference를 선언했는데 또 선언하고 있음.
         // 55번째 줄에서 getRef() 메소드는 원래의 레퍼런스를 반환(하는 메소드이므로, 즉 48번째 줄에 있는 모든 신청서들을 반환하게 돼서
         // orderByChild와 equalTo 호출이 무시되는 문제가 발생. 이 쿼리가 사용자가 받은 신청서만 보여주도록 하는 쿼리인데 이걸 무시하게 되니
         // 자연스럽게 모든 신청서가 노출되는 문제 발생
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {//dabaseReference -> quer
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();
-                for (DataSnapshot snapshot1 : snapshot.getChildren()){
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     ApplicationItem applicationItem = snapshot1.getValue(ApplicationItem.class);
                     arrayList.add(applicationItem);
                 }
                 adapter.notifyDataSetChanged();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
 
-
-        adapter = new ApplicationItemAdapter(arrayList,this); //커스텀어뎁터 클래스 여기서 소환
+        mAdapter = new ApplicationItemAdapter(arrayList, this);
+        adapter = new ApplicationItemAdapter(arrayList, this); //커스텀어뎁터 클래스 여기서 소환
         recyclerView.setAdapter(adapter); //리사이클러뷰에 어뎁터 연결
 
+        mAdapter.setOnItemClickListener(new ApplicationItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String sendToUserId) {
+                Intent intent = new Intent(ProfileRecivedapplicationformActivity.this, ProfileRecivedapplicationformActivity2.class);
+                intent.putExtra("sendToUserId", sendToUserId);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         btn_GoBackProfile_fromRecivedapplicationformActivity = (ImageButton) findViewById(R.id.btn_GoBackProfile_fromRecivedapplicationformActivity);
         btn_GoBackProfile_fromRecivedapplicationformActivity.setOnClickListener(new View.OnClickListener() {
@@ -88,20 +103,21 @@ public class ProfileRecivedapplicationformActivity extends AppCompatActivity {
 
             }
         });
-        
-        //추가
-        /*
-        public void onItemClick(int position;) {
-            ApplicationItem applicationItem = arrayList.get(position);
-            String fromUserId = applicationItem.getFromUserId();
 
-            // Pass the fromUserId to the next activity
-            Intent intent = new Intent(ProfileRecivedapplicationformActivity.this, ProfileRecivedapplicationformActivity2.class);
-            intent.putExtra("fromUserId", fromUserId);
-            startActivity(intent);
-        }
-         */
+        //추가
+            /*
+            public void onItemClick(int position;) {
+                ApplicationItem applicationItem = arrayList.get(position);
+                String fromUserId = applicationItem.getFromUserId();
+
+                // Pass the fromUserId to the next activity
+                Intent intent = new Intent(ProfileRecivedapplicationformActivity.this, ProfileRecivedapplicationformActivity2.class);
+                intent.putExtra("fromUserId", fromUserId);
+                startActivity(intent);
+            }
+             */
 
 
     }
+
 }

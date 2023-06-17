@@ -86,12 +86,19 @@ public class ApplicationItemAdapter extends RecyclerView.Adapter<ApplicationItem
     }
 
     public interface OnItemClickListener {
-        void onItemClick(String postId);
+        void onItemClick(String sendToUserId);
+    }
+    private OnItemClickListener listener;//추가
+
+    public void setOnItemClickListener(OnItemClickListener listener) { //sendToUserId를 listener로하고
+        this.listener = listener;                                       // mListener = listener;추가
     }
 
+
+    /*
     public void setOnItemClickListener(HomeItemAdapter.OnItemClickListener listener) {
         mListener = listener;
-    }
+    }*/
 
 
     //리사이클러 홀더 상속

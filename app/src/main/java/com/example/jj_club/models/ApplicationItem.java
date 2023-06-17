@@ -2,6 +2,8 @@ package com.example.jj_club.models;
 
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ApplicationItem implements Serializable {
 
@@ -12,6 +14,7 @@ public class ApplicationItem implements Serializable {
     private String appPhone; // Application phone number
     private String appIntro; // Application introduction
     private String sendToUserId; // User who should receive the application, 신청서 작성한사람(받는사람)
+    private Map<String, Boolean> appApproval;
 
     // Default constructor
     public ApplicationItem() { }
@@ -25,6 +28,7 @@ public class ApplicationItem implements Serializable {
         this.appNumber = appNumber;
         this.appPhone = appPhone;
         this.appIntro = appIntro;
+        this.appApproval = new HashMap<>();
     }
 
     public String getFromUserId() {
@@ -83,5 +87,19 @@ public class ApplicationItem implements Serializable {
         this.sendToUserId = sendToUserId;
     }
 
+    public Map<String, Boolean> getAppApproval() {
+        return appApproval;
+    }
+
+    public void setAppApproval(Map<String, Boolean> appApproval) {
+        this.appApproval = appApproval;
+    }
+
+    public boolean isApprovalByUser(String userId){
+        if (appApproval == null){
+            return  false;
+        }
+        return appApproval.containsKey(userId);
+    }
 
 }
