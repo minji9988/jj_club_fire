@@ -22,8 +22,7 @@ public class HomeItem {
     private List<String> selectedButtons;
     private String mbti;
 
-    private List<String> join;
-
+    private Map<String, String> joinStatuses;
 
     public HomeItem() {}
 
@@ -48,6 +47,7 @@ public class HomeItem {
         this.timeStamp = System.currentTimeMillis();
         this.reversedTimestamp = Long.MAX_VALUE - this.timeStamp;
         this.likes = new HashMap<>();
+        this.joinStatuses = new HashMap<>();
 
     }
 
@@ -202,12 +202,30 @@ public class HomeItem {
         this.mbti = mbti;
     }
 
-//    public Map<String, Boolean> getJoin() {
-//        return join;
-//    }
+    // Add this new method for getting the joinStatuses field
+    public Map<String, String> getJoinStatuses() {
+        return joinStatuses;
+    }
 
-//    public void setJoin(Map<String, Boolean> join) {
-//        this.join = join;
-//    }
+    // Add this new method for setting the joinStatuses field
+    public void setJoinStatuses(Map<String, String> joinStatuses) {
+        this.joinStatuses = joinStatuses;
+    }
+
+    // Check the join status of a user for this promotion
+    public String getJoinStatusForUser(String userId) {
+        if (joinStatuses == null) {
+            return "not_applied";
+        }
+        return joinStatuses.getOrDefault(userId, "not_applied");
+    }
+
+    // Set the join status of a user for this promotion
+    public void setJoinStatusForUser(String userId, String status) {
+        if (joinStatuses == null) {
+            joinStatuses = new HashMap<>();
+        }
+        joinStatuses.put(userId, status);
+    }
 
 }

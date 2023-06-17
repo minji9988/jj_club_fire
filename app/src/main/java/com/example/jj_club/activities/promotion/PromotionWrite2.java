@@ -149,6 +149,11 @@ public class PromotionWrite2 extends AppCompatActivity {
         promotionUpdates.put("imageUrl", imageUrl);
         promotionUpdates.put("selectedButtons", selectedButtons);  // Add the selectedButtons list to the Firebase update
 
+        // Create a new map for the joinStatuses field
+        Map<String, String> joinStatuses = new HashMap<>();
+        joinStatuses.put(userId, "waiting");
+        promotionUpdates.put("joinStatuses", joinStatuses);
+
         databaseRef.updateChildren(promotionUpdates)
                 .addOnSuccessListener(aVoid -> {
                     Log.d(TAG, "Promotion added with ID: " + promotionId);
@@ -161,6 +166,7 @@ public class PromotionWrite2 extends AppCompatActivity {
                     Toast.makeText(PromotionWrite2.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 });
     }
+
 
     /**
      * 파일 선택기 열기
