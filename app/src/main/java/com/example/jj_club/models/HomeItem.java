@@ -22,6 +22,9 @@ public class HomeItem {
     private List<String> selectedButtons;
     private String mbti;
 
+    private List<String> join;
+
+
     public HomeItem() {}
 
     public HomeItem(String title, String recruitPeriod, String fee, String interview,
@@ -45,6 +48,7 @@ public class HomeItem {
         this.timeStamp = System.currentTimeMillis();
         this.reversedTimestamp = Long.MAX_VALUE - this.timeStamp;
         this.likes = new HashMap<>();
+
     }
 
     //getter and setter methods
@@ -197,4 +201,13 @@ public class HomeItem {
     public void setMBIT(String mbti) {
         this.mbti = mbti;
     }
+
+//    public Map<String, Boolean> getJoin() {
+//        return join;
+//    }
+
+//    public void setJoin(Map<String, Boolean> join) {
+//        this.join = join;
+//    }
+
 }
