@@ -69,6 +69,7 @@ public class ChatRoomListAdapter extends RecyclerView.Adapter<ChatRoomListAdapte
             imageChatRoom = itemView.findViewById(R.id.promotion_chat_list_img);
             textChatRoomName = itemView.findViewById(R.id.text_chat_room_name);
             textLastMessage = itemView.findViewById(R.id.text_last_message);
+
         }
 
         void bind(ChatRoom chatRoom) {

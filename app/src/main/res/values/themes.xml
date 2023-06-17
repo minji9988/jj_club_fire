@@ -18,5 +18,10 @@
 
     </style>
 
+    <style name="BottomNavigationTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+    </style>
+
+
     <style name="Theme.Jj_club" parent="Base.Theme.Jj_club" />
 </resources>

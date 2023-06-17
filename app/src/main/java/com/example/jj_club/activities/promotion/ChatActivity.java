@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import com.example.jj_club.adapters.MessageAdapter;
 import com.example.jj_club.models.Message;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -98,6 +100,38 @@ public class ChatActivity extends AppCompatActivity {
         layoutManager.setStackFromEnd(true);
         messageRecyclerView.setLayoutManager(layoutManager);
         messageRecyclerView.setAdapter(messageAdapter);
+
+        // Scroll to bottom whenever a new message is added
+        messageDatabaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
+                messageAdapter.notifyDataSetChanged();
+                messageRecyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Check if the RecyclerView has more than one item
+                        if (messageAdapter.getItemCount() > 1) {
+                            // Scroll to the last item
+                            messageRecyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
+                        }
+                    }
+                });
+            }
+
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s) { }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s) { }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+
     }
 
 
@@ -129,12 +163,17 @@ public class ChatActivity extends AppCompatActivity {
                             messageDatabaseReference.push().getKey(),
                             currentUserId,
                             currentUserName,
-                            finalMessageContent,  // 변경된 부분
+                            finalMessageContent,  // 욕설 필터링된 최종 메세지
                             null,  // Replace with image URL, if any
                             timestamp);
 
                     // Save message to 'Messages' node
                     messageDatabaseReference.child(chatMessage.getMessageId()).setValue(chatMessage);
+
+                    // Get reference to the 'chatrooms' node
+                    DatabaseReference chatRoomRef = FirebaseDatabase.getInstance().getReference("chatrooms").child(chatRoomId);
+                    chatRoomRef.child("lastMessage").setValue(finalMessageContent);  // Update last message in ChatRoom
+
                 }
 
                 @Override
