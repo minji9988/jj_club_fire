@@ -3,6 +3,7 @@ package com.example.jj_club.activities.profile;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -25,6 +26,8 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
     private TextView tv_introduce;
     private ImageButton button_back;
 
+    private Button button_approve;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,7 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
         tv_received_form_phone = findViewById(R.id.tv_received_form_phone);
         tv_introduce = findViewById(R.id.tv_introduce);
         button_back = findViewById(R.id.button_back);
+        button_approve = findViewById(R.id.btn_approval);
 
         // Get applicationId from intent
         String applicationId = getIntent().getStringExtra("applicationId");
@@ -56,6 +60,8 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
                         tv_received_form_classof.setText(applicationItem.getAppNumber());
                         tv_received_form_phone.setText(applicationItem.getAppPhone());
                         tv_introduce.setText(applicationItem.getAppIntro());
+
+
                     } else {
                         // 데이터가 null인 경우 처리
                         Log.d("FirebaseDebug", "ApplicationItem is null");
