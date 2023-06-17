@@ -61,6 +61,13 @@ public class PromotionDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.promotion_detail);
 
+        // Get the promotionId from the intent
+        String promotionId = getIntent().getStringExtra("promotion_id");
+        if (promotionId == null) {
+            Log.d("PromotionDetailActivity", "promotion_id is null");
+            return;
+        }
+
         // chat
         recyclerChatRoomList = findViewById(R.id.recycler_chat_room_list); // RecyclerView의 ID를 적절히 수정해주세요.
         chatRoomListAdapter = new ChatRoomListAdapter(chatRoomList);
@@ -74,6 +81,7 @@ public class PromotionDetailActivity extends AppCompatActivity {
                 createChatRoom();
             }
         });
+
 
 
         chatRoomListAdapter.setOnItemClickListener(new ChatRoomListAdapter.OnItemClickListener() {

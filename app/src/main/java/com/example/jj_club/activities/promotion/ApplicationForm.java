@@ -77,12 +77,15 @@ public class ApplicationForm extends AppCompatActivity {
                             if (dataSnapshot.exists()) {
                                 String sendToUserId = dataSnapshot.child("userId").getValue(String.class);
 
+                                // Generate a unique applicationId
+                                String applicationId = databaseReference.push().getKey();
+
                                 // Create a new ApplicationItem object
-                                ApplicationItem applicationItem = new ApplicationItem(fromUserId, promotionId, name, number, phone, intro);
+                                ApplicationItem applicationItem = new ApplicationItem(fromUserId, promotionId, name, number, phone, intro, applicationId);
                                 applicationItem.setSendToUserId(sendToUserId);
 
                                 // Save the application to the database
-                                databaseReference.push().setValue(applicationItem)
+                                databaseReference.child(applicationId).setValue(applicationItem)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {

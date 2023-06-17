@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activities.promotion.ApplicationForm">
@@ -18,7 +20,7 @@
             android:layout_marginTop="53dp"
             android:layout_marginLeft="43dp"
             android:background="#00000000"
-            android:src="@drawable/arrow_left"/>
+            android:src="@drawable/arrow_left" />
 
         <TextView
             android:layout_width="136dp"
@@ -36,20 +38,7 @@
             app:layout_constraintStart_toEndOf="@+id/button_back"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.widget.Button
-            android:id="@+id/btn_approval"
-            android:layout_width="77dp"
-            android:layout_height="48dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="42dp"
-            android:layout_marginRight="33dp"
-            android:background="@drawable/btn_round_blue_box"
-            android:text="승인"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
-
-        <!--이름-->
+        <!--인적사항-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,14 +50,16 @@
             android:text="인적사항"
             android:textColor="#1c7eff"
             android:textSize="23sp"
+            android:textStyle="bold"
             android:fontFamily="@font/fontregular"
             android:includeFontPadding="false" />
 
-        <androidx.cardview.widget.CardView
+        <FrameLayout
             android:layout_width="344dp"
             android:layout_height="179dp"
             android:layout_marginTop="219dp"
-            android:layout_marginLeft="43dp">
+            android:layout_marginLeft="43dp"
+            android:background="@drawable/shadow">
 
             <!--이름-->
             <TextView
@@ -80,6 +71,7 @@
                 android:layout_marginTop="36dp"
                 android:textStyle="normal"
                 android:textColor="#707070" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,7 +80,7 @@
                 android:textColor="#3c3c3c"
                 android:textSize="18sp"
                 android:layout_marginTop="36dp"
-                android:layout_marginLeft="133dp"/>
+                android:layout_marginLeft="133dp" />
 
             <!--학번-->
             <TextView
@@ -100,6 +92,7 @@
                 android:layout_marginTop="78dp"
                 android:textStyle="normal"
                 android:textColor="#707070" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,10 +101,9 @@
                 android:textColor="#3c3c3c"
                 android:textSize="18sp"
                 android:layout_marginTop="78dp"
-                android:layout_marginLeft="133dp"/>
+                android:layout_marginLeft="133dp" />
 
             <!--전화번호-->
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,6 +113,7 @@
                 android:layout_marginTop="120dp"
                 android:textStyle="normal"
                 android:textColor="#707070" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -129,13 +122,13 @@
                 android:textColor="#3c3c3c"
                 android:textSize="18sp"
                 android:layout_marginTop="120dp"
-                android:layout_marginLeft="133dp"/>
-        </androidx.cardview.widget.CardView>
+                android:layout_marginLeft="133dp" />
+        </FrameLayout>
 
         <!--자기소개-->
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="465dp"
@@ -144,15 +137,17 @@
             android:text="자기소개"
             android:textColor="#1c7eff"
             android:textSize="23sp"
+            android:textStyle="bold"
             android:fontFamily="@font/fontregular"
             android:includeFontPadding="false" />
-        
-        <androidx.cardview.widget.CardView
+
+        <FrameLayout
             android:layout_width="343dp"
             android:layout_height="309dp"
             android:layout_marginTop="527dp"
-            android:layout_marginLeft="43dp">
-            
+            android:layout_marginLeft="43dp"
+            android:background="@drawable/shadow">
+
             <TextView
                 android:id="@+id/tv_introduce"
                 android:layout_width="289dp"
@@ -161,12 +156,31 @@
                 android:layout_marginLeft="28dp"
                 android:text="자기소개"
                 android:textColor="#3c3c3c"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
-        </androidx.cardview.widget.CardView>
+        </FrameLayout>
 
-        
+        <Button
+            android:id="@+id/btn_approval"
+            android:layout_width="114dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="891dp"
+            android:layout_marginLeft="253dp"
+            android:background="@drawable/btn_round_blue_box"
+            android:text="승인"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
 
+        <android.widget.Button
+            android:id="@+id/btn_rejection"
+            android:layout_width="114dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="891dp"
+            android:layout_marginLeft="62dp"
+            android:text="거절"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_round_gray_box"
+            android:textSize="18sp" />
 
     </RelativeLayout>
 

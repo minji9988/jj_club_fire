@@ -15,7 +15,7 @@
 
     <TextView
         android:layout_width="136dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
         android:layout_marginLeft="89dp"
         android:fontFamily="@font/fontbold"
@@ -39,6 +39,7 @@
         android:text="인적사항"
         android:textColor="#1c7eff"
         android:textSize="23sp"
+        android:textStyle="bold"
         android:fontFamily="@font/fontregular"
         android:includeFontPadding="false" />
 
@@ -46,7 +47,9 @@
         android:layout_width="344dp"
         android:layout_height="179dp"
         android:layout_marginTop="219dp"
-        android:layout_marginLeft="43dp">
+        android:layout_marginLeft="43dp"
+        android:background="@drawable/shadow"
+        >
 
         <!--이름-->
         <TextView
@@ -113,7 +116,7 @@
     <!--자기소개-->
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="465dp"
@@ -122,6 +125,7 @@
         android:text="자기소개"
         android:textColor="#1c7eff"
         android:textSize="23sp"
+        android:textStyle="bold"
         android:fontFamily="@font/fontregular"
         android:includeFontPadding="false" />
 

@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jj_club.R;
-import com.example.jj_club.activities.profile.ProfileRecivedapplicationformActivity2;
 import com.example.jj_club.activities.profile.ProfileSendapplicationformActivity2;
 import com.example.jj_club.models.ApplicationItem;
 import com.google.firebase.database.DatabaseReference;
@@ -67,11 +66,11 @@ public class ApplicationItemSendAdapter extends RecyclerView.Adapter<Application
     public interface OnItemClickListener {
         void onItemClick(String sendToUserId);
     }
-    private ApplicationItemAdapter.OnItemClickListener listener;//추가
-
-    public void setOnItemClickListener(ApplicationItemAdapter.OnItemClickListener listener) { //sendToUserId를 listener로하고
-        this.listener = listener;                                       // mListener = listener;추가
-    }
+//    private ApplicationItemAdapter.OnItemClickListener listener;//추가
+//
+//    public void setOnItemClickListener(ApplicationItemAdapter.OnItemClickListener listener) { //sendToUserId를 listener로하고
+//        this.listener = listener;                                       // mListener = listener;추가
+//    }
 
     public class ApplicationItemSendViewHolder extends RecyclerView.ViewHolder {
         TextView tv_id2, tv_application_content2;

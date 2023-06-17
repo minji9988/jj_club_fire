@@ -16,12 +16,15 @@ public class ApplicationItem implements Serializable {
     private String sendToUserId; // User who should receive the application, 신청서 작성한사람(받는사람)
     private Map<String, Boolean> appApproval;
 
+    private String applicationId; // 추가: 신청서의 아이디
+
+
     // Default constructor
     public ApplicationItem() { }
 
 
     // Constructor for initializing ApplicationItem
-    public ApplicationItem(String fromUserId, String promotionId, String appName, String appNumber, String appPhone, String appIntro) {
+    public ApplicationItem(String fromUserId, String promotionId, String appName, String appNumber, String appPhone, String appIntro, String applicationId) {
         this.fromUserId = fromUserId;
         this.promotionId = promotionId;
         this.appName = appName;
@@ -29,6 +32,15 @@ public class ApplicationItem implements Serializable {
         this.appPhone = appPhone;
         this.appIntro = appIntro;
         this.appApproval = new HashMap<>();
+        this.applicationId = applicationId;
+    }
+
+    public String getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
     }
 
     public String getFromUserId() {

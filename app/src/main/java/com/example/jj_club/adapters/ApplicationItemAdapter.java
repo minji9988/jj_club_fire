@@ -15,109 +15,85 @@ import com.bumptech.glide.Glide;
 import com.example.jj_club.R;
 import com.example.jj_club.activities.profile.ProfileRecivedapplicationformActivity2;
 import com.example.jj_club.models.ApplicationItem;
-import com.example.jj_club.models.HomeItem;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 
-public class ApplicationItemAdapter extends RecyclerView.Adapter<ApplicationItemAdapter.ApplicationItemViewHolder> { //알트엔터로 클래스랑 implement method뽑기
+public class ApplicationItemAdapter extends RecyclerView.Adapter<ApplicationItemAdapter.ApplicationItemViewHolder> {
+    private ArrayList<ApplicationItem> arrayList;
+    private Context context;
 
-
-    private ArrayList<ApplicationItem> arrayList; //어레이리스트를 ApplicationItem에 연결해놓음
-
-    private Context context; //액티비티마다 콘텍스트가 있는데 어뎁터에서 액티비티 액션을 가져올때\
-
-    private HomeItemAdapter.OnItemClickListener mListener;
-
-    private DatabaseReference mDatabase;
-
-
-
-    //알트 인서트 -> 컨스트럭쳐
     public ApplicationItemAdapter(ArrayList<ApplicationItem> arrayList, Context context) {
         this.arrayList = arrayList;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("applicationItems");
         this.context = context;
-
     }
 
     @NonNull
     @Override
-    public ApplicationItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //리스트뷰가 어뎁터에 연결되고 뷰홀더를 최초로 만들어냄
-        //View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
-        View view =LayoutInflater.from(parent.getContext()).inflate(R.layout.application_received_item,parent,false);
-        ApplicationItemViewHolder holder = new ApplicationItemViewHolder(view);
-        return holder;
+    public ApplicationItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.application_received_item, parent, false);
+        return new ApplicationItemViewHolder(view);
     }
 
-    //arrayList_HomeItem 이미지 부분 프로필로 바꿔야함
     @Override
-    public void onBindViewHolder(@NonNull ApplicationItemViewHolder holder, int position) {//각 아이템에 대해 실제로 매칭시켜줌
+    public void onBindViewHolder(@NonNull ApplicationItemViewHolder holder, int position) {
+        ApplicationItem applicationItem = arrayList.get(position);
+
         Glide.with(holder.itemView)
-                .load(arrayList.get(position).getFromUserId())
+                .load(applicationItem.getFromUserId())
                 .into(holder.iv_profileImage);
-        holder.tv_id.setText(arrayList.get(position).getFromUserId());
-        //holder.tv_PW.setText(String.valueOf(arrayList.get(position).getPw())); //에러뜸 int 니까 String.valutof()로감싸줘야함 arrayList.get(position).getPw()
-        holder.tv_application_content.setText(arrayList.get(position).getAppIntro());
 
+        holder.tv_name.setText(applicationItem.getAppName());
+        holder.tv_intro.setText(applicationItem.getAppIntro());
 
-        //클릭시 화면전환
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 항목 클릭 시 실행될 코드 작성
-                // 새로운 화면으로 전환하는 코드를 추가하세요
-                // 예를 들어, 다음과 같이 Intent를 사용하여 새로운 화면으로 이동할 수 있습니다:
-                Intent intent = new Intent(view.getContext(), ProfileRecivedapplicationformActivity2.class);
-                view.getContext().startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            // DB에서 applicationId에 해당하는 sendToUserId 조회
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("applicationItems")
+                    .child(applicationItem.getApplicationId())
+                    .child("sendToUserId");
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String sendToUserId = dataSnapshot.getValue(String.class);
+
+                        // 신청서 글 아이디 ProfileRecivedapplicationformActivity2로 넘겨주는 곳
+                        Intent intent = new Intent(context, ProfileRecivedapplicationformActivity2.class);
+                        intent.putExtra("applicationId", applicationItem.getApplicationId());
+                        intent.putExtra("sendToUserId", sendToUserId);
+                        context.startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Error handling
+                }
+            });
         });
     }
 
     @Override
     public int getItemCount() {
-        //삼항 연산자
-        return (arrayList != null ? arrayList.size() : 0); //참이면 어레이리스트 사이즈를 가지고와라
+        return (arrayList != null ? arrayList.size() : 0);
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(String sendToUserId);
-    }
-    private OnItemClickListener listener;//추가
-
-    public void setOnItemClickListener(OnItemClickListener listener) { //sendToUserId를 listener로하고
-        this.listener = listener;                                       // mListener = listener;추가
-    }
-
-
-    /*
-    public void setOnItemClickListener(HomeItemAdapter.OnItemClickListener listener) {
-        mListener = listener;
-    }*/
-
-
-    //리사이클러 홀더 상속
     public class ApplicationItemViewHolder extends RecyclerView.ViewHolder {
-
         ImageView iv_profileImage;
-        TextView tv_id;
-        TextView tv_application_content;
+        TextView tv_name, tv_intro;
 
-        public ApplicationItemViewHolder(@NonNull View itemView) { //생성자
+        public ApplicationItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.iv_profileImage = itemView.findViewById(R.id.iv_profileImage);
-            this.tv_id = itemView.findViewById(R.id.tv_id);
-            this.tv_application_content = itemView.findViewById(R.id.tv_application_content);
 
+            iv_profileImage = itemView.findViewById(R.id.received_item_profileImage);
+            tv_name = itemView.findViewById(R.id.received_page_user_name);
+            tv_intro = itemView.findViewById(R.id.received_page_user_intro);
         }
     }
-
 }
-
-
 

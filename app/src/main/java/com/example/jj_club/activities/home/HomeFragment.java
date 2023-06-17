@@ -150,46 +150,11 @@ public class HomeFragment extends Fragment {
     private void setupRecyclerView(View view) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference().child("promotions");
         DatabaseReference userLikesDatabase = FirebaseDatabase.getInstance().getReference().child("userLikes");
-        Query query = databaseRef.orderByChild("reversedTimestamp");
 
-        FirebaseRecyclerOptions<MainHomeItem> options = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
-                .setQuery(query, MainHomeItem.class)
-                .build();
+        setupLatestPosts(view, databaseRef);
+        setupPopularPosts(view, databaseRef);
+        setupSameMBTIPosts(view, databaseRef);
 
-        adapter = new MainHomeAdapter(options);
-
-        latestPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_latest);
-        latestPostsRecyclerView.setHasFixedSize(true);
-        latestPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        latestPostsRecyclerView.setAdapter(adapter);
-
-        // Popular posts
-        Query popularPostsQuery = databaseRef.orderByChild("likesCount");  // likesCount를 기준으로 오름차순 정렬
-        FirebaseRecyclerOptions<MainHomeItem> popularPostsOptions = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
-                .setQuery(popularPostsQuery, MainHomeItem.class)
-                .build();
-
-        popularPostAdapter = new PopularPostAdapter(popularPostsOptions);
-
-        popularPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_popular);
-        popularPostsRecyclerView.setHasFixedSize(true);
-        popularPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        popularPostsRecyclerView.setAdapter(popularPostAdapter);
-
-
-        // Same MBTI posts
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("promotions");
-        Query sameMBTIPostsQuery = ref.orderByChild("reversedTimestamp");
-        FirebaseRecyclerOptions<MainHomeItem> sameMBTIPostsOptions = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
-                .setQuery(sameMBTIPostsQuery, MainHomeItem.class)
-                .build();
-
-        MBTIFilteredHomeAdapter = new MBTIFilteredHomeAdapter(sameMBTIPostsOptions, userMBTI);
-
-        sameMBTIPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_same_mbti);
-        sameMBTIPostsRecyclerView.setHasFixedSize(true);
-        sameMBTIPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        sameMBTIPostsRecyclerView.setAdapter(MBTIFilteredHomeAdapter);
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -206,6 +171,49 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    private void setupLatestPosts(View view, DatabaseReference databaseRef) {
+        Query query = databaseRef.orderByChild("reversedTimestamp");
+        FirebaseRecyclerOptions<MainHomeItem> options = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
+                .setQuery(query, MainHomeItem.class)
+                .build();
+
+        adapter = new MainHomeAdapter(options);
+
+        latestPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_latest);
+        latestPostsRecyclerView.setHasFixedSize(true);
+        latestPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        latestPostsRecyclerView.setAdapter(adapter);
+    }
+
+    private void setupPopularPosts(View view, DatabaseReference databaseRef) {
+        Query popularPostsQuery = databaseRef.orderByChild("likesCount");  // likesCount를 기준으로 오름차순 정렬
+        FirebaseRecyclerOptions<MainHomeItem> popularPostsOptions = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
+                .setQuery(popularPostsQuery, MainHomeItem.class)
+                .build();
+
+        popularPostAdapter = new PopularPostAdapter(popularPostsOptions);
+
+        popularPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_popular);
+        popularPostsRecyclerView.setHasFixedSize(true);
+        popularPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        popularPostsRecyclerView.setAdapter(popularPostAdapter);
+    }
+
+    private void setupSameMBTIPosts(View view, DatabaseReference databaseRef) {
+        Query sameMBTIPostsQuery = databaseRef.orderByChild("reversedTimestamp");
+        FirebaseRecyclerOptions<MainHomeItem> sameMBTIPostsOptions = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
+                .setQuery(sameMBTIPostsQuery, MainHomeItem.class)
+                .build();
+
+        MBTIFilteredHomeAdapter = new MBTIFilteredHomeAdapter(sameMBTIPostsOptions, userMBTI);
+
+        sameMBTIPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_same_mbti);
+        sameMBTIPostsRecyclerView.setHasFixedSize(true);
+        sameMBTIPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        sameMBTIPostsRecyclerView.setAdapter(MBTIFilteredHomeAdapter);
+    }
+
 
     @Override
     public void onStart() {
