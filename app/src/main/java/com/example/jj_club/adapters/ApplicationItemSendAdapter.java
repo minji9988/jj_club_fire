@@ -26,6 +26,7 @@ public class ApplicationItemSendAdapter extends RecyclerView.Adapter<Application
     private Context context;
 
 
+
     public ApplicationItemSendAdapter(ArrayList<ApplicationItem> arrayList, Context context) {
         this.arrayList = arrayList;
         mDatabase = FirebaseDatabase.getInstance().getReference().child("applicationItems");
@@ -64,13 +65,14 @@ public class ApplicationItemSendAdapter extends RecyclerView.Adapter<Application
         return (arrayList != null ? arrayList.size() : 0); //참이면 어레이리스트 사이즈를 가지고와라
     }
 
+
     public interface OnItemClickListener {
         void onItemClick(String sendToUserId);
     }
     private ApplicationItemAdapter.OnItemClickListener listener;//추가
 
-    public void setOnItemClickListener(ApplicationItemAdapter.OnItemClickListener listener) { //sendToUserId를 listener로하고
-        this.listener = listener;                                       // mListener = listener;추가
+    public void setOnItemClickListener(ApplicationItemSendAdapter.OnItemClickListener listener) { //sendToUserId를 listener로하고
+        listener = listener;                                       // mListener = listener;추가
     }
 
     public class ApplicationItemSendViewHolder extends RecyclerView.ViewHolder {

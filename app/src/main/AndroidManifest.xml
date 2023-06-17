@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Jj_club"
         tools:targetApi="31">
         <activity
+            android:name=".activities.profile.ChangePassword"
+            android:exported="false" />
+        <activity
             android:name=".activities.promotion.ChatActivity"
             android:exported="false" />
         <activity

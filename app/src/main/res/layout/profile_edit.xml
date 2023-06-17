@@ -19,7 +19,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="프로필 편집"
@@ -126,6 +125,6 @@
         android:background="@drawable/edit_text_round"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:hint="변경하실 닉네임을 써주세요"></EditText>
+        android:hint="비밀번호 변경을 원할시 클릭해주세요."></EditText>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,12 +40,9 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
         tv_received_form_classof = findViewById(R.id. tv_received_form_classof);
         tv_received_form_phone = findViewById(R.id. tv_received_form_phone);
         tv_introduce = findViewById(R.id. tv_introduce);
-
         btn_approval = findViewById(R.id.btn_approval); // 추가한 코드
 
         mDatabase=FirebaseDatabase.getInstance().getReference().child("applicationItems");
-
-
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         String key = getIntent().getStringExtra("sendToUserId");
