@@ -50,7 +50,7 @@ public class ApplicationItemSendAdapter extends RecyclerView.Adapter<Application
     public void onBindViewHolder(@NonNull ApplicationItemSendAdapter.ApplicationItemSendViewHolder holder, int position) {
         ApplicationItem applicationItem = arrayList.get(position);
 
-        holder.tv_id2.setText(applicationItem.getFromUserId());
+        holder.tv_id2.setText(applicationItem.getAppName());
         holder.tv_application_content2.setText(applicationItem.getAppIntro());
 
         holder.itemView.setOnClickListener(v -> {
