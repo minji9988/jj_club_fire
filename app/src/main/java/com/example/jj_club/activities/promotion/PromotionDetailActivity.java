@@ -5,15 +5,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.jj_club.R;
+import com.example.jj_club.models.CalendarItem;
 import com.example.jj_club.models.HomeItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -100,7 +103,7 @@ public class PromotionDetailActivity extends AppCompatActivity {
         // Hide the chat-related elements initially
         layoutChatting.setVisibility(View.GONE);
 
-      
+
         // Set the onClickListener for the apply button
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,5 +147,41 @@ public class PromotionDetailActivity extends AppCompatActivity {
         } else {
             Log.e("PromotionDetailActivity", "Failed to retrieve key from intent");
         }
+
+        CalendarView calendarView = findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                // Date selected
+                String date = year + "/" + (month + 1) + "/" + dayOfMonth;
+
+                // TODO: Show a dialog to input a schedule and save it to the database
+                String schedule = "";  // Replace this with the input from the dialog
+
+                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Schedule").child(date);
+                CalendarItem calendarItem = new CalendarItem(date, schedule);
+                dbRef.setValue(calendarItem);
+            }
+        });
+
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Schedule");
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    CalendarItem calendarItem = snapshot.getValue(CalendarItem.class);
+                    if (calendarItem != null) {
+                        String date = calendarItem.getDate();
+                        String schedule = calendarItem.getSchedule();
+
+                        // TODO: Display the schedule in the calendar
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 }

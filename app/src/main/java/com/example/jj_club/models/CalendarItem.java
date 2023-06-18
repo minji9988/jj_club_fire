@@ -1,15 +1,17 @@
 package com.example.jj_club.models;
 
 public class CalendarItem {
+
     private String date;
-    private String event;
+    private String schedule;
 
     public CalendarItem() {
+        // Default constructor required for calls to DataSnapshot.getValue(CalendarItem.class)
     }
 
-    public CalendarItem(String date, String event) {
+    public CalendarItem(String date, String schedule) {
         this.date = date;
-        this.event = event;
+        this.schedule = schedule;
     }
 
     public String getDate() {
@@ -20,11 +22,11 @@ public class CalendarItem {
         this.date = date;
     }
 
-    public String getEvent() {
-        return event;
+    public String getSchedule() {
+        return schedule;
     }
 
-    public void setEvent(String event) {
-        this.event = event;
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
     }
 }
