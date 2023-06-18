@@ -29,102 +29,29 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
     private TextView tv_received_form_phone;
     private TextView tv_introduce;
     private ImageButton button_back;
-
     private Button button_approve;
+    private Button button_reject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.application_received_item2);
 
-        tv_received_form_name = findViewById(R.id.tv_received_form_name);
-        tv_received_form_classof = findViewById(R.id.tv_received_form_classof);
-        tv_received_form_phone = findViewById(R.id.tv_received_form_phone);
-        tv_introduce = findViewById(R.id.tv_introduce);
-        button_back = findViewById(R.id.button_back);
-        button_approve = findViewById(R.id.btn_approval);
+        initView();
 
-        // Get applicationId from intent
         String applicationId = getIntent().getStringExtra("applicationId");
-
         Log.d("FirebaseDebug", "applicationId: " + applicationId);
 
-        // Get the reference to the specific application item using the applicationId
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("applicationItems").child(applicationId);
-
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    ApplicationItem applicationItem = dataSnapshot.getValue(ApplicationItem.class);
-                    if (applicationItem != null) {
-
-                        // Set data to text views
-                        tv_received_form_name.setText(applicationItem.getAppName());
-                        tv_received_form_classof.setText(applicationItem.getAppNumber());
-                        tv_received_form_phone.setText(applicationItem.getAppPhone());
-                        tv_introduce.setText(applicationItem.getAppIntro());
-
-                        button_approve.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Get the promotionId (clubId in ApplicationItem) and userId (fromUserId in ApplicationItem) from applicationItem
-                                String promotionId = applicationItem.getPromotionId();
-                                String userId = applicationItem.getFromUserId();
-
-                                DatabaseReference promotionReference = FirebaseDatabase.getInstance().getReference("promotions").child(promotionId);
-                                promotionReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.exists()) {
-                                            // Get the current joinStatuses field
-                                            Map<String, String> joinStatuses = (Map<String, String>) dataSnapshot.child("joinStatuses").getValue();
-
-                                            // Check if joinStatuses is not null
-                                            if (joinStatuses == null) {
-                                                joinStatuses = new HashMap<>();
-                                            }
-
-                                            // Add userId to the joinStatuses field with status "approved"
-                                            joinStatuses.put(userId, "approved");
-
-                                            // Update the joinStatuses field in the database
-                                            promotionReference.child("joinStatuses").setValue(joinStatuses)
-                                                    .addOnCompleteListener(task -> {
-                                                        if (task.isSuccessful()) {
-                                                            // Show a toast message when the joinStatuses field is successfully updated
-                                                            Toast.makeText(ProfileRecivedapplicationformActivity2.this, "승인되었습니다.", Toast.LENGTH_SHORT).show();
-                                                        } else {
-                                                            // Show a toast message when the joinStatuses field failed to update
-                                                            Toast.makeText(ProfileRecivedapplicationformActivity2.this, "승인에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    });
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                        // Handle error
-                                        Log.d("FirebaseDebug", "Error: " + databaseError.getMessage());
-                                    }
-                                });
-                            }
-                        });
-
-                    } else {
-                        // Handle case when ApplicationItem is null
-                        Log.d("FirebaseDebug", "ApplicationItem is null");
-                    }
-                } else {
-                    // Handle case when DataSnapshot does not exist
-                    Log.d("FirebaseDebug", "DataSnapshot does not exist");
-                }
+                processApplicationData(dataSnapshot);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error or cancellation
-                Log.d("FirebaseDebug", "Error: " + databaseError.getMessage());
+                handleDatabaseError(databaseError);
             }
         });
 
@@ -134,5 +61,113 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    private void initView() {
+        tv_received_form_name = findViewById(R.id.tv_received_form_name);
+        tv_received_form_classof = findViewById(R.id.tv_received_form_classof);
+        tv_received_form_phone = findViewById(R.id.tv_received_form_phone);
+        tv_introduce = findViewById(R.id.tv_introduce);
+        button_back = findViewById(R.id.button_back);
+        button_approve = findViewById(R.id.btn_approval);
+        button_reject = findViewById(R.id.btn_rejection);  // Reject button view binding
+    }
+
+    private void processApplicationData(@NonNull DataSnapshot dataSnapshot) {
+        if (dataSnapshot.exists()) {
+            ApplicationItem applicationItem = dataSnapshot.getValue(ApplicationItem.class);
+
+            if (applicationItem != null) {
+                setApplicationData(applicationItem);
+                setApproveButtonBehavior(applicationItem);
+                setRejectButtonBehavior(applicationItem);  // Setting up reject button behavior
+            } else {
+                Log.d("FirebaseDebug", "ApplicationItem is null");
+            }
+        } else {
+            Log.d("FirebaseDebug", "DataSnapshot does not exist");
+        }
+    }
+
+    private void setApplicationData(ApplicationItem applicationItem) {
+        tv_received_form_name.setText(applicationItem.getAppName());
+        tv_received_form_classof.setText(applicationItem.getAppNumber());
+        tv_received_form_phone.setText(applicationItem.getAppPhone());
+        tv_introduce.setText(applicationItem.getAppIntro());
+    }
+
+    private void setApproveButtonBehavior(ApplicationItem applicationItem) {
+        button_approve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String promotionId = applicationItem.getPromotionId();
+                String userId = applicationItem.getFromUserId();
+
+                DatabaseReference promotionReference = FirebaseDatabase.getInstance().getReference("promotions").child(promotionId);
+                promotionReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        processPromotionData(dataSnapshot, promotionReference, userId, "approved");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        handleDatabaseError(databaseError);
+                    }
+                });
+            }
+        });
+    }
+
+    // Add reject button behavior here
+    private void setRejectButtonBehavior(ApplicationItem applicationItem) {
+        button_reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String promotionId = applicationItem.getPromotionId();
+                String userId = applicationItem.getFromUserId();
+
+                DatabaseReference promotionReference = FirebaseDatabase.getInstance().getReference("promotions").child(promotionId);
+                promotionReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        processPromotionData(dataSnapshot, promotionReference, userId, "rejected");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        handleDatabaseError(databaseError);
+                    }
+                });
+            }
+        });
+    }
+
+    private void processPromotionData(@NonNull DataSnapshot dataSnapshot, DatabaseReference promotionReference, String userId, String status) {
+        if (dataSnapshot.exists()) {
+            Map<String, String> joinStatuses = (Map<String, String>) dataSnapshot.child("joinStatuses").getValue();
+
+            if (joinStatuses == null) {
+                joinStatuses = new HashMap<>();
+            }
+
+            joinStatuses.put(userId, status);
+            updateJoinStatuses(promotionReference, joinStatuses, status);
+        }
+    }
+
+    private void updateJoinStatuses(DatabaseReference promotionReference, Map<String, String> joinStatuses, String status) {
+        promotionReference.child("joinStatuses").setValue(joinStatuses)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(ProfileRecivedapplicationformActivity2.this, status.equals("approved") ? "승인되었습니다." : "거절되었습니다.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ProfileRecivedapplicationformActivity2.this, status.equals("approved") ? "승인에 실패했습니다." : "거절에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void handleDatabaseError(@NonNull DatabaseError databaseError) {
+        Log.d("FirebaseDebug", "Error: " + databaseError.getMessage());
     }
 }
