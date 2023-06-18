@@ -1,35 +1,96 @@
 package com.example.jj_club.activities.home;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jj_club.R;
+import com.example.jj_club.adapters.HomeItemAdapter;
+import com.example.jj_club.adapters.SearchAdapter;
+import com.example.jj_club.models.HomeItem;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
     SearchView search_view;
+    private DatabaseReference databaseReference;
+    private RecyclerView recyclerView;
+    private List<HomeItem> homeItemList;
+    private SearchAdapter searchAdapter;
+    private EditText searchEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_search);
 
-        search_view = (SearchView)findViewById(R.id.search_view);
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("promotions");
 
-        search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            //둘중 하나만 사용하는거
+        recyclerView = findViewById(R.id.recycler_search);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        homeItemList = new ArrayList<>();
+        searchAdapter = new SearchAdapter(homeItemList);
+        recyclerView.setAdapter(searchAdapter);
+
+        searchEditText = findViewById(R.id.searchEditText);
+        searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            // 검색 버튼이 눌러졌을 때 이벤트 처리
-            public  boolean onQueryTextSubmit(String query) {
-                return false;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
+
             @Override
-            // 검색어가 변경되었을 때 이벤트 처리(실시간으로 변하는거)
-            public  boolean onQueryTextChange(String newText) {
-                return true;
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String searchQuery = s.toString().toLowerCase();
+                filterHomeItems(searchQuery);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                homeItemList.clear();
+                for(DataSnapshot  homeItemSnapshot : dataSnapshot.getChildren()){
+                    HomeItem homeItem = homeItemSnapshot.getValue(HomeItem.class);
+                    homeItemList.add(homeItem);
+                }
+                searchAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(SearchActivity.this, "Error: "+error.getMessage(),Toast.LENGTH_SHORT ).show();
+            }
+        });
+    }
+    private void filterHomeItems(String searchQuery){
+        List<HomeItem> filteredList = new ArrayList<>();
+        for (HomeItem homeItem : homeItemList){
+            if (homeItem.getTitle().toLowerCase().contains(searchQuery)){
+                filteredList.add(homeItem);
+            }
+        }
+        searchAdapter.filterList(filteredList);
     }
 }

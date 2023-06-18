@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageButton
-        android:id="@+id/button_back2"
+        android:id="@+id/btn_bback123"
         android:layout_width="28dp"
         android:layout_height="24dp"
         android:layout_alignParentTop="true"

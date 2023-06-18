@@ -65,6 +65,9 @@
             android:name=".activities.profile.ProfileRecivedapplicationformActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.profile.ProfileSendapplicationformActivity2"
+            android:exported="false" />
+        <activity
             android:name=".activities.profile.ProfileLoveitActivity"
             android:exported="false" />
         <activity
