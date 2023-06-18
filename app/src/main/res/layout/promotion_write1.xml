@@ -100,19 +100,6 @@
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.widget.Button
-        android:id="@+id/promotion_write1_button_next"
-        android:layout_width="77dp"
-        android:layout_height="45dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="42dp"
-        android:layout_marginRight="33dp"
-        android:background="@drawable/btn_round_blue_box"
-        android:text="다음"
-        android:textColor="#ffffff"
-        android:textSize="16sp" />
-
     <View
         android:id="@+id/view2"
         android:layout_width="3dp"
@@ -252,5 +239,20 @@
         android:textSize="16sp"
         android:fontFamily="@font/fontregular"
         android:includeFontPadding="false"/>
+
+
+    <android.widget.Button
+        android:id="@+id/promotion_write1_button_next"
+        android:layout_width="344dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="42dp"
+        android:background="@drawable/btn_round_blue_box"
+        android:text="다음"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+
 
 </RelativeLayout>
