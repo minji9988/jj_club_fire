@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.promotion.PromotionCalendar">
+
+    <!-- 캘린더 뷰를 표시할 FrameLayout 추가 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 캘린더 뷰를 감싸는 레이아웃으로 사용하기 위한 View 추가 -->
+        <View
+            android:id="@+id/calendarContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true" />
+
+        <!-- 캘린더 뷰 -->
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false" />
+
+    </FrameLayout>
+
+</RelativeLayout>
