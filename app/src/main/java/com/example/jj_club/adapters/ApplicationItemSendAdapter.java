@@ -11,10 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jj_club.R;
+import com.example.jj_club.activities.profile.ProfileRecivedapplicationformActivity2;
 import com.example.jj_club.activities.profile.ProfileSendapplicationformActivity2;
 import com.example.jj_club.models.ApplicationItem;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -44,9 +48,38 @@ public class ApplicationItemSendAdapter extends RecyclerView.Adapter<Application
 
     @Override
     public void onBindViewHolder(@NonNull ApplicationItemSendAdapter.ApplicationItemSendViewHolder holder, int position) {
-        holder.tv_id2.setText(arrayList.get(position).getFromUserId());
-        holder.tv_application_content2.setText(arrayList.get(position).getAppIntro());
+        ApplicationItem applicationItem = arrayList.get(position);
 
+        holder.tv_id2.setText(applicationItem.getFromUserId());
+        holder.tv_application_content2.setText(applicationItem.getAppIntro());
+
+        holder.itemView.setOnClickListener(v -> {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("applicationItems")
+                    .child(applicationItem.getApplicationId())
+                    .child("fromUserId");
+
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        String fromUserId = dataSnapshot.getValue(String.class);
+
+                        Intent intent = new Intent(context, ProfileSendapplicationformActivity2.class);
+                        intent.putExtra("applicationId", applicationItem.getApplicationId());
+                        intent.putExtra("fromUserId", fromUserId);
+                        context.startActivity(intent);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        });
+
+        /*
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,23 +89,15 @@ public class ApplicationItemSendAdapter extends RecyclerView.Adapter<Application
                 Intent intent = new Intent(view.getContext(), ProfileSendapplicationformActivity2.class);
                 view.getContext().startActivity(intent);
             }
-        });
-    }
 
+        });*/
+
+    }
     @Override
     public int getItemCount() {
         return (arrayList != null ? arrayList.size() : 0); //참이면 어레이리스트 사이즈를 가지고와라
     }
 
-
-    public interface OnItemClickListener {
-        void onItemClick(String sendToUserId);
-    }
-//    private ApplicationItemAdapter.OnItemClickListener listener;//추가
-
-    public void setOnItemClickListener(ApplicationItemSendAdapter.OnItemClickListener listener) { //sendToUserId를 listener로하고
-        listener = listener;                                       // mListener = listener;추가
-    }
 
     public class ApplicationItemSendViewHolder extends RecyclerView.ViewHolder {
         TextView tv_id2, tv_application_content2;

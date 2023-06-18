@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemAdapter.HomeItemViewHolder> {
 
@@ -27,10 +28,13 @@ public class HomeItemAdapter extends FirebaseRecyclerAdapter<HomeItem, HomeItemA
     private DatabaseReference mUserLikesDatabase;
     private OnItemClickListener mListener;
 
-    public HomeItemAdapter(@NonNull FirebaseRecyclerOptions<HomeItem> options, DatabaseReference userLikesDatabase) {
+    private List<HomeItem> homeItemList; //서치추가
+
+    public HomeItemAdapter(@NonNull FirebaseRecyclerOptions<HomeItem> options, DatabaseReference userLikesDatabase) { //서치추가  리스트 List<HomeItem> homeItemList
         super(options);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("promotions");
         mUserLikesDatabase = userLikesDatabase; //this추가
+        //this.homeItemList = homeItemList;
     }
 
     @NonNull

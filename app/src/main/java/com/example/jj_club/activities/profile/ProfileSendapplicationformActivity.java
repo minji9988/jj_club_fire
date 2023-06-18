@@ -42,6 +42,7 @@ public class ProfileSendapplicationformActivity extends AppCompatActivity {
         setContentView(R.layout.profile_sendapplicationform);
 
         btn_GoBackProfile_fromSendapplicationformActivity = (ImageButton) findViewById(R.id.btn_GoBackProfile_fromSendapplicationformActivity);
+
         recyclerView = findViewById(R.id.recycler_sendForm);
         recyclerView.setHasFixedSize(true); //리사이클러뷰 성능강화
         layoutManager = new LinearLayoutManager(this);
@@ -51,18 +52,20 @@ public class ProfileSendapplicationformActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance(); //파이어베이스db를 가져와라(연동)
         databaseReference = database.getReference("applicationItems");
 
+        //내가 쓴것만 가져오기
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Query query = database.getReference("applicationItems").orderByChild("fromUserId").equalTo(currentUserId);
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 arrayList.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     ApplicationItem applicationItem = snapshot1.getValue(ApplicationItem.class);
+                    applicationItem.setApplicationId(snapshot1.getKey());
                     arrayList.add(applicationItem);
                 }
-                adapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -72,20 +75,7 @@ public class ProfileSendapplicationformActivity extends AppCompatActivity {
         });
 
         mAdapter = new ApplicationItemSendAdapter(arrayList,this);
-        adapter = new ApplicationItemSendAdapter(arrayList,this);
-        recyclerView.setAdapter(adapter);
-
-        mAdapter.setOnItemClickListener(new ApplicationItemSendAdapter.OnItemClickListener(){
-            @Override
-            public void onItemClick(String fromUserId){
-                Intent intent = new Intent(ProfileSendapplicationformActivity.this, ProfileSendapplicationformActivity2.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-
+        recyclerView.setAdapter(mAdapter);
 
         btn_GoBackProfile_fromSendapplicationformActivity.setOnClickListener(new View.OnClickListener() {
             @Override

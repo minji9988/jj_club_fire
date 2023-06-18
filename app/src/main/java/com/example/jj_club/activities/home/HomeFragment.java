@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jj_club.R;
 import com.example.jj_club.activities.mbti.MbtiTestStart;
+import com.example.jj_club.activities.profile.ProfileEditActivity;
 import com.example.jj_club.activities.promotion.PromotionWrite1;
 import com.example.jj_club.adapters.MBTIFilteredHomeAdapter;
 import com.example.jj_club.adapters.MainHomeAdapter;
@@ -46,6 +47,8 @@ public class HomeFragment extends Fragment {
     private MBTIFilteredHomeAdapter MBTIFilteredHomeAdapter;
     private String userMBTI = "ENFJ";
 
+    private  ImageButton btn_magnifying_glass_main_page;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -64,16 +67,27 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        btn_magnifying_glass_main_page = (ImageButton)view.findViewById(R.id.btn_magnifying_glass_main_page);
 
         setupRecyclerView(view);
 
         ImageButton writePostButton = view.findViewById(R.id.btn_write_post);
         ImageView blurImageView = view.findViewById(R.id.fragment_home_blur);
+
         writePostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PromotionWrite1.class);
                 startActivity(intent);
+            }
+        });
+
+        btn_magnifying_glass_main_page.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class); //현재,이동할곳(프래그먼트에서는 this사용불가해서 getActivity이용)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent); //액티비티 이동
             }
         });
 
