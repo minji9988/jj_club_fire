@@ -39,14 +39,13 @@ import java.util.Map;
 
 public class PromotionDetailActivity extends AppCompatActivity {
 
-    private LinearLayout layoutIntro;
-    private LinearLayout layoutCalendar;
-    private LinearLayout layoutChatting;
+    private LinearLayout layoutIntro, layoutCalendar, layoutChatting;
     private ImageButton btnBack;
     private Button btnApply; // Added button for applying
 
     // Views for intro layout
-    private ImageView imagePromotion;
+    private ImageView imagePromotion, imgNoChat;
+
     private TextView textRecruitPeriod, textFee, textInterview, textMeetingName, textRecruitmentCount, textClubIntro, textRecruitmentTarget;
 
     private RecyclerView recyclerChatRoomList;
@@ -68,12 +67,58 @@ public class PromotionDetailActivity extends AppCompatActivity {
             return;
         }
 
+        // Initialize your views here
+        btnAddChatRoom = findViewById(R.id.promotion_add_chat_btn);
+        imgNoChat = findViewById(R.id.promotion_no_chat_img);
+
+        // Your database reference here
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("promotions").child(promotionId);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // Some codes to read data from dataSnapshot and update views...
+
+                // Checking join status and update views
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if(currentUser != null) {
+                    String currentUserId = currentUser.getUid();
+                    if (dataSnapshot.child("joinStatuses").hasChild(currentUserId)) {
+                        String joinStatus = dataSnapshot.child("joinStatuses").child(currentUserId).getValue(String.class);
+                        if ("approved".equals(joinStatus)) {
+                            // The user is approved to join the promotion
+                            btnAddChatRoom.setVisibility(View.VISIBLE);
+                            recyclerChatRoomList.setVisibility(View.VISIBLE);
+                            imgNoChat.setVisibility(View.GONE);
+                        } else {
+                            // The user is not approved or waiting for approval
+                            btnAddChatRoom.setVisibility(View.GONE);
+                            imgNoChat.setVisibility(View.VISIBLE);
+                            recyclerChatRoomList.setVisibility(View.GONE);
+
+                        }
+                    } else {
+                        // The user has not applied for the promotion
+                        btnAddChatRoom.setVisibility(View.GONE);
+                        recyclerChatRoomList.setVisibility(View.GONE);
+                        imgNoChat.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error...
+            }
+        });
+
+
         // chat
         recyclerChatRoomList = findViewById(R.id.recycler_chat_room_list); // RecyclerView의 ID를 적절히 수정해주세요.
         chatRoomListAdapter = new ChatRoomListAdapter(chatRoomList);
         recyclerChatRoomList.setAdapter(chatRoomListAdapter);
 
-        btnAddChatRoom = findViewById(R.id.promotion_add_chat_btn); // Create chat room btn
 
         btnAddChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +155,8 @@ public class PromotionDetailActivity extends AppCompatActivity {
         textRecruitmentCount = findViewById(R.id.text_recruitment_count_amount);
         textClubIntro = findViewById(R.id.text_club_intro_activities_details);
         textRecruitmentTarget = findViewById(R.id.text_recruitment_target_details);
+        imgNoChat = findViewById(R.id.promotion_no_chat_img);
+
 
         // Set up the TabLayout
         TabLayout tabLayout = findViewById(R.id.tab_layout);
@@ -205,7 +252,6 @@ public class PromotionDetailActivity extends AppCompatActivity {
     }
 
     private void createChatRoom() {
-
 
         // Create a dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
