@@ -33,20 +33,30 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
+
         <EditText
             android:id="@+id/edit_chat_message"
-            android:layout_width="343dp"
+            android:layout_width="373dp"
             android:layout_height="65dp"
             android:layout_weight="1"
             android:background="@drawable/home_round_white_box"
             android:hint="메시지를 입력하세요"
-            android:paddingStart="30dp"
+            android:paddingStart="50dp"
             android:inputType="textMultiLine"
             android:maxLines="3"
             android:minLines="1"
-            android:layout_marginLeft="35dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginBottom="30dp"
             android:padding="8dp" />
+
+        <ImageButton
+            android:id="@+id/btn_add_media"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/promotion_chat_plus"
+            />
 
 
         <ImageButton

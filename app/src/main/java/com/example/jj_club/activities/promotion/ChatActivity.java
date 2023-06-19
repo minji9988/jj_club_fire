@@ -1,5 +1,7 @@
 package com.example.jj_club.activities.promotion;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +18,7 @@ import com.example.jj_club.R;
 import com.example.jj_club.adapters.MessageAdapter;
 import com.example.jj_club.models.Message;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +26,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.InputStream;
 import java.util.HashSet;
@@ -39,6 +46,10 @@ public class ChatActivity extends AppCompatActivity {
 
     private HashSet<String> profanitySet;  // 욕설을 저장할 HashSet
 
+    private ImageButton btnAddMedia;
+    private Uri selectedImageUri;
+    private static final int RC_IMAGE_PICKER = 123;
+    private StorageReference chatImagesStorageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +59,14 @@ public class ChatActivity extends AppCompatActivity {
         inputMessage = findViewById(R.id.edit_chat_message);
         ImageButton sendButton = findViewById(R.id.btn_send);
         messageRecyclerView = findViewById(R.id.recycler_chat_messages);
+        btnAddMedia = findViewById(R.id.btn_add_media);
 
         // Get the chat room ID from the intent or bundle
         chatRoomId = getIntent().getStringExtra("chatRoomId");
 
         // Use the chat room ID in the database reference
         messageDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Messages").child(chatRoomId);
+        chatImagesStorageReference = FirebaseStorage.getInstance().getReference().child("chat_images");
 
         // Initialize profanity set
         this.profanitySet = new HashSet<>();
@@ -79,15 +92,52 @@ public class ChatActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendMessage();
+                sendMessage(null);
             }
         });
+
+        btnAddMedia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                startActivityForResult(Intent.createChooser(intent, "Choose an image"), RC_IMAGE_PICKER);
+            }
+        });
+
 
         setUpRecyclerView();
 
 
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_IMAGE_PICKER && resultCode == RESULT_OK) {
+            selectedImageUri = data.getData();
+            uploadImage();
+        }
+    }
 
+    private void uploadImage() {
+        if (selectedImageUri != null) {
+            final StorageReference imageRef = chatImagesStorageReference.child(selectedImageUri.getLastPathSegment());
+            UploadTask uploadTask = imageRef.putFile(selectedImageUri);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // Now we can include the image URL in our message
+                            sendMessage(uri.toString());
+                        }
+                    });
+                }
+            });
+        }
+    }
     private void setUpRecyclerView() {
         FirebaseRecyclerOptions<Message> options =
                 new FirebaseRecyclerOptions.Builder<Message>()
@@ -135,7 +185,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    private void sendMessage() {
+    private void sendMessage(@Nullable String imageUrl) {
         String rawMessageContent = inputMessage.getText().toString().trim();
         if (!TextUtils.isEmpty(rawMessageContent)) {
             // Filter message content
@@ -164,7 +214,7 @@ public class ChatActivity extends AppCompatActivity {
                             currentUserId,
                             currentUserName,
                             finalMessageContent,  // 욕설 필터링된 최종 메세지
-                            null,  // Replace with image URL, if any
+                            imageUrl,  // Use the imageUrl argument here
                             timestamp);
 
                     // Save message to 'Messages' node
