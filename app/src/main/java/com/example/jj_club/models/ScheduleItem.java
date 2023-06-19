@@ -1,15 +1,13 @@
 package com.example.jj_club.models;
 
-public class CalendarItem {
-
+public class ScheduleItem {
     private String date;
     private String schedule;
 
-    public CalendarItem() {
-        // Default constructor required for calls to DataSnapshot.getValue(CalendarItem.class)
+    public ScheduleItem() {
     }
 
-    public CalendarItem(String date, String schedule) {
+    public ScheduleItem(String date, String schedule) {
         this.date = date;
         this.schedule = schedule;
     }

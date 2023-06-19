@@ -316,18 +316,25 @@
             android:padding="16dp"
             android:visibility="gone">
 
-            <FrameLayout
+            <ImageButton
+                android:id="@+id/schedule"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:src="@drawable/plusicon"/>
+
+            <!-- 캘린더 뷰 -->
+
+            <CalendarView
+                android:id="@+id/calendarView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:clickable="false" />
 
-                <!-- 캘린더 뷰 -->
-                <CalendarView
-                    android:id="@+id/calendarView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="false" />
-
-            </FrameLayout>
+            <TextView
+                android:id="@+id/scheduleList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
