@@ -37,7 +37,7 @@
         android:id="@+id/item_home_post_D_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="D -"
+        android:text="모집기간: "
         android:textColor="#1c7eff"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -53,7 +53,7 @@
         android:textStyle="bold"
         android:textSize="17sp"
         android:layout_marginTop="173dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="65dp"
         />
     </androidx.cardview.widget.CardView>
 

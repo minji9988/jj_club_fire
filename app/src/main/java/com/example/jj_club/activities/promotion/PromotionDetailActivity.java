@@ -40,7 +40,7 @@ import java.util.Map;
 public class PromotionDetailActivity extends AppCompatActivity {
 
     private LinearLayout layoutIntro, layoutCalendar, layoutChatting;
-    private ImageButton btnBack;
+    private ImageButton btnBack, btnAddChatRoom;
     private Button btnApply; // Added button for applying
 
     // Views for intro layout
@@ -52,7 +52,6 @@ public class PromotionDetailActivity extends AppCompatActivity {
     private List<ChatRoom> chatRoomList = new ArrayList<>();
     private ChatRoomListAdapter chatRoomListAdapter;
 
-    private ImageButton btnAddChatRoom;
 
 
     @Override

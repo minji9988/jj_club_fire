@@ -15,25 +15,13 @@
         android:textColor="#000000"
         tools:ignore="MissingConstraints" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="55dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="84dp"
-        android:background="#00000000"
-        android:contentDescription="벨 아이콘"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.837"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/font_awsome_bell" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="301dp"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="12sp"
@@ -47,8 +35,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerView_my_club"
         android:layout_width="match_parent"
+        android:layout_marginTop="71dp"
+        android:layout_marginLeft="43dp"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
