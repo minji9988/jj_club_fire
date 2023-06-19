@@ -129,7 +129,8 @@
             android:hint="\n  어떤 사람이 모임에 가입했으면 하나요? \n  우리 모임에 들어왔음 하는 사람을\n  작성해 주세요."
             android:textColorHint="#29000000"
             android:paddingStart="10dp"
-            android:gravity="top"/>
+            android:gravity="top"
+            />
 
         <EditText
             android:id="@+id/editPromotionIntroduce"
@@ -142,7 +143,6 @@
             android:layout_marginLeft="42dp"
             android:layout_marginRight="42dp"
             android:background="@drawable/edittext_rounded_corner_rectangle"
-            android:inputType="textMultiLine"
             android:hint="\n당신의 모임은 어떤 모임인가요?\n모임에 대한 소개와 모임에서 어떤 \n활동을 하는지 알려주세요!"
             android:textColorHint="#29000000"
             android:paddingStart="20dp"

@@ -111,7 +111,8 @@
             android:exported="false" />
         <activity
             android:name=".activities.mbti.MbtiTestQ1Activity"
-            android:exported="false" />
+            android:exported="true" />
+
         <activity
             android:name=".activities.mbti.entp"
             android:exported="false" />
@@ -133,6 +134,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.mbti.MbtiTestStart"
             android:exported="true" />

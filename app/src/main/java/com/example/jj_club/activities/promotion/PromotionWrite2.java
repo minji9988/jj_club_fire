@@ -130,15 +130,7 @@ public class PromotionWrite2 extends AppCompatActivity {
         selectedButtons = intent.getStringArrayListExtra("selectedButtons");
     }
 
-    /**
-     * Firebase Realtime Database에 프로모션 정보 저장
-     *
-     * @param promotionId        프로모션 ID
-     * @param userId             사용자 ID
-     * @param promotionNumber    모집 인원
-     * @param promotionTarget    모집 대상
-     * @param promotionIntroduce 모임 소개
-     */
+
     private void saveToRealtimeDatabase(String promotionId, String userId, String promotionNumber, String promotionTarget, String promotionIntroduce) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("promotions").child(promotionId);
 
@@ -151,7 +143,7 @@ public class PromotionWrite2 extends AppCompatActivity {
 
         // Create a new map for the joinStatuses field
         Map<String, String> joinStatuses = new HashMap<>();
-        joinStatuses.put(userId, "waiting");
+        joinStatuses.put(userId, "approved");
         promotionUpdates.put("joinStatuses", joinStatuses);
 
         databaseRef.updateChildren(promotionUpdates)
@@ -168,9 +160,7 @@ public class PromotionWrite2 extends AppCompatActivity {
     }
 
 
-    /**
-     * 파일 선택기 열기
-     */
+
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -178,13 +168,7 @@ public class PromotionWrite2 extends AppCompatActivity {
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
-    /**
-     * 이미지 선택 결과 처리
-     *
-     * @param requestCode 요청 코드
-     * @param resultCode  결과 코드
-     * @param data        선택한 이미지 데이터
-     */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -196,11 +180,7 @@ public class PromotionWrite2 extends AppCompatActivity {
         }
     }
 
-    /**
-     * 파일 업로드
-     *
-     * @param fileUri 파일 URI
-     */
+
     private void uploadFile(Uri fileUri) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("uploads");
 
@@ -232,12 +212,7 @@ public class PromotionWrite2 extends AppCompatActivity {
                 });
     }
 
-    /**
-     * 파일의 확장자 가져오기
-     *
-     * @param uri 파일 URI
-     * @return 파일의 확장자
-     */
+
     private String getFileExtension(Uri uri) {
         return MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(uri));
     }
