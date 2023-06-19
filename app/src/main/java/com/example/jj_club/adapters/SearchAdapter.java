@@ -3,6 +3,7 @@ package com.example.jj_club.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public void onBindViewHolder(@NonNull SearchAdapter.SearchViewHolder holder, int position) {
         HomeItem homeItem = homeItemList.get(position);
         holder.titleTextView.setText(homeItem.getTitle());
+        holder.item_more_post_contents.setText(homeItem.getPromotionIntroduce());
+        //holder.item_more_post_love_count.setText(String.valueOf(model.getLikes() !=null ? model.getLikes().size() : 0));
+        holder.item_more_post_date.setText(homeItem.getRecruitPeriod());
     }
 
     @Override
@@ -45,9 +49,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     public class SearchViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
+        TextView item_more_post_contents, item_more_post_date,item_more_post_love_count;
+        ImageView item_more_post_img;
+
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.item_more_post_title);
+            item_more_post_contents = itemView.findViewById(R.id.item_more_post_contents);
+            item_more_post_date = itemView.findViewById(R.id.item_more_post_date);
+            item_more_post_love_count = itemView.findViewById(R.id.item_more_post_love_count);
+            item_more_post_img = itemView.findViewById(R.id.item_more_post_img);
+
         }
     }
 }
