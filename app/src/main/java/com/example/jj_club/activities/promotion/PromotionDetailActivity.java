@@ -37,6 +37,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.widget.CalendarView;
+
+import com.example.jj_club.models.ScheduleItem;
+
 public class PromotionDetailActivity extends AppCompatActivity {
 
     private LinearLayout layoutIntro, layoutCalendar, layoutChatting;
@@ -52,7 +56,9 @@ public class PromotionDetailActivity extends AppCompatActivity {
     private List<ChatRoom> chatRoomList = new ArrayList<>();
     private ChatRoomListAdapter chatRoomListAdapter;
 
-
+    private ImageButton btnSchedule;
+    private TextView textScheduleList;
+    private CalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -336,6 +342,57 @@ public class PromotionDetailActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e("PromotionDetailActivity", "Failed to fetch chat rooms: " + databaseError.getMessage());
+            }
+        });
+
+        btnSchedule = findViewById(R.id.schedule);
+        textScheduleList = findViewById(R.id.scheduleList);
+        calendarView = findViewById(R.id.calendarView);
+
+        btnSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(PromotionDetailActivity.this);
+                builder.setTitle("일정 입력");
+
+                final EditText input = new EditText(PromotionDetailActivity.this);
+                builder.setView(input);
+
+                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String schedule = input.getText().toString();
+                        String date = String.valueOf(calendarView.getDate());
+
+                        ScheduleItem scheduleItem = new ScheduleItem(date, schedule);
+                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("schedules").child(date);
+                        dbRef.setValue(scheduleItem);
+                    }
+                });
+                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("schedules");
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    ScheduleItem scheduleItem = snapshot.getValue(ScheduleItem.class);
+                    textScheduleList.append(scheduleItem.getDate() + ": " + scheduleItem.getSchedule() + "\n");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("PromotionDetailActivity", "Failed to retrieve data from Firebase: " + databaseError.getMessage());
             }
         });
     }

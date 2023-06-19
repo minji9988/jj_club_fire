@@ -61,7 +61,7 @@ dependencies {
 
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.7.0' //가장 최신 버전은 1.8.0이나 TapLayout이 가능한 버전 중 가장 최신 버전임.(다른 이유는 없고 걍 바꿈)
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-firestore:24.1.0'
     implementation 'com.google.firebase:firebase-storage:20.2.0'
