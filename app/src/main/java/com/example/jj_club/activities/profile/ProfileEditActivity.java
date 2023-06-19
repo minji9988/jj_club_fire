@@ -33,10 +33,10 @@ public class ProfileEditActivity extends AppCompatActivity {
     private EditText btn_editTextNickname, btn_editTextMbti, btn_editTextPassword;
     private Button btn_save;
 
-    private DatabaseReference databaseReference;
+    private DatabaseReference mDatabase;
 
     private FirebaseAuth mAuth;
-    private FirebaseUser user;
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -64,54 +64,22 @@ public class ProfileEditActivity extends AppCompatActivity {
         btn_profileImage = (ImageButton) findViewById(R.id.btn_profileImage);
         btn_GoBackProfile_fromProfileEdit = (ImageButton) findViewById(R.id.btn_GoBackProfile_fromProfileEdit);
 
+/*
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userRef = database.getReference("users");
+*/
+
         mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        User user1 = new User();
-
-
-        //밑 다 추가
-        /*
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName("name").build();
-        user.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Log.d(Tag, "User profile updated.");
-                        }
-                    }
-                });
-         */
-
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("users");
-
-
-        // 저장 버튼 눌렀을때
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = btn_editTextNickname.getText().toString();
-                //saveMemberInformation();
-                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                        .setDisplayName(name).build();
-                user.updateProfile(profileUpdates)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    showToast("프로필 업데이트에 성공하였습니다");
-                                }else {
-                                    showToast("프로필 업데이트에 실패하였습니다");
-                                }
-                            }
-                        });
+                changeNickname();
             }
         });
+
+
 
         //카메라 권한
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, 1);
@@ -144,23 +112,32 @@ public class ProfileEditActivity extends AppCompatActivity {
 
 
     }
+    private void changeNickname(){
+        String newNickname = btn_editTextNickname.getText().toString().trim();
 
 
-    //왜 새로생기지..?
-    /*
-    private void saveMemberInformation() {
-        String nickname = btn_editTextNickname.getText().toString().trim();
-        //String mbti = btn_editTextMbti.getText().toString().trim();
-        String password = btn_editTextPassword.getText().toString().trim();
-
-        // Update member information in Firebase
-        databaseReference.child("name").setValue(nickname);
-        //databaseReference.child("mbti").setValue(mbti);
-        //databaseReference.child("password").setValue(password);
-
-        Toast.makeText(this, "Member information saved.", Toast.LENGTH_SHORT).show();
+        if(newNickname.isEmpty()){
+            Toast.makeText(this,"Please enter a nickname",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user !=null){
+            String uid = user.getUid();
+            DatabaseReference userRef = mDatabase.child("users").child(uid);
+            userRef.child("name").setValue(newNickname)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(ProfileEditActivity.this,"changed successfully",Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(ProfileEditActivity.this,"Failed change",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
     }
-    */
+
     private void showToast(String msg){
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
