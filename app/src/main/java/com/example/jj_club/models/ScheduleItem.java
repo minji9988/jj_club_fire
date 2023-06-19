@@ -1,5 +1,6 @@
 package com.example.jj_club.models;
 
+
 public class ScheduleItem {
     private String date;
     private String schedule;
