@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="43dp"
             android:layout_marginTop="308dp"
-            android:text="종류"
+            android:text="분야"
             android:textSize="23sp"
             android:textStyle="bold" />
 
