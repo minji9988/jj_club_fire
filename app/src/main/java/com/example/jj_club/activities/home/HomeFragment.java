@@ -58,7 +58,8 @@ public class HomeFragment extends Fragment {
     private HomeBannerAdapter eventBannerAdapter;
     private int currentPage = 0;
     private Handler bannerHandler = new Handler();
-
+    private DatabaseReference databaseRef;
+    private List<MainHomeItem> sameMBTIPosts;
 
 
     public HomeFragment() {
@@ -228,23 +229,44 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupSameMBTIPosts(View view, DatabaseReference databaseRef) {
-        Query sameMBTIPostsQuery = databaseRef.orderByChild("reversedTimestamp");
-        FirebaseRecyclerOptions<MainHomeItem> sameMBTIPostsOptions = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
-                .setQuery(sameMBTIPostsQuery, MainHomeItem.class)
-                .build();
+        sameMBTIPosts = new ArrayList<>();
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                sameMBTIPosts.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    MainHomeItem item = snapshot.getValue(MainHomeItem.class);
+                    if (item != null) {
+                        List<String> selectedButtons = item.getSelectedButtons();
+                        if (selectedButtons != null && selectedButtons.contains(userMBTI)) {
+                            sameMBTIPosts.add(item);
+                        }
+                    }
+                }
+                MBTIFilteredHomeAdapter = new MBTIFilteredHomeAdapter(sameMBTIPosts, userMBTI);
+                sameMBTIPostsRecyclerView.setAdapter(MBTIFilteredHomeAdapter);
+            }
 
-        MBTIFilteredHomeAdapter = new MBTIFilteredHomeAdapter(sameMBTIPostsOptions, userMBTI);
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // 에러 발생 시 처리
+                logMessage(databaseError.getMessage());
+            }
+        });
 
         sameMBTIPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_same_mbti);
         sameMBTIPostsRecyclerView.setHasFixedSize(true);
         sameMBTIPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        sameMBTIPostsRecyclerView.setAdapter(MBTIFilteredHomeAdapter);
     }
+
 
     private void setupEventBanners(View view) {
         List<HomeBannerItem> bannerItems = new ArrayList<>();
         bannerItems.add(new HomeBannerItem(Uri.parse("android.resource://com.example.jj_club/drawable/my_image1").toString(), "my_promotion_id1"));
         bannerItems.add(new HomeBannerItem(Uri.parse("android.resource://com.example.jj_club/drawable/my_image2").toString(), "my_promotion_id2"));
+        bannerItems.add(new HomeBannerItem(Uri.parse("android.resource://com.example.jj_club/drawable/my_image3").toString(), "my_promotion_id2"));
 
 //        bannerItems.add(new HomeBannerItem(R.drawable.my_image3, "my_promotion_id3"));
 
@@ -276,9 +298,9 @@ public class HomeFragment extends Fragment {
         if (popularPostAdapter != null) {
             popularPostAdapter.startListening();
         }
-        if (MBTIFilteredHomeAdapter != null) {
-            MBTIFilteredHomeAdapter.startListening();
-        }
+//        if (MBTIFilteredHomeAdapter != null) {
+//            MBTIFilteredHomeAdapter.startListening();
+//        }
     }
 
     @Override
@@ -292,7 +314,7 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         adapter.stopListening();
-        MBTIFilteredHomeAdapter.stopListening();
+//        MBTIFilteredHomeAdapter.stopListening();
         popularPostAdapter.stopListening();  // stop listening to popularPostAdapter when the view is destroyed
     }
 
