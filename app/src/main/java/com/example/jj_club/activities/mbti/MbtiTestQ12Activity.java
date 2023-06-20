@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MbtiTestQ12Activity extends AppCompatActivity {
 
+
     private Button btnLogin1;
     private Button btnLogin2;
 
