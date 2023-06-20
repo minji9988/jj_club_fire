@@ -4,6 +4,8 @@ public class ScheduleItem {
     private String date;
     private String schedule;
 
+    private String promotionId;
+
     public ScheduleItem() {
     }
 
@@ -26,5 +28,13 @@ public class ScheduleItem {
 
     public void setSchedule(String schedule) {
         this.schedule = schedule;
+    }
+
+    public String getPromotionId() {
+        return promotionId;
+    }
+
+    public void setPromotionId(String promotionId) {
+        this.promotionId = promotionId;
     }
 }

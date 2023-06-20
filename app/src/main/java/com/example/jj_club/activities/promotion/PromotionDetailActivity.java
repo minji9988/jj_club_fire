@@ -32,9 +32,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import android.widget.CalendarView;
@@ -362,10 +365,18 @@ public class PromotionDetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String schedule = input.getText().toString();
-                        String date = String.valueOf(calendarView.getDate());
 
-                        ScheduleItem scheduleItem = new ScheduleItem(date, schedule);
-                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("schedules").child(date);
+                        // Format the date from CalendarView
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(calendarView.getDate());
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        String formattedDate = sdf.format(calendar.getTime());
+
+                        String promotionId = getIntent().getStringExtra("promotion_id");  // Get the current promotionId
+                        ScheduleItem scheduleItem = new ScheduleItem(formattedDate, schedule);
+                        scheduleItem.setPromotionId(promotionId);  // Set the promotionId
+
+                        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("schedules").child(formattedDate);
                         dbRef.setValue(scheduleItem);
                     }
                 });
@@ -380,8 +391,10 @@ public class PromotionDetailActivity extends AppCompatActivity {
             }
         });
 
+
+
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("schedules");
-        dbRef.addValueEventListener(new ValueEventListener() {
+        dbRef.orderByChild("promotionId").equalTo(promotionId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -395,6 +408,7 @@ public class PromotionDetailActivity extends AppCompatActivity {
                 Log.e("PromotionDetailActivity", "Failed to retrieve data from Firebase: " + databaseError.getMessage());
             }
         });
+
     }
 
 }
