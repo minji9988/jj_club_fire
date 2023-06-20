@@ -106,7 +106,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     });
                         } else {
                             // 인증된 사용자가 아닌 경우 메시지 출력
-                            Toast.makeText(SignUpActivity.this, "인증된 사용자가 아닙니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "이메일 인증이 된 사용자가 아닙니다.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         // 비밀번호 일치하지 않는 경우 메시지 출력

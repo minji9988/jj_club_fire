@@ -42,7 +42,7 @@ public class EmailVerificationActivity extends AppCompatActivity {
                     sendVerificationEmail(email);
                 } else {
                     Toast.makeText(EmailVerificationActivity.this,
-                            "'@jj.ac.kr' ㅜㅁㅍ이메일로만 회원가입할 수 있습니다.",
+                            "'@jj.ac.kr' 이메일로만 회원가입할 수 있습니다.",
                             Toast.LENGTH_SHORT).show();
                 }
             }

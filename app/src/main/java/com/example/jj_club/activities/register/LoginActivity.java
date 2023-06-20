@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                                 } else {
                                     Log.e(TAG, "로그인 실패", task.getException());
                                     String errorMessage = getFirebaseAuthErrorMessage(task.getException());
-                                    Toast.makeText(LoginActivity.this, "로그인 실패: " + errorMessage, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "이메일 혹은 비밀번호가 일치하지 않습니다" , Toast.LENGTH_SHORT).show();
                                 }
                             });
                 }

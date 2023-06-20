@@ -44,15 +44,15 @@
         <!-- 글 제목 -->
         <TextView
             android:id="@+id/promotion_detail_text_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="110dp"
             android:layout_marginTop="380dp"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:text="모임의 이름"
             android:textColor="#3c3c3c"
             android:textSize="25sp"
             android:textStyle="bold" />
+
 
         <!-- 돈 이미지 -->
         <ImageView
