@@ -14,8 +14,7 @@ import com.example.jj_club.activities.home.MainActivity;
 public class infj extends AppCompatActivity {
 
     private Button btnLogin1;
-
-
+    
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
