@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jj_club.R;
 import com.example.jj_club.models.HomeItem;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,21 +23,34 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class MoreSameMBTIAdapter extends FirebaseRecyclerAdapter<HomeItem, MoreSameMBTIAdapter.MoreSameMBTIViewHolder> {
-
+public class MoreSameMBTIAdapter extends RecyclerView.Adapter<MoreSameMBTIAdapter.MoreSameMBTIViewHolder> {
 
     private static final String TAG = "MoreSameMBTIAdapter";
     private DatabaseReference mDatabase;
     private String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private String userMBTI;  // User's MBTI
+    private List<HomeItem> filteredItems;
 
-    public MoreSameMBTIAdapter(@NonNull FirebaseRecyclerOptions<HomeItem> options, String userMBTI) {
-        super(options);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("promotions");
+    public MoreSameMBTIAdapter(List<HomeItem> items, String userMBTI) {
+        this.filteredItems = items;
         this.userMBTI = userMBTI;  // Set user's MBTI
         Log.d(TAG, "Adapter initialized with user MBTI: " + userMBTI);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("promotions");
+    }
+
+    // Interface for click events
+    public interface OnItemClickListener {
+        void onItemClick(HomeItem item, String key);
+    }
+
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -51,35 +62,38 @@ public class MoreSameMBTIAdapter extends FirebaseRecyclerAdapter<HomeItem, MoreS
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull MoreSameMBTIViewHolder holder, int position, @NonNull HomeItem model) {
-        Log.d(TAG, "onBindViewHolder called for position " + position);
-        Log.d(TAG, "Model toString: " + model.toString());  // 이 코드는 MainHomeItem에서 toString() 메소드를 오버라이드 한 경우 유용합니다.
+    public void onBindViewHolder(@NonNull MoreSameMBTIViewHolder holder, int position) {
+        HomeItem model = filteredItems.get(position);
 
-        // 아래는 각 필드를 직접 로그에 출력하는 코드입니다. 필요에 따라 수정하십시오.
-        Log.d(TAG, "Model promotionIntroduce: " + model.getPromotionIntroduce());
-        Log.d(TAG, "Model imageUrl: " + model.getImageUrl());
-        Log.d(TAG, "Model selectedButtons: " + model.getSelectedButtons());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    int position = holder.getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(filteredItems.get(position), filteredItems.get(position).getKey());
+                    }
 
-        // selectedButtons null check
+                }
+            }
+        });
+
+
         if (model.getSelectedButtons() == null) {
             Log.d("MoreSameMBTIAdapter", "Model selectedButtons is null at position: " + position);
-            // Do not update the view if selectedButtons is null.
             return;
         } else {
             Log.d("MoreSameMBTIAdapter", "Model selectedButtons: " + model.getSelectedButtons());
-            // Rest of your code...
         }
 
-        // Only display this item if it matches the user's MBTI
         if (model.getSelectedButtons().contains(userMBTI)) {
             Log.d(TAG, "Item at position " + position + " matches user MBTI");
             holder.title.setText(model.getTitle());
             holder.description.setText(model.getPromotionIntroduce());
             holder.likeCount.setText(String.valueOf(model.getLikesCount()));
 
-            // handle setting image etc similar to LikePostAdapter
+            String postId = model.getPromotionId();
 
-            String postId = getRef(position).getKey();
 
             if (model.getLikes() != null && model.getLikes().containsKey(userId)) {
                 holder.likeButton.setImageResource(R.drawable.icon_love_blue);
@@ -101,21 +115,17 @@ public class MoreSameMBTIAdapter extends FirebaseRecyclerAdapter<HomeItem, MoreS
                                 likes.put(userId, true);
                             } else {
                                 if (likes.containsKey(userId)) {
-                                    // Unstar the post and remove self from stars
                                     likes.remove(userId);
                                 } else {
-                                    // Star the post and add self to stars
                                     likes.put(userId, true);
                                 }
                             }
-                            // Set value and report transaction success
                             mutableData.setValue(likes);
                             return Transaction.success(mutableData);
                         }
 
                         @Override
                         public void onComplete(@NonNull DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
-                            // Update UI on transaction completion
                             holder.likeCount.setText(String.valueOf(model.getLikesCount()));
                             if (model.getLikes().containsKey(userId)) {
                                 holder.likeButton.setImageResource(R.drawable.icon_love_blue);
@@ -127,14 +137,17 @@ public class MoreSameMBTIAdapter extends FirebaseRecyclerAdapter<HomeItem, MoreS
                 }
             });
 
-            // Make the view visible
             holder.itemView.setVisibility(View.VISIBLE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         } else {
-            // Hide the view
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
+    }
+
+    @Override
+    public int getItemCount() {
+        return filteredItems.size();
     }
 
     static class MoreSameMBTIViewHolder extends RecyclerView.ViewHolder {

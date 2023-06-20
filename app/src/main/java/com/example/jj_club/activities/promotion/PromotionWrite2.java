@@ -143,7 +143,7 @@ public class PromotionWrite2 extends AppCompatActivity {
 
         // Create a new map for the joinStatuses field
         Map<String, String> joinStatuses = new HashMap<>();
-        joinStatuses.put(userId, "approved");
+        joinStatuses.put(userId, "승인");
         promotionUpdates.put("joinStatuses", joinStatuses);
 
         databaseRef.updateChildren(promotionUpdates)

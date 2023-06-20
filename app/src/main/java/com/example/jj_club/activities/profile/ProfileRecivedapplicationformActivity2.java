@@ -107,7 +107,7 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
                 promotionReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        processPromotionData(dataSnapshot, promotionReference, userId, "approved");
+                        processPromotionData(dataSnapshot, promotionReference, userId, "승인");
                     }
 
                     @Override
@@ -131,7 +131,7 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
                 promotionReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        processPromotionData(dataSnapshot, promotionReference, userId, "rejected");
+                        processPromotionData(dataSnapshot, promotionReference, userId, "거절");
                     }
 
                     @Override
@@ -160,9 +160,9 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
         promotionReference.child("joinStatuses").setValue(joinStatuses)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(ProfileRecivedapplicationformActivity2.this, status.equals("approved") ? "승인되었습니다." : "거절되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileRecivedapplicationformActivity2.this, status.equals("승인") ? "승인되었습니다." : "거절되었습니다.", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(ProfileRecivedapplicationformActivity2.this, status.equals("approved") ? "승인에 실패했습니다." : "거절에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileRecivedapplicationformActivity2.this, status.equals("승인") ? "승인에 실패했습니다." : "거절에 실패했습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

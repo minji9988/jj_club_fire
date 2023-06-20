@@ -59,7 +59,7 @@ public class MyClubFragment extends Fragment {
                         DataSnapshot joinStatusesSnapshot = promotionSnapshot.child("joinStatuses");
                         if (joinStatusesSnapshot.hasChild(currentUserId)) {
                             String status = joinStatusesSnapshot.child(currentUserId).getValue(String.class);
-                            if ("approved".equals(status)) {
+                            if ("승인".equals(status)) {
                                 String promotionId = promotionSnapshot.getKey(); // Add this line
                                 String meetingName = promotionSnapshot.child("meetingName").getValue(String.class);
                                 myClubItemList.add(new MyClubItem(meetingName, promotionId)); // Modify this line

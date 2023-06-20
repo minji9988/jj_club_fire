@@ -135,9 +135,11 @@
             </intent-filter>
         </activity>
 
+
         <activity
             android:name=".activities.mbti.MbtiTestStart"
             android:exported="true" />
+
         <activity
             android:name=".activities.register.EmailVerificationActivity"
             android:exported="true" />

@@ -8,6 +8,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import com.example.jj_club.R;
 import com.example.jj_club.adapters.ChatRoomListAdapter;
 import com.example.jj_club.models.ChatRoom;
 import com.example.jj_club.models.HomeItem;
+import com.example.jj_club.models.ScheduleItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,10 +41,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import android.widget.CalendarView;
-
-import com.example.jj_club.models.ScheduleItem;
 
 public class PromotionDetailActivity extends AppCompatActivity {
 
@@ -93,13 +91,13 @@ public class PromotionDetailActivity extends AppCompatActivity {
                     String currentUserId = currentUser.getUid();
                     if (dataSnapshot.child("joinStatuses").hasChild(currentUserId)) {
                         String joinStatus = dataSnapshot.child("joinStatuses").child(currentUserId).getValue(String.class);
-                        if ("approved".equals(joinStatus)) {
-                            // The user is approved to join the promotion
+                        if ("승인".equals(joinStatus)) {
+                            // The user is 승인 to join the promotion
                             btnAddChatRoom.setVisibility(View.VISIBLE);
                             recyclerChatRoomList.setVisibility(View.VISIBLE);
                             imgNoChat.setVisibility(View.GONE);
                         } else {
-                            // The user is not approved or waiting for approval
+                            // The user is not 승인 or 승인 for approval
                             btnAddChatRoom.setVisibility(View.GONE);
                             imgNoChat.setVisibility(View.VISIBLE);
                             recyclerChatRoomList.setVisibility(View.GONE);
