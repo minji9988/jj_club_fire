@@ -14,11 +14,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.jj_club.R;
 import com.example.jj_club.activities.register.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,8 +54,12 @@ public class ProfileFragment extends Fragment {
     //로그아웃, 회원탈퇴 텍스트
     private TextView text_signout, text_membershipWithdrawal;
 
+    private TextView nameTextView;
+
     //파이어베이스db
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference usersRef;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -90,6 +101,8 @@ public class ProfileFragment extends Fragment {
         btn_alarm = (ImageButton) view.findViewById(R.id.btn_alarm);
         btn_profileImage = (ImageButton) view.findViewById(R.id.btn_profileImage);
 
+        nameTextView = (TextView)view.findViewById(R.id.name);
+
         text_loveIt = (TextView)view.findViewById(R.id.text_loveIt);
         text_writePost = (TextView)view.findViewById(R.id.text_writePost);
         text_sendApplicationForm= (TextView)view.findViewById(R.id.text_sendApplicationForm);
@@ -100,6 +113,10 @@ public class ProfileFragment extends Fragment {
 
         //초기화
         firebaseAuth = FirebaseAuth.getInstance();
+        usersRef = FirebaseDatabase.getInstance().getReference("users");
+
+
+
 
         //프로필 편집 액티비티로 이동(프로필 편집버튼)
         btn_profileEdit.setOnClickListener(new View.OnClickListener() {
@@ -234,6 +251,34 @@ public class ProfileFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return view; //inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+
+    private void retrieveName() {
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            usersRef.child(userId).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        String name = snapshot.getValue(String.class);
+                        nameTextView.setText(name);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+
+            });
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        retrieveName();
     }
 
 }
