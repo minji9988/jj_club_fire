@@ -114,9 +114,9 @@ public class ProfileEditActivity extends AppCompatActivity {
     }
     private void changeNickname(){
         String newNickname = btn_editTextNickname.getText().toString().trim();
+        String newMbti = btn_editTextMbti.getText().toString().trim();
 
-
-        if(newNickname.isEmpty()){
+        if(newNickname.isEmpty()||newMbti.isEmpty()){
             Toast.makeText(this,"Please enter a nickname",Toast.LENGTH_SHORT).show();
             return;
         }
@@ -125,6 +125,21 @@ public class ProfileEditActivity extends AppCompatActivity {
             String uid = user.getUid();
             DatabaseReference userRef = mDatabase.child("users").child(uid);
             userRef.child("name").setValue(newNickname)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(ProfileEditActivity.this,"changed successfully",Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(ProfileEditActivity.this,"Failed change",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        }
+        if(user !=null){
+            String uid = user.getUid();
+            DatabaseReference userRef = mDatabase.child("users").child(uid);
+            userRef.child("mbti").setValue(newMbti)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
