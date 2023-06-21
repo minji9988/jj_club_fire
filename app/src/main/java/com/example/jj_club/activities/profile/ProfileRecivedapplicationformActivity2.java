@@ -107,7 +107,18 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
                 promotionReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        processPromotionData(dataSnapshot, promotionReference, userId, "승인");
+                        if (dataSnapshot.exists()) {
+                            Map<String, String> joinStatuses = (Map<String, String>) dataSnapshot.child("joinStatuses").getValue();
+
+                            if (joinStatuses == null) {
+                                joinStatuses = new HashMap<>();
+                            }
+
+                            joinStatuses.put(userId, "승인");
+                            updateJoinStatuses(promotionReference, joinStatuses, "승인");
+                        } else {
+                            Log.d("FirebaseDebug", "Promotion does not exist");
+                        }
                     }
 
                     @Override
@@ -131,7 +142,18 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
                 promotionReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        processPromotionData(dataSnapshot, promotionReference, userId, "거절");
+                        if (dataSnapshot.exists()) {
+                            Map<String, String> joinStatuses = (Map<String, String>) dataSnapshot.child("joinStatuses").getValue();
+
+                            if (joinStatuses == null) {
+                                joinStatuses = new HashMap<>();
+                            }
+
+                            joinStatuses.put(userId, "승인 거절");
+                            updateJoinStatuses(promotionReference, joinStatuses, "승인 거절");
+                        } else {
+                            Log.d("FirebaseDebug", "Promotion does not exist");
+                        }
                     }
 
                     @Override
@@ -151,8 +173,8 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
                 joinStatuses = new HashMap<>();
             }
 
-            joinStatuses.put(userId, status);
-            updateJoinStatuses(promotionReference, joinStatuses, status);
+            joinStatuses.put(userId, "승인 대기중");
+            updateJoinStatuses(promotionReference, joinStatuses, "승인 대기중");
         }
     }
 
@@ -160,12 +182,13 @@ public class ProfileRecivedapplicationformActivity2 extends AppCompatActivity {
         promotionReference.child("joinStatuses").setValue(joinStatuses)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(ProfileRecivedapplicationformActivity2.this, status.equals("승인") ? "승인되었습니다." : "거절되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileRecivedapplicationformActivity2.this, "승인".equals(status) ? "승인되었습니다." : "거절되었습니다.", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(ProfileRecivedapplicationformActivity2.this, status.equals("승인") ? "승인에 실패했습니다." : "거절에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileRecivedapplicationformActivity2.this, "승인".equals(status) ? "승인에 실패했습니다." : "승인이나 거절에 실패했습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
 
     private void handleDatabaseError(@NonNull DatabaseError databaseError) {
         Log.d("FirebaseDebug", "Error: " + databaseError.getMessage());

@@ -31,8 +31,11 @@
                     android:id="@+id/tv_reject0Rapproval"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="대기중"
-                    android:layout_marginLeft="250dp"/>
+                    android:hint="승인 대기중"
+                    android:textColor="#003B6A"
+                    android:textSize="16dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginLeft="150dp"/>
             </LinearLayout>
 
             <TextView
