@@ -73,7 +73,7 @@
         android:layout_marginTop="384dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:hint="변경하실 닉네임을 써주세요."
+        android:hint="변경하실 닉네임을 작성해주세요."
         android:background="@drawable/edit_text_round"
         ></EditText>
 
@@ -89,7 +89,7 @@
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="MBTI" />
+        android:text="전화번호" />
 
     <EditText
         android:id="@+id/btn_editTextMbti"
@@ -100,7 +100,7 @@
         android:background="@drawable/edit_text_round"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:hint="변경하실 mbti를 작성해주세요."></EditText>
+        android:hint="변경하실 전화번호를 작성해주세요."></EditText>
 
     <TextView
         android:layout_width="wrap_content"

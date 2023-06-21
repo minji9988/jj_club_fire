@@ -139,7 +139,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         if(user !=null){
             String uid = user.getUid();
             DatabaseReference userRef = mDatabase.child("users").child(uid);
-            userRef.child("mbti").setValue(newMbti)
+            userRef.child("phoneNumber").setValue(newMbti)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
