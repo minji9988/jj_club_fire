@@ -1,6 +1,5 @@
 package com.example.jj_club.adapters;
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,54 +12,59 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.jj_club.R;
-import com.example.jj_club.activities.promotion.PromotionDetailActivity;
 import com.example.jj_club.models.MainHomeItem;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
-public class MBTIFilteredHomeAdapter extends FirebaseRecyclerAdapter<MainHomeItem, MBTIFilteredHomeAdapter.MBTIFilteredHomeViewHolder> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MBTIFilteredHomeAdapter extends RecyclerView.Adapter<MBTIFilteredHomeAdapter.MBTIFilteredHomeViewHolder> {
 
     private static final String TAG = "MBTIFilteredHomeAdapter";
     private String userMBTI;
+    private List<MainHomeItem> homeItems;
 
-
-
-    public MBTIFilteredHomeAdapter(@NonNull FirebaseRecyclerOptions<MainHomeItem> options, String userMBTI) {
-        super(options);
-        this.userMBTI = userMBTI;
+    // Interface for click events
+    public interface OnItemClickListener {
+        void onItemClick(MainHomeItem item);
     }
 
-    @Override
-    protected void onBindViewHolder(@NonNull MBTIFilteredHomeViewHolder holder, int position, @NonNull MainHomeItem model) {
-        if (model.getSelectedButtons() == null) {
-            Log.d(TAG, "Model selectedButtons is null at position: " + position);
-            return;
-        } else {
-            Log.d(TAG, "Model selectedButtons: " + model.getSelectedButtons());
-            if (model.getSelectedButtons().contains(userMBTI)) {
-                Glide.with(holder.itemView.getContext())
-                        .load(model.getImageUrl())
-                        .into(holder.imageView);
-                holder.titleTextView.setText(model.getTitle());
-                holder.recruitPeriodTextView.setText(model.getRecruitPeriod());
+    private OnItemClickListener listener;
 
-                String itemId = getRef(position).getKey();
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(holder.itemView.getContext(), PromotionDetailActivity.class);
-                        intent.putExtra("promotion_id", itemId);
-                        holder.itemView.getContext().startActivity(intent);
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public MBTIFilteredHomeAdapter(DatabaseReference databaseRef, String userMBTI) {
+        this.userMBTI = userMBTI;
+        this.homeItems = new ArrayList<>();
+
+        databaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                homeItems.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    MainHomeItem item = snapshot.getValue(MainHomeItem.class);
+                    if (item != null) {
+                        List<String> selectedButtons = item.getSelectedButtons();
+                        // Check if selectedButtons is not null and contains userMBTI
+                        if (selectedButtons != null && selectedButtons.contains(userMBTI)) {
+                            homeItems.add(item);
+                        }
                     }
-                });
-
-                holder.itemView.setVisibility(View.VISIBLE);
-                holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            } else {
-                holder.itemView.setVisibility(View.GONE);
-                holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+                }
+                notifyDataSetChanged();
             }
-        }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(TAG, "Failed to fetch data: " + databaseError.getMessage());
+            }
+        });
+
     }
 
     @NonNull
@@ -69,6 +73,31 @@ public class MBTIFilteredHomeAdapter extends FirebaseRecyclerAdapter<MainHomeIte
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_home_item, parent, false);
         return new MBTIFilteredHomeViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull MBTIFilteredHomeViewHolder holder, int position) {
+        MainHomeItem model = homeItems.get(position);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(model);
+                }
+            }
+        });
+
+        Glide.with(holder.itemView.getContext())
+                .load(model.getImageUrl())
+                .into(holder.imageView);
+        holder.titleTextView.setText(model.getTitle());
+        holder.recruitPeriodTextView.setText(model.getRecruitPeriod());
+    }
+
+    @Override
+    public int getItemCount() {
+        return homeItems.size();
     }
 
 

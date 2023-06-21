@@ -8,18 +8,21 @@ public class MainHomeItem {
     private String title;
     private String recruitPeriod;
     private String mbti;
+
+    private String promotionId;
     private List<String> selectedButtons;
 
     public MainHomeItem() {
         // Empty constructor required for Firebase
     }
 
-    public MainHomeItem(String id, String imageUrl, String title, String recruitPeriod, String mbti, List<String> selectedButtons) {
+    public MainHomeItem(String id, String imageUrl, String title, String recruitPeriod, String mbti, String promotionId, List<String> selectedButtons) {
         this.id = id;
         this.imageUrl = imageUrl;
         this.title = title;
         this.recruitPeriod = recruitPeriod;
         this.mbti = mbti;
+        this.promotionId = promotionId;
         this.selectedButtons = selectedButtons;
     }
 
@@ -41,6 +44,14 @@ public class MainHomeItem {
 
     public String getMbti() {
         return mbti;
+    }
+
+    public String getPromotionId() {
+        return promotionId;
+    }
+
+    public void setPromotionId(String promotionId) {
+        this.promotionId = promotionId;
     }
 
     public List<String> getSelectedButtons() {

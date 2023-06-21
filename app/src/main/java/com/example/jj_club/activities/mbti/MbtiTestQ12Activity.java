@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MbtiTestQ12Activity extends AppCompatActivity {
 
+
     private Button btnLogin1;
     private Button btnLogin2;
 
@@ -170,7 +171,7 @@ public class MbtiTestQ12Activity extends AppCompatActivity {
         DatabaseReference userRef = databaseRef.child("users").child(userId);
 
         // MBTI 값을 업데이트합니다.
-        userRef.child("mbti").setValue(mbti);
+        userRef.child("mbti").setValue("ENTP");
     }
 
 

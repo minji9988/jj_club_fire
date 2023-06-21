@@ -18,6 +18,8 @@ public class ApplicationItem implements Serializable {
 
     private String applicationId; // 추가: 신청서의 아이디
 
+    private Map<String, String> joinStatuses;
+
 
     // Default constructor
     public ApplicationItem() { }
@@ -34,6 +36,16 @@ public class ApplicationItem implements Serializable {
         this.appApproval = new HashMap<>();
         this.applicationId = applicationId;
     }
+
+    // getter and setter for joinStatuses
+    public Map<String, String> getJoinStatuses() {
+        return joinStatuses;
+    }
+
+    public void setJoinStatuses(Map<String, String> joinStatuses) {
+        this.joinStatuses = joinStatuses;
+    }
+
 
     public String getApplicationId() {
         return applicationId;

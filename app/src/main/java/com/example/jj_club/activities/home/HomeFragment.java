@@ -1,7 +1,9 @@
 package com.example.jj_club.activities.home;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +17,16 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.jj_club.R;
 import com.example.jj_club.activities.mbti.MbtiTestStart;
-import com.example.jj_club.activities.profile.ProfileEditActivity;
 import com.example.jj_club.activities.promotion.PromotionWrite1;
+import com.example.jj_club.adapters.HomeBannerAdapter;
 import com.example.jj_club.adapters.MBTIFilteredHomeAdapter;
 import com.example.jj_club.adapters.MainHomeAdapter;
 import com.example.jj_club.adapters.PopularPostAdapter;
+import com.example.jj_club.models.HomeBannerItem;
 import com.example.jj_club.models.MainHomeItem;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,21 +37,29 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
 
-    private RecyclerView popularPostsRecyclerView;
+    private RecyclerView popularPostsRecyclerView, latestPostsRecyclerView, sameMBTIPostsRecyclerView;
     private PopularPostAdapter popularPostAdapter;
 
-    private RecyclerView latestPostsRecyclerView;
     private MainHomeAdapter adapter;
 
-    private RecyclerView sameMBTIPostsRecyclerView;
     private MBTIFilteredHomeAdapter MBTIFilteredHomeAdapter;
-    private String userMBTI = "ENFJ";
+    private String userMBTI = "ENTP";
 
     private  ImageButton btn_magnifying_glass_main_page;
+
+    private ViewPager2 eventBannerViewPager;
+    private HomeBannerAdapter eventBannerAdapter;
+    private int currentPage = 0;
+    private Handler bannerHandler = new Handler();
+    private DatabaseReference databaseRef;
+    private List<MainHomeItem> sameMBTIPosts;
 
 
     public HomeFragment() {
@@ -69,7 +81,10 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         btn_magnifying_glass_main_page = (ImageButton)view.findViewById(R.id.btn_magnifying_glass_main_page);
 
+
         setupRecyclerView(view);
+        setupEventBanners(view);
+
 
         ImageButton writePostButton = view.findViewById(R.id.btn_write_post);
         ImageView blurImageView = view.findViewById(R.id.fragment_home_blur);
@@ -186,6 +201,23 @@ public class HomeFragment extends Fragment {
         });
     }
 
+
+
+    private void setupSameMBTIPosts(View view, DatabaseReference databaseRef) {
+        sameMBTIPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_same_mbti);
+        sameMBTIPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+
+        // DB에서 동일한 MBTI를 가진 게시물 가져오기
+        MBTIFilteredHomeAdapter MBTIFilteredHomeAdapter = new MBTIFilteredHomeAdapter(databaseRef, userMBTI);
+        sameMBTIPostsRecyclerView.setAdapter(MBTIFilteredHomeAdapter);
+
+//        // 아이템 간격 설정
+        int itemSpacing = getResources().getDimensionPixelSize(R.dimen.item_spacing);
+        sameMBTIPostsRecyclerView.addItemDecoration(new ItemSpacingDecoration(itemSpacing));
+    }
+
+
+
     private void setupLatestPosts(View view, DatabaseReference databaseRef) {
         Query query = databaseRef.orderByChild("reversedTimestamp");
         FirebaseRecyclerOptions<MainHomeItem> options = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
@@ -214,20 +246,35 @@ public class HomeFragment extends Fragment {
         popularPostsRecyclerView.setAdapter(popularPostAdapter);
     }
 
-    private void setupSameMBTIPosts(View view, DatabaseReference databaseRef) {
-        Query sameMBTIPostsQuery = databaseRef.orderByChild("reversedTimestamp");
-        FirebaseRecyclerOptions<MainHomeItem> sameMBTIPostsOptions = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
-                .setQuery(sameMBTIPostsQuery, MainHomeItem.class)
-                .build();
 
-        MBTIFilteredHomeAdapter = new MBTIFilteredHomeAdapter(sameMBTIPostsOptions, userMBTI);
 
-        sameMBTIPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_same_mbti);
-        sameMBTIPostsRecyclerView.setHasFixedSize(true);
-        sameMBTIPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        sameMBTIPostsRecyclerView.setAdapter(MBTIFilteredHomeAdapter);
+
+    private void setupEventBanners(View view) {
+        List<HomeBannerItem> bannerItems = new ArrayList<>();
+        bannerItems.add(new HomeBannerItem(Uri.parse("android.resource://com.example.jj_club/drawable/my_image1").toString(), "my_promotion_id1"));
+        bannerItems.add(new HomeBannerItem(Uri.parse("android.resource://com.example.jj_club/drawable/my_image2").toString(), "my_promotion_id2"));
+        bannerItems.add(new HomeBannerItem(Uri.parse("android.resource://com.example.jj_club/drawable/my_image3").toString(), "my_promotion_id2"));
+
+//        bannerItems.add(new HomeBannerItem(R.drawable.my_image3, "my_promotion_id3"));
+
+        eventBannerViewPager = view.findViewById(R.id.home_event_banner);
+
+        eventBannerAdapter = new HomeBannerAdapter(bannerItems);
+        eventBannerViewPager.setAdapter(eventBannerAdapter);
+
+        Runnable bannerRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (currentPage == bannerItems.size()) {
+                    currentPage = 0;
+                }
+                eventBannerViewPager.setCurrentItem(currentPage++, true);
+                bannerHandler.postDelayed(this, 3000);
+            }
+        };
+
+        bannerHandler.postDelayed(bannerRunnable, 3000);
     }
-
 
     @Override
     public void onStart() {
@@ -238,9 +285,9 @@ public class HomeFragment extends Fragment {
         if (popularPostAdapter != null) {
             popularPostAdapter.startListening();
         }
-        if (MBTIFilteredHomeAdapter != null) {
-            MBTIFilteredHomeAdapter.startListening();
-        }
+//        if (MBTIFilteredHomeAdapter != null) {
+//            MBTIFilteredHomeAdapter.startListening();
+//        }
     }
 
     @Override
@@ -254,8 +301,17 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         adapter.stopListening();
-        MBTIFilteredHomeAdapter.stopListening();
+//        MBTIFilteredHomeAdapter.stopListening();
         popularPostAdapter.stopListening();  // stop listening to popularPostAdapter when the view is destroyed
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // 이 프래그먼트가 소멸될 때 핸들러 콜백을 제거하여 메모리 누수를 방지합니다.
+        if (bannerHandler != null) {
+            bannerHandler.removeCallbacksAndMessages(null);
+        }
     }
 
     private class MoreLatestPostsClickListener implements View.OnClickListener {

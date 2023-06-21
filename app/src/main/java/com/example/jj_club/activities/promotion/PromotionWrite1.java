@@ -89,7 +89,7 @@ public class PromotionWrite1 extends AppCompatActivity {
 
 
 
-        HomeItem promotion = new HomeItem(title, recruitPeriod, fee, interview, meetingName, userId, null, null, null, null, null, null, null);
+        HomeItem promotion = new HomeItem(title, recruitPeriod, fee, interview, meetingName, userId, null, null, null, null, null, null, null, null);
 
         databaseRef.child(promotionId).setValue(promotion)
                 .addOnSuccessListener(aVoid -> Log.d(TAG, "Promotion added with ID: " + promotionId))

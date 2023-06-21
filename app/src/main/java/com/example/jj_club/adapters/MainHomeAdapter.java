@@ -67,6 +67,7 @@ public class MainHomeAdapter extends FirebaseRecyclerAdapter<MainHomeItem, MainH
         public MainHomeViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image_view_home_item);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP); // image full fill
             titleTextView = itemView.findViewById(R.id.text_view_home_item_title);
             recruitPeriodTextView = itemView.findViewById(R.id.item_home_post_date);
         }
