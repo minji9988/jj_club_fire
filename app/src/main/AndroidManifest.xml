@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Jj_club"
         tools:targetApi="31">
         <activity
+            android:name=".activities.promotion.NumberMembers"
+            android:exported="false" />
+        <activity
             android:name=".activities.profile.ChangePassword"
             android:exported="false" />
         <activity
@@ -112,7 +115,6 @@
         <activity
             android:name=".activities.mbti.MbtiTestQ1Activity"
             android:exported="true" />
-
         <activity
             android:name=".activities.mbti.entp"
             android:exported="false" />
@@ -134,7 +136,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <activity
             android:name=".activities.mbti.MbtiTestStart"

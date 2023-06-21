@@ -61,6 +61,12 @@ public class PromotionDetailActivity extends AppCompatActivity {
     private TextView textScheduleList;
     private CalendarView calendarView;
 
+    //구성인원 이미지
+    private ImageView image_people;
+    //구성인원 텍스트
+    private TextView text_recruitment_count;
+    //number_of_members
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,9 +82,34 @@ public class PromotionDetailActivity extends AppCompatActivity {
         // Initialize your views here
         btnAddChatRoom = findViewById(R.id.promotion_add_chat_btn);
         imgNoChat = findViewById(R.id.promotion_no_chat_img);
+        image_people = findViewById(R.id.image_people);
+        text_recruitment_count = findViewById(R.id.text_recruitment_count_amount);
+
+
 
         // Your database reference here
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("promotions").child(promotionId);
+
+        //구성인원 클릭시 이동
+        image_people.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PromotionDetailActivity.this, NumberMembers.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        text_recruitment_count.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PromotionDetailActivity.this, NumberMembers.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override

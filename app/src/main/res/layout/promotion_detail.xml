@@ -164,7 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="99dp"
             android:layout_marginTop="559dp"
-            android:text="모집인원"
+            android:text="구성인원"
             android:textColor="#3c3c3c"
             android:textSize="18sp" />
 
