@@ -30,7 +30,8 @@ public class ProfileEditActivity extends AppCompatActivity {
     private ImageButton btn_GoBackProfile_fromProfileEdit;
     private ImageButton btn_profileImage;
 
-    private EditText btn_editTextNickname, btn_editTextMbti, btn_editTextPassword;
+    private EditText btn_editTextNickname, btn_editTextMbti ;
+    private Button btn_editTextPassword;
     private Button btn_save;
 
     private DatabaseReference mDatabase;

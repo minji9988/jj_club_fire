@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:hint="변경하실 닉네임을 작성해주세요."
-        android:background="@drawable/edit_text_round"
+        android:background="@drawable/shadow"
         ></EditText>
 
     <TextView
@@ -97,34 +97,23 @@
         android:layout_height="70dp"
         android:layout_marginStart="42dp"
         android:layout_marginTop="518dp"
-        android:background="@drawable/edit_text_round"
+        android:background="@drawable/shadow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:hint="변경하실 전화번호를 작성해주세요."></EditText>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="620dp"
-        android:gravity="center_horizontal"
-        android:lineSpacingExtra="8sp"
-        android:textColor="#707070"
-        android:textSize="16sp"
-        android:textStyle="normal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="비밀번호" />
 
-    <EditText
+    <android.widget.Button
+        android:text="비밀번호 변경"
         android:id="@+id/btn_editTextPassword"
         android:layout_width="344dp"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
+        android:background="@drawable/btn_round_blue_box"
+        android:textSize="18sp"
+        android:textColor="#ffffff"
         android:layout_marginStart="40dp"
         android:layout_marginTop="654dp"
-        android:background="@drawable/edit_text_round"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:hint="비밀번호 변경을 원할시 클릭해주세요."></EditText>
-
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
