@@ -88,11 +88,17 @@ public class MBTIFilteredHomeAdapter extends RecyclerView.Adapter<MBTIFilteredHo
             }
         });
 
+        // Set the scale type of the ImageView to centerCrop
+        holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+
         Glide.with(holder.itemView.getContext())
                 .load(model.getImageUrl())
                 .into(holder.imageView);
         holder.titleTextView.setText(model.getTitle());
         holder.recruitPeriodTextView.setText(model.getRecruitPeriod());
+
+
     }
 
     @Override

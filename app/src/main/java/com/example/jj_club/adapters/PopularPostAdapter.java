@@ -42,8 +42,14 @@ public class PopularPostAdapter extends FirebaseRecyclerAdapter<MainHomeItem, Po
         holder.titleTextView.setText(getItem(reversePosition).getTitle());
         holder.recruitPeriodTextView.setText(getItem(reversePosition).getRecruitPeriod());
 
+        // Set the scale type of the ImageView to centerCrop
+        holder.postImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+
         // Get the ID of the current item in reverse order
         String itemId = getRef(reversePosition).getKey();
+
+
 
         // Set a click listener on the item view
         holder.itemView.setOnClickListener(new View.OnClickListener() {

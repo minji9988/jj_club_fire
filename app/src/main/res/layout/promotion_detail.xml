@@ -223,12 +223,12 @@
                 android:layout_height="wrap_content"
                 android:text="소개" />
 
-            <!--q&a-->
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_qa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Q&amp;A" />
+<!--            &lt;!&ndash;q&a&ndash;&gt;-->
+<!--            <com.google.android.material.tabs.TabItem-->
+<!--                android:id="@+id/tab_qa"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Q&amp;A" />-->
 
             <!--캘린더-->
             <com.google.android.material.tabs.TabItem
@@ -319,17 +319,17 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layout_qa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tab_layout"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:visibility="gone">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/layout_qa"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/tab_layout"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="16dp"-->
+<!--            android:visibility="gone">-->
 
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
         <!-- 캘린더 탭의 내용 -->
         <LinearLayout
