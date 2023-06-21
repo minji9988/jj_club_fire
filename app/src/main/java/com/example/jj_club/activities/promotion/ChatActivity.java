@@ -17,10 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jj_club.R;
 import com.example.jj_club.adapters.MessageAdapter;
 import com.example.jj_club.models.Message;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,15 +29,16 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity implements ValueEventListener {
 
     private EditText inputMessage;
     private RecyclerView messageRecyclerView;
     private DatabaseReference messageDatabaseReference;
-    private MessageAdapter messageAdapter;
+    private final MessageAdapter messageAdapter = new MessageAdapter();
     private String username;  // Replace with actual username
 
     private String chatRoomId;  // The unique ID of the chat room
@@ -50,6 +49,9 @@ public class ChatActivity extends AppCompatActivity {
     private Uri selectedImageUri;
     private static final int RC_IMAGE_PICKER = 123;
     private StorageReference chatImagesStorageReference;
+
+    private boolean isRegisteredValueEventListener = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,6 @@ public class ChatActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,11 +107,9 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-
         setUpRecyclerView();
-
-
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -123,6 +122,7 @@ public class ChatActivity extends AppCompatActivity {
     private void uploadImage() {
         if (selectedImageUri != null) {
             final StorageReference imageRef = chatImagesStorageReference.child(selectedImageUri.getLastPathSegment());
+
             UploadTask uploadTask = imageRef.putFile(selectedImageUri);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -142,13 +142,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void setUpRecyclerView() {
-        FirebaseRecyclerOptions<Message> options =
-                new FirebaseRecyclerOptions.Builder<Message>()
-                        .setQuery(messageDatabaseReference, Message.class)
-                        .build();
-
-        messageAdapter = new MessageAdapter(options);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         messageRecyclerView.setLayoutManager(layoutManager);
@@ -170,30 +163,10 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         });
-
-        // Scroll to bottom whenever a new message is added
-        messageDatabaseReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) { }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s) { }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s) { }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
-        });
-
     }
 
-
     private void sendMessage(@Nullable String imageUrl) {
-        String rawMessageContent = inputMessage.getText().toString().trim();
+        String rawMessageContent = imageUrl != null ? "사진" : inputMessage.getText().toString().trim();
         if (!TextUtils.isEmpty(rawMessageContent)) {
             // Filter message content
             String messageContent = rawMessageContent; // 새로운 변수에 원래 메시지 저장
@@ -208,7 +181,6 @@ public class ChatActivity extends AppCompatActivity {
 
             // Get reference to the 'users' node
             DatabaseReference userDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
-
 
             userDatabaseReference.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -249,22 +221,39 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-
-
     @Override
     protected void onStart() {
         super.onStart();
-        if (messageAdapter != null) {
-            messageAdapter.startListening();
+
+        if (!isRegisteredValueEventListener) {
+            isRegisteredValueEventListener = true;
+            messageDatabaseReference.addValueEventListener(this);
         }
     }
 
     @Override
     protected void onStop() {
-        super.onStop();
-        if (messageAdapter != null) {
-            messageAdapter.stopListening();
+        if (isRegisteredValueEventListener) {
+            isRegisteredValueEventListener = false;
+            messageDatabaseReference.removeEventListener(this);
         }
+
+        super.onStop();
+    }
+
+    @Override
+    public void onDataChange(@NonNull DataSnapshot snapshot) {
+        ArrayList<Message> messages = new ArrayList<>();
+
+        for (DataSnapshot child : snapshot.getChildren()) {
+            messages.add(child.getValue(Message.class));
+        }
+
+        messageAdapter.submitList(messages);
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError error) {
     }
 }
 
