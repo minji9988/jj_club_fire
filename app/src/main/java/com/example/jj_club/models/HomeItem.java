@@ -59,6 +59,9 @@ public class HomeItem implements Serializable {
 
     }
 
+    public Map<String, String> getJoinStatuses() {
+        return this.joinStatuses;
+    }
     public String getKey() {
         return key;
     }
@@ -223,9 +226,6 @@ public class HomeItem implements Serializable {
     }
 
     // Add this new method for getting the joinStatuses field
-    public Map<String, String> getJoinStatuses() {
-        return joinStatuses;
-    }
 
     // Add this new method for setting the joinStatuses field
     public void setJoinStatuses(Map<String, String> joinStatuses) {
