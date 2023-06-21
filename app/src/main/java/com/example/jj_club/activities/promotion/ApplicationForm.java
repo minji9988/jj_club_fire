@@ -91,6 +91,10 @@ public class ApplicationForm extends AppCompatActivity {
                                             public void onSuccess(Void aVoid) {
                                                 // If the save was successful, show a Toast message and finish the activity
                                                 Toast.makeText(ApplicationForm.this, "제출이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+
+                                                // Update joinStatuses field to "승인 대기중" for current user
+                                                promotionsReference.child(promotionId).child("joinStatuses").child(fromUserId).setValue("승인 대기중");
+
                                                 finish();
                                             }
                                         })
@@ -112,6 +116,7 @@ public class ApplicationForm extends AppCompatActivity {
                 }
             }
         });
+
 
         // Set up the event for the back button click
         buttonBack.setOnClickListener(new View.OnClickListener() {

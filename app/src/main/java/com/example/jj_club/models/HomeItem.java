@@ -1,10 +1,11 @@
 package com.example.jj_club.models;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeItem {
+public class HomeItem implements Serializable {
     private String title;
     private String recruitPeriod;
     private String fee;
@@ -24,12 +25,17 @@ public class HomeItem {
 
     private Map<String, String> joinStatuses;
 
+    private String promotionId;
+
+    private String key;
+
+
     public HomeItem() {}
 
     public HomeItem(String title, String recruitPeriod, String fee, String interview,
                     String meetingName, String userId, String promotionNumber, String promotionTarget,
                     String promotionIntroduce, String promotionPlace, String imageUrl, List<String> selectedButtons,
-                    String mbti) {
+                    String mbti, String promotionId) {
 
         this.title = title;
         this.recruitPeriod = recruitPeriod;
@@ -48,7 +54,24 @@ public class HomeItem {
         this.reversedTimestamp = Long.MAX_VALUE - this.timeStamp;
         this.likes = new HashMap<>();
         this.joinStatuses = new HashMap<>();
+        this.promotionId = promotionId;
 
+
+    }
+
+    public Map<String, String> getJoinStatuses() {
+        return this.joinStatuses;
+    }
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getPromotionId() {
+        return promotionId;
     }
 
     //getter and setter methods
@@ -203,9 +226,6 @@ public class HomeItem {
     }
 
     // Add this new method for getting the joinStatuses field
-    public Map<String, String> getJoinStatuses() {
-        return joinStatuses;
-    }
 
     // Add this new method for setting the joinStatuses field
     public void setJoinStatuses(Map<String, String> joinStatuses) {

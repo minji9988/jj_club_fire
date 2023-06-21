@@ -1,6 +1,5 @@
 package com.example.jj_club.activities.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -22,6 +21,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileSendapplicationformActivity extends AppCompatActivity {
     private static final String TAG = "ProfileSendapplicationformActivity";
@@ -63,6 +64,15 @@ public class ProfileSendapplicationformActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     ApplicationItem applicationItem = snapshot1.getValue(ApplicationItem.class);
                     applicationItem.setApplicationId(snapshot1.getKey());
+
+                    // joinStatuses 신청서 상태 값
+                    // onDataChange에서 데이터를 가져올 때
+                    Map<String, String> joinStatuses = snapshot1.child("joinStatuses").getValue() == null ?
+                            new HashMap<>() :
+                            (Map<String, String>) snapshot1.child("joinStatuses").getValue();
+
+                    applicationItem.setJoinStatuses(joinStatuses);
+
                     arrayList.add(applicationItem);
                 }
                 mAdapter.notifyDataSetChanged();

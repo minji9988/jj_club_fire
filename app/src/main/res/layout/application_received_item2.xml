@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -164,7 +166,7 @@
             android:id="@+id/btn_approval"
             android:layout_width="114dp"
             android:layout_height="54dp"
-            android:layout_marginTop="891dp"
+            android:layout_marginTop="870dp"
             android:layout_marginLeft="253dp"
             android:background="@drawable/btn_round_blue_box"
             android:text="승인"
@@ -175,12 +177,15 @@
             android:id="@+id/btn_rejection"
             android:layout_width="114dp"
             android:layout_height="54dp"
-            android:layout_marginTop="891dp"
+            android:layout_marginTop="870dp"
             android:layout_marginLeft="62dp"
             android:text="거절"
             android:textColor="@color/white"
             android:background="@drawable/btn_round_gray_box"
             android:textSize="18sp" />
+
+
+
 
     </RelativeLayout>
 

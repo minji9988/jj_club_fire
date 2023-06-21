@@ -132,12 +132,15 @@ public class ChatActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             // Now we can include the image URL in our message
                             sendMessage(uri.toString());
+                            // Notify the adapter about dataset change
+//                            messageAdapter.notifyDataSetChanged();
                         }
                     });
                 }
             });
         }
     }
+
     private void setUpRecyclerView() {
         FirebaseRecyclerOptions<Message> options =
                 new FirebaseRecyclerOptions.Builder<Message>()
@@ -151,23 +154,27 @@ public class ChatActivity extends AppCompatActivity {
         messageRecyclerView.setLayoutManager(layoutManager);
         messageRecyclerView.setAdapter(messageAdapter);
 
+        // Register the AdapterDataObserver
+        messageAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+
+                int messageCount = messageAdapter.getItemCount();
+                int lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition();
+
+                // If the recycler view is initially being loaded or the user is at the bottom of the list, scroll to the bottom of the list to show the newly added message.
+                if (lastVisiblePosition == -1 ||
+                        (positionStart >= (messageCount - 1) && lastVisiblePosition == (positionStart - 1))) {
+                    messageRecyclerView.scrollToPosition(positionStart);
+                }
+            }
+        });
+
         // Scroll to bottom whenever a new message is added
         messageDatabaseReference.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
-                messageAdapter.notifyDataSetChanged();
-                messageRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Check if the RecyclerView has more than one item
-                        if (messageAdapter.getItemCount() > 1) {
-                            // Scroll to the last item
-                            messageRecyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
-                        }
-                    }
-                });
-            }
-
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) { }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s) { }
@@ -202,6 +209,7 @@ public class ChatActivity extends AppCompatActivity {
             // Get reference to the 'users' node
             DatabaseReference userDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
 
+
             userDatabaseReference.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -218,12 +226,17 @@ public class ChatActivity extends AppCompatActivity {
                             timestamp);
 
                     // Save message to 'Messages' node
-                    messageDatabaseReference.child(chatMessage.getMessageId()).setValue(chatMessage);
-
-                    // Get reference to the 'chatrooms' node
-                    DatabaseReference chatRoomRef = FirebaseDatabase.getInstance().getReference("chatrooms").child(chatRoomId);
-                    chatRoomRef.child("lastMessage").setValue(finalMessageContent);  // Update last message in ChatRoom
-
+                    messageDatabaseReference.child(chatMessage.getMessageId()).setValue(chatMessage)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // Get reference to the 'chatrooms' node
+                                    DatabaseReference chatRoomRef = FirebaseDatabase.getInstance().getReference("chatrooms").child(chatRoomId);
+                                    chatRoomRef.child("lastMessage").setValue(finalMessageContent);  // Update last message in ChatRoom
+                                    // Notify the adapter about dataset change
+//                                    messageAdapter.notifyDataSetChanged();
+                                }
+                            });
                 }
 
                 @Override
@@ -235,6 +248,7 @@ public class ChatActivity extends AppCompatActivity {
             inputMessage.setText("");
         }
     }
+
 
 
     @Override
@@ -252,5 +266,5 @@ public class ChatActivity extends AppCompatActivity {
             messageAdapter.stopListening();
         }
     }
-
 }
+

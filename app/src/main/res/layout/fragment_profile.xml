@@ -36,7 +36,7 @@
         android:layout_marginTop="47.4dp"
         android:layout_marginEnd="42dp"
         android:background="#00000000"
-        android:src="@drawable/font_awsome_bell"
+        android:src="@drawable/white_img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
