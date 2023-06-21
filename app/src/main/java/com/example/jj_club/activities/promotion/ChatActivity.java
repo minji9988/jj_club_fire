@@ -155,7 +155,7 @@ public class ChatActivity extends AppCompatActivity {
         messageDatabaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, String s) {
-                messageAdapter.notifyDataSetChanged();
+//                messageAdapter.notifyDataSetChanged();
                 messageRecyclerView.post(new Runnable() {
                     @Override
                     public void run() {
@@ -223,7 +223,6 @@ public class ChatActivity extends AppCompatActivity {
                     // Get reference to the 'chatrooms' node
                     DatabaseReference chatRoomRef = FirebaseDatabase.getInstance().getReference("chatrooms").child(chatRoomId);
                     chatRoomRef.child("lastMessage").setValue(finalMessageContent);  // Update last message in ChatRoom
-
                 }
 
                 @Override
@@ -235,6 +234,7 @@ public class ChatActivity extends AppCompatActivity {
             inputMessage.setText("");
         }
     }
+
 
 
     @Override

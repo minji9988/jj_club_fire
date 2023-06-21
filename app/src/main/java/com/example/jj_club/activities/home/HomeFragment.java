@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
     private MainHomeAdapter adapter;
 
     private MBTIFilteredHomeAdapter MBTIFilteredHomeAdapter;
-    private String userMBTI = "ENFJ";
+    private String userMBTI = "ENTP";
 
     private  ImageButton btn_magnifying_glass_main_page;
 
@@ -80,6 +80,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         btn_magnifying_glass_main_page = (ImageButton)view.findViewById(R.id.btn_magnifying_glass_main_page);
+
 
         setupRecyclerView(view);
         setupEventBanners(view);
@@ -200,6 +201,23 @@ public class HomeFragment extends Fragment {
         });
     }
 
+
+
+    private void setupSameMBTIPosts(View view, DatabaseReference databaseRef) {
+        sameMBTIPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_same_mbti);
+        sameMBTIPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+
+        // DB에서 동일한 MBTI를 가진 게시물 가져오기
+        MBTIFilteredHomeAdapter MBTIFilteredHomeAdapter = new MBTIFilteredHomeAdapter(databaseRef, userMBTI);
+        sameMBTIPostsRecyclerView.setAdapter(MBTIFilteredHomeAdapter);
+
+//        // 아이템 간격 설정
+        int itemSpacing = getResources().getDimensionPixelSize(R.dimen.item_spacing);
+        sameMBTIPostsRecyclerView.addItemDecoration(new ItemSpacingDecoration(itemSpacing));
+    }
+
+
+
     private void setupLatestPosts(View view, DatabaseReference databaseRef) {
         Query query = databaseRef.orderByChild("reversedTimestamp");
         FirebaseRecyclerOptions<MainHomeItem> options = new FirebaseRecyclerOptions.Builder<MainHomeItem>()
@@ -228,38 +246,7 @@ public class HomeFragment extends Fragment {
         popularPostsRecyclerView.setAdapter(popularPostAdapter);
     }
 
-    private void setupSameMBTIPosts(View view, DatabaseReference databaseRef) {
-        sameMBTIPosts = new ArrayList<>();
-        databaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                sameMBTIPosts.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    MainHomeItem item = snapshot.getValue(MainHomeItem.class);
-                    if (item != null) {
-                        List<String> selectedButtons = item.getSelectedButtons();
-                        if (selectedButtons != null && selectedButtons.contains(userMBTI)) {
-                            sameMBTIPosts.add(item);
-                        }
-                    }
-                }
-                MBTIFilteredHomeAdapter = new MBTIFilteredHomeAdapter(sameMBTIPosts, userMBTI);
-                sameMBTIPostsRecyclerView.setAdapter(MBTIFilteredHomeAdapter);
-            }
 
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // 에러 발생 시 처리
-                logMessage(databaseError.getMessage());
-            }
-        });
-
-        sameMBTIPostsRecyclerView = view.findViewById(R.id.recycler_view_main_page_same_mbti);
-        sameMBTIPostsRecyclerView.setHasFixedSize(true);
-        sameMBTIPostsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-    }
 
 
     private void setupEventBanners(View view) {
